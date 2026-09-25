@@ -611,6 +611,2173 @@ function goToShop(){
 }
 
 </script>
+<!-- =========================
+     PART 2
+     SHOP BY CATEGORY
+========================= -->
 
+<style>
+
+/* =========================
+   CATEGORY SECTION
+========================= */
+
+.category-section{
+    max-width:1200px;
+    margin:75px auto 0;
+    padding:0 20px;
+}
+
+.section-heading{
+    margin-bottom:28px;
+}
+
+.section-label{
+    margin-bottom:8px;
+
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:2.5px;
+    text-transform:uppercase;
+
+    color:#8b7770;
+}
+
+.section-title{
+    font-size:34px;
+    line-height:1.1;
+    letter-spacing:-1.5px;
+    font-weight:800;
+}
+
+.section-subtitle{
+    margin-top:9px;
+
+    color:#777;
+
+    font-size:14px;
+    line-height:1.6;
+}
+
+
+/* =========================
+   CATEGORY GRID
+========================= */
+
+.category-grid{
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:16px;
+}
+
+
+/* CATEGORY CARD */
+
+.category-card{
+    position:relative;
+
+    height:260px;
+
+    overflow:hidden;
+
+    border-radius:18px;
+
+    background:#eee;
+
+    cursor:pointer;
+}
+
+
+.category-card-image{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    transition:
+    transform .5s ease;
+}
+
+
+.category-card:hover
+.category-card-image{
+    transform:scale(1.06);
+}
+
+
+/* OVERLAY */
+
+.category-overlay{
+    position:absolute;
+
+    left:0;
+    right:0;
+    bottom:0;
+
+    padding:45px 18px 18px;
+
+    background:
+    linear-gradient(
+        transparent,
+        rgba(0,0,0,.55)
+    );
+
+    color:#fff;
+}
+
+
+/* CATEGORY NAME */
+
+.category-name{
+    font-size:18px;
+    font-weight:800;
+
+    margin-bottom:4px;
+}
+
+
+/* CATEGORY SMALL TEXT */
+
+.category-count{
+    font-size:11px;
+
+    opacity:.85;
+}
+
+
+/* =========================
+   BRAND COLLECTIONS
+========================= */
+
+.brand-section{
+    max-width:1200px;
+
+    margin:80px auto 0;
+
+    padding:0 20px;
+}
+
+
+.brand-grid{
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:18px;
+}
+
+
+.brand-card{
+    min-height:390px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:22px;
+}
+
+
+.brand-card img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    transition:
+    transform .5s ease;
+}
+
+
+.brand-card:hover img{
+    transform:scale(1.04);
+}
+
+
+.brand-content{
+    position:absolute;
+
+    left:0;
+    right:0;
+    bottom:0;
+
+    padding:80px 28px 28px;
+
+    color:#fff;
+
+    background:
+    linear-gradient(
+        transparent,
+        rgba(0,0,0,.72)
+    );
+}
+
+
+.brand-tag{
+    display:inline-block;
+
+    margin-bottom:10px;
+
+    font-size:9px;
+
+    font-weight:700;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+    opacity:.9;
+}
+
+
+.brand-title{
+    margin-bottom:8px;
+
+    font-size:31px;
+
+    font-weight:800;
+
+    letter-spacing:-1px;
+}
+
+
+.brand-title .hindi{
+    font-weight:500;
+}
+
+
+.brand-description{
+    max-width:380px;
+
+    margin-bottom:18px;
+
+    font-size:13px;
+
+    line-height:1.6;
+
+    opacity:.9;
+}
+
+
+.brand-button{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    padding:11px 18px;
+
+    border-radius:25px;
+
+    background:#fff;
+
+    color:#222;
+
+    font-size:11px;
+
+    font-weight:700;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:768px){
+
+    .category-section{
+        margin-top:52px;
+
+        padding:0 14px;
+    }
+
+
+    .section-heading{
+        margin-bottom:20px;
+    }
+
+
+    .section-title{
+        font-size:27px;
+
+        letter-spacing:-1px;
+    }
+
+
+    .section-subtitle{
+        font-size:13px;
+    }
+
+
+    .category-grid{
+
+        grid-template-columns:
+        repeat(2,1fr);
+
+        gap:10px;
+    }
+
+
+    .category-card{
+
+        height:190px;
+
+        border-radius:14px;
+    }
+
+
+    .category-overlay{
+
+        padding:
+        35px 12px 13px;
+    }
+
+
+    .category-name{
+
+        font-size:14px;
+
+        margin-bottom:3px;
+    }
+
+
+    .category-count{
+
+        font-size:9px;
+    }
+
+
+    /* BRAND */
+
+    .brand-section{
+
+        margin-top:55px;
+
+        padding:0 14px;
+    }
+
+
+    .brand-grid{
+
+        grid-template-columns:1fr;
+
+        gap:12px;
+    }
+
+
+    .brand-card{
+
+        min-height:390px;
+
+        border-radius:18px;
+    }
+
+
+    .brand-content{
+
+        padding:
+        70px 20px 20px;
+    }
+
+
+    .brand-title{
+
+        font-size:27px;
+    }
+
+
+    .brand-description{
+
+        font-size:12px;
+    }
+
+}
+
+</style>
+
+
+
+<!-- =========================
+     SHOP BY CATEGORY
+========================= -->
+
+<section
+    class="category-section"
+    id="shop">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            Explore
+        </div>
+
+        <h2 class="section-title">
+            Shop by Category
+        </h2>
+
+        <p class="section-subtitle">
+            Find something beautiful for every
+            mood, moment and occasion.
+        </p>
+
+    </div>
+
+
+
+    <div class="category-grid">
+
+
+        <!-- CATEGORY 1 -->
+
+        <div class="category-card">
+
+            <img
+                class="category-card-image"
+                src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=700&q=85"
+                alt="Kurtis">
+
+            <div class="category-overlay">
+
+                <div class="category-name">
+                    Kurtis
+                </div>
+
+                <div class="category-count">
+                    Explore Collection →
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- CATEGORY 2 -->
+
+        <div class="category-card">
+
+            <img
+                class="category-card-image"
+                src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=700&q=85"
+                alt="Ethnic Wear">
+
+            <div class="category-overlay">
+
+                <div class="category-name">
+                    Ethnic Wear
+                </div>
+
+                <div class="category-count">
+                    Explore Collection →
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- CATEGORY 3 -->
+
+        <div class="category-card">
+
+            <img
+                class="category-card-image"
+                src="https://images.unsplash.com/photo-1612336307429-8a898d10e223?auto=format&fit=crop&w=700&q=85"
+                alt="Dresses">
+
+            <div class="category-overlay">
+
+                <div class="category-name">
+                    Dresses
+                </div>
+
+                <div class="category-count">
+                    Explore Collection →
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- CATEGORY 4 -->
+
+        <div class="category-card">
+
+            <img
+                class="category-card-image"
+                src="https://images.unsplash.com/photo-1594223274512-ad4803739b7c?auto=format&fit=crop&w=700&q=85"
+                alt="Accessories">
+
+            <div class="category-overlay">
+
+                <div class="category-name">
+                    Accessories
+                </div>
+
+                <div class="category-count">
+                    Explore Collection →
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     BRAND COLLECTIONS
+========================= -->
+
+<section
+    class="brand-section"
+    id="collections">
+
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            Our Brands
+        </div>
+
+        <h2 class="section-title">
+            Two Styles. One Space.
+        </h2>
+
+        <p class="section-subtitle">
+            Discover the unique character of
+            both our fashion collections.
+        </p>
+
+    </div>
+
+
+
+    <div class="brand-grid">
+
+
+        <!-- PATTERN VALI -->
+
+        <div class="brand-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=1000&q=85"
+                alt="PATTERN वाली">
+
+            <div class="brand-content">
+
+                <div class="brand-tag">
+                    Everyday Elegance
+                </div>
+
+                <h3 class="brand-title">
+
+                    PATTERN
+                    <span class="hindi">
+                        वाली
+                    </span>
+
+                </h3>
+
+                <p class="brand-description">
+
+                    Beautiful patterns, effortless
+                    silhouettes and everyday fashion
+                    made to feel naturally yours.
+
+                </p>
+
+                <a
+                    href="#products"
+                    class="brand-button">
+
+                    EXPLORE PATTERN वाली →
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- MODERN NAREE -->
+
+        <div class="brand-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1000&q=85"
+                alt="MODERN नारी">
+
+            <div class="brand-content">
+
+                <div class="brand-tag">
+                    Modern Feminine Style
+                </div>
+
+                <h3 class="brand-title">
+
+                    MODERN
+                    <span class="hindi">
+                        नारी
+                    </span>
+
+                </h3>
+
+                <p class="brand-description">
+
+                    Clean looks, confident details
+                    and contemporary fashion for
+                    the woman of today.
+
+                </p>
+
+                <a
+                    href="#products"
+                    class="brand-button">
+
+                    EXPLORE MODERN नारी →
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+   <!-- =========================
+     PART 3
+     FEATURED PRODUCTS
+========================= -->
+
+<style>
+
+/* =========================
+   PRODUCTS SECTION
+========================= */
+
+.products-section{
+    max-width:1200px;
+    margin:80px auto 0;
+    padding:0 20px;
+}
+
+
+/* HEADER */
+
+.products-top{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:20px;
+    margin-bottom:28px;
+}
+
+.products-heading .section-label{
+    margin-bottom:8px;
+}
+
+.products-heading h2{
+    font-size:34px;
+    line-height:1.1;
+    letter-spacing:-1.5px;
+    font-weight:800;
+}
+
+.products-heading p{
+    margin-top:9px;
+    color:#777;
+    font-size:14px;
+}
+
+
+/* VIEW ALL */
+
+.view-all{
+    border-bottom:1px solid #222;
+    padding-bottom:4px;
+
+    font-size:12px;
+    font-weight:700;
+
+    white-space:nowrap;
+}
+
+
+/* =========================
+   PRODUCT GRID
+========================= */
+
+.product-grid{
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:17px;
+}
+
+
+/* PRODUCT CARD */
+
+.product-card{
+    position:relative;
+    min-width:0;
+}
+
+
+/* IMAGE */
+
+.product-image{
+    position:relative;
+
+    width:100%;
+    aspect-ratio: .82;
+
+    overflow:hidden;
+
+    border-radius:17px;
+
+    background:#f4eee9;
+}
+
+.product-image img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    transition:
+    transform .45s ease;
+}
+
+.product-card:hover
+.product-image img{
+    transform:scale(1.045);
+}
+
+
+/* DISCOUNT */
+
+.discount-badge{
+    position:absolute;
+
+    top:11px;
+    left:11px;
+
+    z-index:2;
+
+    padding:6px 9px;
+
+    border-radius:20px;
+
+    background:#fff;
+
+    color:#222;
+
+    font-size:9px;
+    font-weight:800;
+}
+
+
+/* WISHLIST */
+
+.product-wishlist{
+    position:absolute;
+
+    top:9px;
+    right:9px;
+
+    z-index:2;
+
+    width:34px;
+    height:34px;
+
+    border:0;
+    border-radius:50%;
+
+    background:rgba(255,255,255,.94);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:18px;
+
+    transition:.2s;
+}
+
+.product-wishlist:hover{
+    transform:scale(1.08);
+}
+
+
+/* QUICK ADD */
+
+.quick-add{
+    position:absolute;
+
+    left:10px;
+    right:10px;
+    bottom:10px;
+
+    z-index:2;
+
+    border:0;
+
+    padding:12px;
+
+    border-radius:25px;
+
+    background:#fff;
+
+    color:#222;
+
+    font-size:11px;
+    font-weight:800;
+
+    opacity:0;
+
+    transform:translateY(8px);
+
+    transition:.25s;
+}
+
+.product-card:hover .quick-add{
+    opacity:1;
+    transform:translateY(0);
+}
+
+
+/* PRODUCT INFO */
+
+.product-info{
+    padding:13px 2px 0;
+}
+
+.product-brand{
+    margin-bottom:5px;
+
+    color:#927b72;
+
+    font-size:9px;
+    font-weight:800;
+
+    letter-spacing:1.3px;
+
+    text-transform:uppercase;
+}
+
+.product-name{
+    margin-bottom:8px;
+
+    font-size:14px;
+    font-weight:700;
+
+    line-height:1.35;
+}
+
+.price-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.current-price{
+    font-size:14px;
+    font-weight:800;
+}
+
+.old-price{
+    color:#999;
+
+    font-size:12px;
+
+    text-decoration:line-through;
+}
+
+.product-rating{
+    margin-top:7px;
+
+    font-size:10px;
+
+    color:#777;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:768px){
+
+    .products-section{
+        margin-top:55px;
+        padding:0 14px;
+    }
+
+    .products-top{
+        margin-bottom:20px;
+    }
+
+    .products-heading h2{
+        font-size:27px;
+        letter-spacing:-1px;
+    }
+
+    .products-heading p{
+        font-size:12px;
+    }
+
+    .view-all{
+        font-size:10px;
+    }
+
+    .product-grid{
+        grid-template-columns:
+        repeat(2,1fr);
+
+        gap:18px 10px;
+    }
+
+    .product-image{
+        aspect-ratio:.78;
+        border-radius:14px;
+    }
+
+    .discount-badge{
+        top:8px;
+        left:8px;
+
+        padding:5px 7px;
+
+        font-size:8px;
+    }
+
+    .product-wishlist{
+        top:7px;
+        right:7px;
+
+        width:30px;
+        height:30px;
+
+        font-size:16px;
+    }
+
+    .quick-add{
+        left:7px;
+        right:7px;
+        bottom:7px;
+
+        padding:10px 5px;
+
+        font-size:9px;
+
+        opacity:1;
+        transform:none;
+    }
+
+    .product-info{
+        padding-top:10px;
+    }
+
+    .product-brand{
+        font-size:8px;
+    }
+
+    .product-name{
+        font-size:12px;
+    }
+
+    .current-price{
+        font-size:13px;
+    }
+
+    .old-price{
+        font-size:10px;
+    }
+
+    .product-rating{
+        font-size:9px;
+    }
+
+}
+
+</style>
+
+
+
+<!-- =========================
+     PRODUCTS
+========================= -->
+
+<section
+    class="products-section"
+    id="products">
+
+
+    <!-- SECTION HEADER -->
+
+    <div class="products-top">
+
+        <div class="products-heading">
+
+            <div class="section-label">
+                Curated For You
+            </div>
+
+            <h2>
+                Featured Pieces
+            </h2>
+
+            <p>
+                Our most-loved styles, selected for you.
+            </p>
+
+        </div>
+
+        <a
+            href="#shop"
+            class="view-all">
+
+            VIEW ALL →
+
+        </a>
+
+    </div>
+
+
+
+    <!-- PRODUCT GRID -->
+
+    <div class="product-grid">
+
+
+        <!-- PRODUCT 1 -->
+
+        <div class="product-card">
+
+            <div class="product-image">
+
+                <span class="discount-badge">
+                    20% OFF
+                </span>
+
+                <button
+                    class="product-wishlist"
+                    onclick="toggleWishlist(this)">
+                    ♡
+                </button>
+
+                <img
+                    src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=700&q=85"
+                    alt="Printed Kurti">
+
+                <button
+                    class="quick-add"
+                    onclick="addToCart('Printed Everyday Kurti',1299)">
+                    ADD TO CART +
+                </button>
+
+            </div>
+
+            <div class="product-info">
+
+                <div class="product-brand">
+                    PATTERN वाली
+                </div>
+
+                <div class="product-name">
+                    Printed Everyday Kurti
+                </div>
+
+                <div class="price-row">
+
+                    <span class="current-price">
+                        ₹1,299
+                    </span>
+
+                    <span class="old-price">
+                        ₹1,599
+                    </span>
+
+                </div>
+
+                <div class="product-rating">
+                    ★ 4.8 · 124 Reviews
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PRODUCT 2 -->
+
+        <div class="product-card">
+
+            <div class="product-image">
+
+                <span class="discount-badge">
+                    NEW
+                </span>
+
+                <button
+                    class="product-wishlist"
+                    onclick="toggleWishlist(this)">
+                    ♡
+                </button>
+
+                <img
+                    src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=700&q=85"
+                    alt="Ethnic Dress">
+
+                <button
+                    class="quick-add"
+                    onclick="addToCart('Elegant Ethnic Set',1899)">
+                    ADD TO CART +
+                </button>
+
+            </div>
+
+            <div class="product-info">
+
+                <div class="product-brand">
+                    PATTERN वाली
+                </div>
+
+                <div class="product-name">
+                    Elegant Ethnic Set
+                </div>
+
+                <div class="price-row">
+
+                    <span class="current-price">
+                        ₹1,899
+                    </span>
+
+                    <span class="old-price">
+                        ₹2,299
+                    </span>
+
+                </div>
+
+                <div class="product-rating">
+                    ★ 4.9 · 98 Reviews
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PRODUCT 3 -->
+
+        <div class="product-card">
+
+            <div class="product-image">
+
+                <span class="discount-badge">
+                    15% OFF
+                </span>
+
+                <button
+                    class="product-wishlist"
+                    onclick="toggleWishlist(this)">
+                    ♡
+                </button>
+
+                <img
+                    src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=700&q=85"
+                    alt="Modern Dress">
+
+                <button
+                    class="quick-add"
+                    onclick="addToCart('Modern Everyday Dress',1599)">
+                    ADD TO CART +
+                </button>
+
+            </div>
+
+            <div class="product-info">
+
+                <div class="product-brand">
+                    MODERN नारी
+                </div>
+
+                <div class="product-name">
+                    Modern Everyday Dress
+                </div>
+
+                <div class="price-row">
+
+                    <span class="current-price">
+                        ₹1,599
+                    </span>
+
+                    <span class="old-price">
+                        ₹1,899
+                    </span>
+
+                </div>
+
+                <div class="product-rating">
+                    ★ 4.7 · 76 Reviews
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PRODUCT 4 -->
+
+        <div class="product-card">
+
+            <div class="product-image">
+
+                <span class="discount-badge">
+                    NEW
+                </span>
+
+                <button
+                    class="product-wishlist"
+                    onclick="toggleWishlist(this)">
+                    ♡
+                </button>
+
+                <img
+                    src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=700&q=85"
+                    alt="Minimal Fashion">
+
+                <button
+                    class="quick-add"
+                    onclick="addToCart('Minimal Statement Look',2199)">
+                    ADD TO CART +
+                </button>
+
+            </div>
+
+            <div class="product-info">
+
+                <div class="product-brand">
+                    MODERN नारी
+                </div>
+
+                <div class="product-name">
+                    Minimal Statement Look
+                </div>
+
+                <div class="price-row">
+
+                    <span class="current-price">
+                        ₹2,199
+                    </span>
+
+                    <span class="old-price">
+                        ₹2,599
+                    </span>
+
+                </div>
+
+                <div class="product-rating">
+                    ★ 4.8 · 61 Reviews
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PRODUCT 5 -->
+
+        <div class="product-card">
+
+            <div class="product-image">
+
+                <span class="discount-badge">
+                    25% OFF
+                </span>
+
+                <button
+                    class="product-wishlist"
+                    onclick="toggleWishlist(this)">
+                    ♡
+                </button>
+
+                <img
+                    src="https://images.unsplash.com/photo-1591369822096-ffd140ec948f?auto=format&fit=crop&w=700&q=85"
+                    alt="Casual Top">
+
+                <button
+                    class="quick-add"
+                    onclick="addToCart('Soft Casual Top',999)">
+                    ADD TO CART +
+                </button>
+
+            </div>
+
+            <div class="product-info">
+
+                <div class="product-brand">
+                    PATTERN वाली
+                </div>
+
+                <div class="product-name">
+                    Soft Casual Top
+                </div>
+
+                <div class="price-row">
+
+                    <span class="current-price">
+                        ₹999
+                    </span>
+
+                    <span class="old-price">
+                        ₹1,299
+                    </span>
+
+                </div>
+
+                <div class="product-rating">
+                    ★ 4.6 · 84 Reviews
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PRODUCT 6 -->
+
+        <div class="product-card">
+
+            <div class="product-image">
+
+                <span class="discount-badge">
+                    NEW
+                </span>
+
+                <button
+                    class="product-wishlist"
+                    onclick="toggleWishlist(this)">
+                    ♡
+                </button>
+
+                <img
+                    src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=700&q=85"
+                    alt="Premium Co-ord">
+
+                <button
+                    class="quick-add"
+                    onclick="addToCart('Premium Co-ord Set',1999)">
+                    ADD TO CART +
+                </button>
+
+            </div>
+
+            <div class="product-info">
+
+                <div class="product-brand">
+                    MODERN नारी
+                </div>
+
+                <div class="product-name">
+                    Premium Co-ord Set
+                </div>
+
+                <div class="price-row">
+
+                    <span class="current-price">
+                        ₹1,999
+                    </span>
+
+                    <span class="old-price">
+                        ₹2,399
+                    </span>
+
+                </div>
+
+                <div class="product-rating">
+                    ★ 4.9 · 53 Reviews
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PRODUCT 7 -->
+
+        <div class="product-card">
+
+            <div class="product-image">
+
+                <span class="discount-badge">
+                    20% OFF
+                </span>
+
+                <button
+                    class="product-wishlist"
+                    onclick="toggleWishlist(this)">
+                    ♡
+                </button>
+
+                <img
+                    src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?auto=format&fit=crop&w=700&q=85"
+                    alt="Floral Collection">
+
+                <button
+                    class="quick-add"
+                    onclick="addToCart('Floral Everyday Collection',1499)">
+                    ADD TO CART +
+                </button>
+
+            </div>
+
+            <div class="product-info">
+
+                <div class="product-brand">
+                    PATTERN वाली
+                </div>
+
+                <div class="product-name">
+                    Floral Everyday Collection
+                </div>
+
+                <div class="price-row">
+
+                    <span class="current-price">
+                        ₹1,499
+                    </span>
+
+                    <span class="old-price">
+                        ₹1,899
+                    </span>
+
+                </div>
+
+                <div class="product-rating">
+                    ★ 4.7 · 112 Reviews
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PRODUCT 8 -->
+
+        <div class="product-card">
+
+            <div class="product-image">
+
+                <span class="discount-badge">
+                    BESTSELLER
+                </span>
+
+                <button
+                    class="product-wishlist"
+                    onclick="toggleWishlist(this)">
+                    ♡
+                </button>
+
+                <img
+                    src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=700&q=85"
+                    alt="Signature Look">
+
+                <button
+                    class="quick-add"
+                    onclick="addToCart('Signature Modern Look',2299)">
+                    ADD TO CART +
+                </button>
+
+            </div>
+
+            <div class="product-info">
+
+                <div class="product-brand">
+                    MODERN नारी
+                </div>
+
+                <div class="product-name">
+                    Signature Modern Look
+                </div>
+
+                <div class="price-row">
+
+                    <span class="current-price">
+                        ₹2,299
+                    </span>
+
+                    <span class="old-price">
+                        ₹2,799
+                    </span>
+
+                </div>
+
+                <div class="product-rating">
+                    ★ 4.9 · 147 Reviews
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     PART 3 JAVASCRIPT
+========================= -->
+
+<script>
+
+/* =========================
+   WISHLIST
+========================= */
+
+function toggleWishlist(button){
+
+    if(button.innerHTML.trim() === "♡"){
+
+        button.innerHTML = "♥";
+
+        button.style.color = "#d45b72";
+
+    }else{
+
+        button.innerHTML = "♡";
+
+        button.style.color = "#222";
+
+    }
+
+}
+
+
+/* =========================
+   CART STORAGE
+========================= */
+
+let cart = JSON.parse(
+    localStorage.getItem("fashionCart") || "[]"
+);
+
+
+/* =========================
+   ADD TO CART
+========================= */
+
+function addToCart(name, price){
+
+    const existing =
+        cart.find(item => item.name === name);
+
+
+    if(existing){
+
+        existing.quantity++;
+
+    }else{
+
+        cart.push({
+
+            name:name,
+            price:price,
+            quantity:1
+
+        });
+
+    }
+
+
+    localStorage.setItem(
+        "fashionCart",
+        JSON.stringify(cart)
+    );
+
+
+    showCartMessage(name);
+
+}
+
+
+/* =========================
+   CART MESSAGE
+========================= */
+
+function showCartMessage(name){
+
+    const message =
+        document.createElement("div");
+
+
+    message.innerHTML =
+        "✓ " + name + " added to cart";
+
+
+    message.style.position="fixed";
+    message.style.bottom="20px";
+    message.style.left="50%";
+    message.style.transform=
+        "translateX(-50%)";
+
+    message.style.background="#222";
+    message.style.color="#fff";
+
+    message.style.padding=
+        "13px 20px";
+
+    message.style.borderRadius="30px";
+
+    message.style.fontSize="12px";
+    message.style.fontWeight="600";
+
+    message.style.zIndex="99999";
+
+    message.style.boxShadow=
+        "0 10px 30px rgba(0,0,0,.15)";
+
+
+    document.body.appendChild(message);
+
+
+    setTimeout(function(){
+
+        message.remove();
+
+    },2200);
+
+}
+
+</script>
+   <!-- =========================
+     PART 4 - CART DRAWER
+========================= -->
+
+<style>
+.cart-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  z-index:9998;
+  display:none;
+}
+
+.cart-overlay.active{
+  display:block;
+}
+
+.cart-drawer{
+  position:fixed;
+  top:0;
+  right:-430px;
+  width:420px;
+  max-width:100%;
+  height:100vh;
+  background:#fff;
+  z-index:9999;
+  transition:.35s ease;
+  display:flex;
+  flex-direction:column;
+  box-shadow:-8px 0 30px rgba(0,0,0,.15);
+}
+
+.cart-drawer.active{
+  right:0;
+}
+
+.cart-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:20px;
+  border-bottom:1px solid #eee;
+}
+
+.cart-header h2{
+  margin:0;
+  font-size:22px;
+  font-weight:800;
+}
+
+.cart-close{
+  width:38px;
+  height:38px;
+  border:none;
+  border-radius:50%;
+  background:#f5f5f5;
+  font-size:22px;
+  cursor:pointer;
+}
+
+.cart-items{
+  flex:1;
+  overflow-y:auto;
+  padding:15px;
+}
+
+.cart-item{
+  display:flex;
+  gap:12px;
+  padding:15px 0;
+  border-bottom:1px solid #eee;
+}
+
+.cart-item-img{
+  width:78px;
+  height:95px;
+  object-fit:cover;
+  border-radius:10px;
+}
+
+.cart-item-info{
+  flex:1;
+}
+
+.cart-item-info h4{
+  margin:0 0 6px;
+  font-size:15px;
+  line-height:1.3;
+}
+
+.cart-price{
+  font-weight:800;
+  font-size:15px;
+  margin-bottom:10px;
+}
+
+.qty-box{
+  display:flex;
+  align-items:center;
+  width:max-content;
+  border:1px solid #ddd;
+  border-radius:8px;
+  overflow:hidden;
+}
+
+.qty-box button{
+  width:30px;
+  height:30px;
+  border:0;
+  background:#f7f7f7;
+  cursor:pointer;
+  font-size:17px;
+}
+
+.qty-box span{
+  min-width:30px;
+  text-align:center;
+  font-size:14px;
+  font-weight:600;
+}
+
+.remove-item{
+  margin-top:8px;
+  border:0;
+  background:none;
+  color:#777;
+  padding:0;
+  font-size:12px;
+  cursor:pointer;
+  text-decoration:underline;
+}
+
+.cart-empty{
+  text-align:center;
+  padding:70px 20px;
+  color:#777;
+}
+
+.cart-empty-icon{
+  font-size:45px;
+  margin-bottom:15px;
+}
+
+.cart-empty h3{
+  color:#111;
+  margin-bottom:8px;
+}
+
+.cart-footer{
+  border-top:1px solid #eee;
+  padding:18px 20px 20px;
+  background:#fff;
+}
+
+.cart-total-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
+  font-size:16px;
+}
+
+.cart-total-row strong{
+  font-size:20px;
+}
+
+.checkout-btn{
+  width:100%;
+  border:0;
+  padding:15px;
+  border-radius:10px;
+  background:#111;
+  color:#fff;
+  font-size:15px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.checkout-btn:hover{
+  background:#333;
+}
+
+.cart-badge{
+  position:absolute;
+  top:-6px;
+  right:-6px;
+  min-width:18px;
+  height:18px;
+  padding:0 4px;
+  border-radius:50%;
+  background:#111;
+  color:#fff;
+  font-size:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+}
+
+.nav-actions .icon-btn{
+  position:relative;
+}
+
+@media(max-width:600px){
+
+  .cart-drawer{
+    width:100%;
+    height:88vh;
+    top:auto;
+    bottom:-100%;
+    right:0;
+    border-radius:20px 20px 0 0;
+  }
+
+  .cart-drawer.active{
+    right:0;
+    bottom:0;
+  }
+
+  .cart-header{
+    padding:17px 18px;
+  }
+
+  .cart-items{
+    padding:10px 18px;
+  }
+
+  .cart-footer{
+    padding:15px 18px 18px;
+  }
+}
+</style>
+
+
+<!-- CART OVERLAY -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+
+
+<!-- CART DRAWER -->
+<div class="cart-drawer" id="cartDrawer">
+
+  <div class="cart-header">
+    <h2>My Cart</h2>
+
+    <button class="cart-close" onclick="closeCart()">
+      ×
+    </button>
+  </div>
+
+
+  <div class="cart-items" id="cartItems">
+    <!-- Products will appear here -->
+  </div>
+
+
+  <div class="cart-footer">
+
+    <div class="cart-total-row">
+      <span>Subtotal</span>
+      <strong id="cartTotal">₹0</strong>
+    </div>
+
+    <button class="checkout-btn" onclick="goToCheckout()">
+      Proceed to Checkout →
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+function openCart(){
+
+  const drawer = document.getElementById("cartDrawer");
+  const overlay = document.getElementById("cartOverlay");
+
+  if(drawer) drawer.classList.add("active");
+  if(overlay) overlay.classList.add("active");
+
+  renderCart();
+}
+
+
+function closeCart(){
+
+  const drawer = document.getElementById("cartDrawer");
+  const overlay = document.getElementById("cartOverlay");
+
+  if(drawer) drawer.classList.remove("active");
+  if(overlay) overlay.classList.remove("active");
+}
+
+
+function renderCart(){
+
+  const container = document.getElementById("cartItems");
+  const totalElement = document.getElementById("cartTotal");
+
+  if(!container || !totalElement) return;
+
+  if(!cart || cart.length === 0){
+
+    container.innerHTML = `
+      <div class="cart-empty">
+        <div class="cart-empty-icon">🛍️</div>
+        <h3>Your Cart is Empty</h3>
+        <p>Add something beautiful to your cart.</p>
+      </div>
+    `;
+
+    totalElement.innerText = "₹0";
+    updateCartBadge();
+    return;
+  }
+
+
+  let total = 0;
+
+
+  container.innerHTML = cart.map((item,index)=>{
+
+    const itemTotal = Number(item.price) * Number(item.quantity || 1);
+
+    total += itemTotal;
+
+    return `
+      <div class="cart-item">
+
+        <img
+          class="cart-item-img"
+          src="${item.image || 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=300&q=80'}"
+          alt="${item.name}"
+        >
+
+        <div class="cart-item-info">
+
+          <h4>${item.name}</h4>
+
+          <div class="cart-price">
+            ₹${Number(item.price).toLocaleString("en-IN")}
+          </div>
+
+          <div class="qty-box">
+
+            <button onclick="changeCartQty(${index},-1)">
+              −
+            </button>
+
+            <span>${item.quantity || 1}</span>
+
+            <button onclick="changeCartQty(${index},1)">
+              +
+            </button>
+
+          </div>
+
+          <button
+            class="remove-item"
+            onclick="removeCartItem(${index})">
+            Remove
+          </button>
+
+        </div>
+
+      </div>
+    `;
+
+  }).join("");
+
+
+  totalElement.innerText =
+    "₹" + total.toLocaleString("en-IN");
+
+  updateCartBadge();
+}
+
+
+function changeCartQty(index,change){
+
+  if(!cart[index]) return;
+
+  cart[index].quantity =
+    Number(cart[index].quantity || 1) + change;
+
+
+  if(cart[index].quantity <= 0){
+
+    cart.splice(index,1);
+
+  }
+
+
+  localStorage.setItem(
+    "fashionCart",
+    JSON.stringify(cart)
+  );
+
+
+  renderCart();
+}
+
+
+function removeCartItem(index){
+
+  if(!cart[index]) return;
+
+  cart.splice(index,1);
+
+  localStorage.setItem(
+    "fashionCart",
+    JSON.stringify(cart)
+  );
+
+  renderCart();
+}
+
+
+function updateCartBadge(){
+
+  const buttons =
+    document.querySelectorAll(".nav-actions .icon-btn");
+
+  if(!buttons.length) return;
+
+
+  const cartButton =
+    buttons[buttons.length - 1];
+
+
+  let badge =
+    cartButton.querySelector(".cart-badge");
+
+
+  const count =
+    cart.reduce(
+      (sum,item)=>sum + Number(item.quantity || 1),
+      0
+    );
+
+
+  if(!badge){
+
+    badge = document.createElement("span");
+
+    badge.className = "cart-badge";
+
+    cartButton.appendChild(badge);
+  }
+
+
+  badge.innerText = count;
+
+  badge.style.display =
+    count > 0 ? "flex" : "none";
+}
+
+
+function goToCheckout(){
+
+  if(!cart || cart.length === 0){
+
+    alert("Your cart is empty.");
+
+    return;
+  }
+
+
+  alert(
+    "Checkout page will be connected in the next part."
+  );
+}
+
+
+/* CART ICON OPEN */
+
+document.addEventListener("DOMContentLoaded",function(){
+
+  const buttons =
+    document.querySelectorAll(".nav-actions .icon-btn");
+
+  if(buttons.length){
+
+    const cartButton =
+      buttons[buttons.length - 1];
+
+    cartButton.onclick = openCart;
+  }
+
+  updateCartBadge();
+
+});
+
+
+/* Update cart badge immediately */
+
+updateCartBadge();
+
+</script>
 </body>
                          </html>
