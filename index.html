@@ -17296,5 +17296,113 @@ document.addEventListener(
 );
 
 </script>
+   <!-- ⚡ MODERN NAREE + PATTERN VALI SPEED BOOSTER -->
+<script>
+(function () {
+  "use strict";
+
+  /* 1. Lazy-load images */
+  document.querySelectorAll("img").forEach(function (img) {
+    if (!img.hasAttribute("loading")) {
+      img.setAttribute("loading", "lazy");
+    }
+
+    if (!img.hasAttribute("decoding")) {
+      img.setAttribute("decoding", "async");
+    }
+  });
+
+  /* First few visible images should load immediately */
+  document.querySelectorAll("img").forEach(function (img, index) {
+    if (index < 3) {
+      img.setAttribute("loading", "eager");
+      img.setAttribute("fetchpriority", "high");
+    }
+  });
+
+  /* 2. Lazy-load background images when visible */
+  const lazyBackgrounds = document.querySelectorAll(
+    '[style*="background-image"]'
+  );
+
+  if ("IntersectionObserver" in window) {
+    const bgObserver = new IntersectionObserver(
+      function (entries, observer) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.style.willChange = "auto";
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: "300px" }
+    );
+
+    lazyBackgrounds.forEach(function (el) {
+      bgObserver.observe(el);
+    });
+  }
+
+  /* 3. Stop expensive animations when page is not visible */
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden) {
+      document.documentElement.classList.add("page-hidden");
+    } else {
+      document.documentElement.classList.remove("page-hidden");
+    }
+  });
+
+  /* 4. Add lightweight performance CSS */
+  const speedCSS = document.createElement("style");
+
+  speedCSS.textContent = `
+    html {
+      scroll-behavior: auto !important;
+    }
+
+    img {
+      content-visibility: auto;
+    }
+
+    .page-hidden *,
+    .page-hidden *::before,
+    .page-hidden *::after {
+      animation-play-state: paused !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  `;
+
+  document.head.appendChild(speedCSS);
+
+  /* 5. Remove loading screen if website has one */
+  window.addEventListener("load", function () {
+    const loaders = document.querySelectorAll(
+      "#loader, .loader, .loading-screen, .preloader"
+    );
+
+    loaders.forEach(function (loader) {
+      setTimeout(function () {
+        loader.style.opacity = "0";
+        loader.style.pointerEvents = "none";
+
+        setTimeout(function () {
+          loader.remove();
+        }, 300);
+      }, 100);
+    });
+  });
+
+})();
+</script>
 </body>
                          </html>
