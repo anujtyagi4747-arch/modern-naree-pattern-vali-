@@ -17404,5 +17404,58 @@ document.addEventListener(
 
 })();
 </script>
+   <!-- 🚀 UNSPLASH IMAGE OPTIMIZER -->
+<script>
+(function () {
+  "use strict";
+
+  function optimizeUnsplashImages() {
+    const images = document.querySelectorAll("img");
+
+    images.forEach(function (img) {
+      let src = img.getAttribute("src");
+
+      if (!src || !src.includes("images.unsplash.com")) return;
+
+      /* Already optimized */
+      if (src.includes("auto=format")) return;
+
+      /* Remove old Unsplash parameters */
+      let cleanSrc = src.split("?")[0];
+
+      /* Responsive image size */
+      let width = window.innerWidth <= 600 ? 500 : 900;
+
+      let optimized =
+        cleanSrc +
+        "?auto=format&fit=crop&w=" +
+        width +
+        "&q=70";
+
+      img.setAttribute("src", optimized);
+      img.setAttribute("loading", "lazy");
+      img.setAttribute("decoding", "async");
+    });
+  }
+
+  /* Run after HTML is ready */
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", optimizeUnsplashImages);
+  } else {
+    optimizeUnsplashImages();
+  }
+
+  /* Re-check dynamically added products */
+  const observer = new MutationObserver(function () {
+    optimizeUnsplashImages();
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+
+})();
+</script>
 </body>
                          </html>
