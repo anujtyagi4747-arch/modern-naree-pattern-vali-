@@ -16912,5 +16912,389 @@ document.addEventListener(
   </div>
 
 </section>
+   <!-- =========================
+     FINAL OPENING BRAND SCREEN
+========================= -->
+
+<style>
+/* Full Screen Opening */
+
+.brand-opening{
+  position:fixed;
+  inset:0;
+  z-index:999999;
+  background:#f8f7f4;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  transition:opacity .45s ease, visibility .45s ease;
+}
+
+.brand-opening.hide{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+
+/* Close Button */
+
+.brand-opening-close{
+  position:absolute;
+  top:20px;
+  right:20px;
+  width:42px;
+  height:42px;
+  border:1px solid #222;
+  background:transparent;
+  border-radius:50%;
+  font-size:22px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:5;
+}
+
+
+/* Main Box */
+
+.brand-opening-inner{
+  width:100%;
+  max-width:900px;
+  text-align:center;
+}
+
+.brand-opening-small{
+  font-size:11px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:#777;
+  margin-bottom:25px;
+}
+
+
+/* Brand Cards */
+
+.brand-choice{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+.brand-choice-card{
+  min-height:330px;
+  border:1px solid #222;
+  background:#fff;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:30px;
+  cursor:pointer;
+  transition:.3s ease;
+  position:relative;
+  overflow:hidden;
+}
+
+.brand-choice-card:hover{
+  background:#111;
+  color:#fff;
+  transform:translateY(-5px);
+}
+
+.brand-choice-card:hover .brand-choice-sub{
+  color:#bbb;
+}
+
+.brand-choice-name{
+  font-size:clamp(30px,5vw,58px);
+  font-weight:900;
+  line-height:1;
+  margin-bottom:15px;
+}
+
+.brand-choice-name .hindi{
+  font-weight:500;
+}
+
+.brand-choice-sub{
+  font-size:11px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:#777;
+  transition:.3s;
+}
+
+.brand-choice-arrow{
+  position:absolute;
+  bottom:20px;
+  right:22px;
+  font-size:20px;
+}
+
+
+/* Modern Naree */
+
+.modern-card{
+  background:#111;
+  color:#fff;
+}
+
+.modern-card .brand-choice-sub{
+  color:#aaa;
+}
+
+.modern-card:hover{
+  background:#fff;
+  color:#111;
+}
+
+.modern-card:hover .brand-choice-sub{
+  color:#777;
+}
+
+
+/* Pattern Vali */
+
+.pattern-card{
+  background:#fff;
+  color:#111;
+}
+
+
+/* Bottom Text */
+
+.brand-opening-bottom{
+  margin-top:25px;
+  color:#888;
+  font-size:11px;
+  letter-spacing:1px;
+}
+
+
+/* Mobile */
+
+@media(max-width:650px){
+
+  .brand-opening{
+    padding:15px;
+  }
+
+  .brand-opening-close{
+    top:15px;
+    right:15px;
+  }
+
+  .brand-opening-small{
+    margin-bottom:20px;
+    font-size:9px;
+  }
+
+  .brand-choice{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+
+  .brand-choice-card{
+    min-height:210px;
+  }
+
+  .brand-choice-name{
+    font-size:38px;
+  }
+
+}
+</style>
+
+
+<!-- OPENING SCREEN -->
+
+<div
+  id="brandOpening"
+  class="brand-opening">
+
+  <button
+    class="brand-opening-close"
+    onclick="closeBrandOpening()"
+    aria-label="Close">
+
+    ×
+
+  </button>
+
+
+  <div class="brand-opening-inner">
+
+    <div class="brand-opening-small">
+      Choose Your Style
+    </div>
+
+
+    <div class="brand-choice">
+
+
+      <!-- MODERN NAREE -->
+
+      <div
+        class="brand-choice-card modern-card"
+        onclick="selectOpeningBrand('modern')">
+
+        <div class="brand-choice-name">
+
+          MODERN
+          <span class="hindi">नारी</span>
+
+        </div>
+
+        <div class="brand-choice-sub">
+          Contemporary Women's Fashion
+        </div>
+
+        <div class="brand-choice-arrow">
+          →
+        </div>
+
+      </div>
+
+
+      <!-- PATTERN VALI -->
+
+      <div
+        class="brand-choice-card pattern-card"
+        onclick="selectOpeningBrand('pattern')">
+
+        <div class="brand-choice-name">
+
+          PATTERN
+          <span class="hindi">वाली</span>
+
+        </div>
+
+        <div class="brand-choice-sub">
+          Modern Fashion & Style
+        </div>
+
+        <div class="brand-choice-arrow">
+          →
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+    <div class="brand-opening-bottom">
+
+      Explore • Shop • Discover
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =====================================
+   BRAND OPENING SCREEN
+===================================== */
+
+function closeBrandOpening(){
+
+  const opening =
+    document.getElementById(
+      "brandOpening"
+    );
+
+  if(opening){
+
+    opening.classList.add("hide");
+
+  }
+
+}
+
+
+/* Select Brand */
+
+function selectOpeningBrand(brand){
+
+  /*
+    Brand selection is saved locally.
+    This can later be connected to
+    separate product/category filtering.
+  */
+
+  localStorage.setItem(
+    "selectedFashionBrand",
+    brand
+  );
+
+
+  closeBrandOpening();
+
+
+  /* Scroll to homepage */
+
+  setTimeout(function(){
+
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
+
+  },150);
+
+
+  /* Optional notification */
+
+  if(typeof showToast === "function"){
+
+    if(brand === "modern"){
+
+      showToast(
+        "Welcome to MODERN नारी"
+      );
+
+    }else{
+
+      showToast(
+        "Welcome to PATTERN वाली"
+      );
+
+    }
+
+  }
+
+}
+
+
+/* =====================================
+   SHOW ON EVERY WEBSITE OPEN
+===================================== */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    const opening =
+      document.getElementById(
+        "brandOpening"
+      );
+
+    if(opening){
+
+      opening.classList.remove("hide");
+
+    }
+
+  }
+);
+
+</script>
 </body>
                          </html>
