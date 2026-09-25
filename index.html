@@ -8156,5 +8156,1840 @@ function addQuickViewProduct(){
 }
 
 </script>
+   <!-- =========================
+     PART 13 - OFFERS & COUPONS
+========================= -->
+
+<style>
+
+.offer-section{
+  padding:65px 20px;
+  background:#111;
+  color:#fff;
+}
+
+.offer-container{
+  max-width:1200px;
+  margin:auto;
+}
+
+.offer-heading{
+  text-align:center;
+  margin-bottom:35px;
+}
+
+.offer-heading h2{
+  font-size:32px;
+  margin:0 0 8px;
+}
+
+.offer-heading p{
+  margin:0;
+  color:#bbb;
+  font-size:14px;
+}
+
+.offer-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.offer-card{
+  background:#fff;
+  color:#111;
+  border-radius:16px;
+  padding:25px;
+  position:relative;
+  overflow:hidden;
+}
+
+.offer-card:after{
+  content:"";
+  position:absolute;
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  background:#f3f3f3;
+  right:-30px;
+  top:-30px;
+}
+
+.offer-tag{
+  display:inline-block;
+  background:#111;
+  color:#fff;
+  font-size:10px;
+  font-weight:700;
+  padding:6px 10px;
+  border-radius:20px;
+  margin-bottom:15px;
+}
+
+.offer-card h3{
+  font-size:21px;
+  margin:0 0 8px;
+}
+
+.offer-card p{
+  color:#666;
+  font-size:13px;
+  line-height:1.6;
+  margin-bottom:18px;
+}
+
+.offer-code{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border:1px dashed #aaa;
+  border-radius:8px;
+  padding:10px 12px;
+  margin-bottom:12px;
+}
+
+.offer-code strong{
+  letter-spacing:1px;
+  font-size:14px;
+}
+
+.copy-code-btn{
+  border:0;
+  background:#111;
+  color:#fff;
+  padding:7px 11px;
+  border-radius:6px;
+  font-size:11px;
+  cursor:pointer;
+}
+
+.offer-shop-btn{
+  width:100%;
+  padding:11px;
+  border:1px solid #111;
+  background:#fff;
+  color:#111;
+  border-radius:7px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.offer-shop-btn:hover{
+  background:#111;
+  color:#fff;
+}
+
+
+/* COUPON POPUP */
+
+.coupon-popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  z-index:10050;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.coupon-popup.show{
+  display:flex;
+}
+
+.coupon-popup-box{
+  background:#fff;
+  color:#111;
+  width:100%;
+  max-width:430px;
+  border-radius:18px;
+  padding:30px;
+  text-align:center;
+  position:relative;
+}
+
+.coupon-close{
+  position:absolute;
+  right:12px;
+  top:10px;
+  border:0;
+  background:#f2f2f2;
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  font-size:20px;
+  cursor:pointer;
+}
+
+.coupon-popup-box h3{
+  font-size:25px;
+  margin:10px 0;
+}
+
+.coupon-popup-box p{
+  color:#666;
+  font-size:14px;
+  line-height:1.6;
+}
+
+.coupon-big-code{
+  margin:20px 0;
+  padding:15px;
+  background:#f5f5f5;
+  border:1px dashed #111;
+  border-radius:10px;
+  font-size:20px;
+  font-weight:800;
+  letter-spacing:2px;
+}
+
+.coupon-apply-btn{
+  width:100%;
+  padding:13px;
+  border:0;
+  background:#111;
+  color:#fff;
+  border-radius:8px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  .offer-section{
+    padding:45px 14px;
+  }
+
+  .offer-heading h2{
+    font-size:25px;
+  }
+
+  .offer-grid{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+
+  .offer-card{
+    padding:20px;
+  }
+
+}
+
+</style>
+
+
+<!-- =========================
+     OFFERS SECTION
+========================= -->
+
+<section
+  class="offer-section"
+  id="offers"
+>
+
+  <div class="offer-container">
+
+    <div class="offer-heading">
+
+      <h2>
+        Special Offers
+      </h2>
+
+      <p>
+        Little more style. Little more savings.
+      </p>
+
+    </div>
+
+
+    <div class="offer-grid">
+
+
+      <!-- OFFER 1 -->
+
+      <div class="offer-card">
+
+        <span class="offer-tag">
+          NEW USER
+        </span>
+
+        <h3>
+          Get 10% OFF
+        </h3>
+
+        <p>
+          Get an extra 10% discount on your
+          first order with us.
+        </p>
+
+        <div class="offer-code">
+
+          <strong>
+            WELCOME10
+          </strong>
+
+          <button
+            class="copy-code-btn"
+            onclick="copyCouponCode('WELCOME10')"
+          >
+            COPY
+          </button>
+
+        </div>
+
+        <button
+          class="offer-shop-btn"
+          onclick="goToOfferShop()"
+        >
+          SHOP NOW
+        </button>
+
+      </div>
+
+
+      <!-- OFFER 2 -->
+
+      <div class="offer-card">
+
+        <span class="offer-tag">
+          TRENDING
+        </span>
+
+        <h3>
+          Flat ₹300 OFF
+        </h3>
+
+        <p>
+          Enjoy flat ₹300 off on selected
+          premium collections.
+        </p>
+
+        <div class="offer-code">
+
+          <strong>
+            STYLE300
+          </strong>
+
+          <button
+            class="copy-code-btn"
+            onclick="copyCouponCode('STYLE300')"
+          >
+            COPY
+          </button>
+
+        </div>
+
+        <button
+          class="offer-shop-btn"
+          onclick="goToOfferShop()"
+        >
+          EXPLORE COLLECTION
+        </button>
+
+      </div>
+
+
+      <!-- OFFER 3 -->
+
+      <div class="offer-card">
+
+        <span class="offer-tag">
+          LIMITED
+        </span>
+
+        <h3>
+          Free Shipping
+        </h3>
+
+        <p>
+          Get free shipping on orders above
+          ₹1,999.
+        </p>
+
+        <div class="offer-code">
+
+          <strong>
+            FREESHIP
+          </strong>
+
+          <button
+            class="copy-code-btn"
+            onclick="copyCouponCode('FREESHIP')"
+          >
+            COPY
+          </button>
+
+        </div>
+
+        <button
+          class="offer-shop-btn"
+          onclick="goToOfferShop()"
+        >
+          SHOP COLLECTION
+        </button>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     COUPON POPUP
+========================= -->
+
+<div
+  class="coupon-popup"
+  id="couponPopup"
+  onclick="closeCouponPopup(event)"
+>
+
+  <div
+    class="coupon-popup-box"
+    onclick="event.stopPropagation()"
+  >
+
+    <button
+      class="coupon-close"
+      onclick="closeCouponPopup()"
+    >
+      ×
+    </button>
+
+    <h3>
+      Coupon Copied 🎉
+    </h3>
+
+    <p>
+      Your coupon code has been copied.
+      Apply it during checkout.
+    </p>
+
+    <div
+      class="coupon-big-code"
+      id="couponPopupCode"
+    >
+      WELCOME10
+    </div>
+
+    <button
+      class="coupon-apply-btn"
+      onclick="goToOfferShop()"
+    >
+      SHOP NOW
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   COPY COUPON
+========================= */
+
+function copyCouponCode(code){
+
+  const popup =
+    document.getElementById(
+      "couponPopup"
+    );
+
+  const codeBox =
+    document.getElementById(
+      "couponPopupCode"
+    );
+
+
+  if(codeBox){
+
+    codeBox.innerText = code;
+
+  }
+
+
+  if(
+    navigator.clipboard &&
+    navigator.clipboard.writeText
+  ){
+
+    navigator.clipboard
+      .writeText(code)
+      .catch(function(){
+
+        fallbackCopyCoupon(code);
+
+      });
+
+  }else{
+
+    fallbackCopyCoupon(code);
+
+  }
+
+
+  if(popup){
+
+    popup.classList.add("show");
+
+  }
+
+}
+
+
+/* =========================
+   FALLBACK COPY
+========================= */
+
+function fallbackCopyCoupon(code){
+
+  const textarea =
+    document.createElement("textarea");
+
+  textarea.value = code;
+
+  document.body.appendChild(textarea);
+
+  textarea.select();
+
+  try{
+
+    document.execCommand("copy");
+
+  }catch(error){
+
+    console.log(error);
+
+  }
+
+  document.body.removeChild(textarea);
+
+}
+
+
+/* =========================
+   CLOSE POPUP
+========================= */
+
+function closeCouponPopup(event){
+
+  if(
+    event &&
+    event.target &&
+    event.target.id !== "couponPopup"
+  ){
+
+    return;
+
+  }
+
+
+  const popup =
+    document.getElementById(
+      "couponPopup"
+    );
+
+  if(popup){
+
+    popup.classList.remove("show");
+
+  }
+
+}
+
+
+/* =========================
+   SHOP FROM OFFER
+========================= */
+
+function goToOfferShop(){
+
+  closeCouponPopup();
+
+  const section =
+    document.getElementById(
+      "categoryShop"
+    );
+
+  if(section){
+
+    section.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+
+  }else{
+
+    const products =
+      document.getElementById(
+        "products"
+      );
+
+    if(products){
+
+      products.scrollIntoView({
+        behavior:"smooth"
+      });
+
+    }
+
+  }
+
+}
+
+</script>
+   <!-- =========================
+     PART 14 - FAQ & SUPPORT
+========================= -->
+
+<style>
+
+.faq-section{
+  padding:70px 20px;
+  background:#fff;
+}
+
+.faq-container{
+  max-width:900px;
+  margin:auto;
+}
+
+.faq-heading{
+  text-align:center;
+  margin-bottom:35px;
+}
+
+.faq-heading h2{
+  font-size:32px;
+  margin:0 0 8px;
+  color:#111;
+}
+
+.faq-heading p{
+  margin:0;
+  color:#777;
+  font-size:14px;
+}
+
+.faq-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.faq-item{
+  border:1px solid #e8e8e8;
+  border-radius:10px;
+  overflow:hidden;
+  background:#fff;
+}
+
+.faq-question{
+  width:100%;
+  border:0;
+  background:#fff;
+  padding:18px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  text-align:left;
+  font-size:15px;
+  font-weight:700;
+  cursor:pointer;
+  color:#111;
+}
+
+.faq-icon{
+  font-size:22px;
+  font-weight:400;
+  transition:.2s;
+}
+
+.faq-answer{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .3s ease;
+}
+
+.faq-answer-inner{
+  padding:0 20px 18px;
+  color:#666;
+  font-size:13px;
+  line-height:1.7;
+}
+
+.faq-item.open .faq-answer{
+  max-height:300px;
+}
+
+.faq-item.open .faq-icon{
+  transform:rotate(45deg);
+}
+
+
+/* SUPPORT CARDS */
+
+.support-section{
+  padding:20px 20px 70px;
+  background:#fff;
+}
+
+.support-container{
+  max-width:1100px;
+  margin:auto;
+}
+
+.support-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.support-card{
+  border:1px solid #eee;
+  border-radius:14px;
+  padding:22px;
+  text-align:center;
+  background:#fafafa;
+}
+
+.support-icon{
+  font-size:28px;
+  margin-bottom:10px;
+}
+
+.support-card h3{
+  font-size:17px;
+  margin:0 0 7px;
+}
+
+.support-card p{
+  font-size:12px;
+  color:#777;
+  line-height:1.6;
+  margin:0 0 15px;
+}
+
+.support-card button{
+  border:0;
+  background:#111;
+  color:#fff;
+  padding:9px 16px;
+  border-radius:7px;
+  font-size:12px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  .faq-section{
+    padding:45px 14px;
+  }
+
+  .faq-heading h2{
+    font-size:25px;
+  }
+
+  .faq-question{
+    padding:15px;
+    font-size:14px;
+  }
+
+  .faq-answer-inner{
+    padding:0 15px 15px;
+  }
+
+  .support-section{
+    padding:10px 14px 45px;
+  }
+
+  .support-grid{
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+
+}
+
+</style>
+
+
+<!-- =========================
+     FAQ SECTION
+========================= -->
+
+<section
+  class="faq-section"
+  id="faq"
+>
+
+  <div class="faq-container">
+
+    <div class="faq-heading">
+
+      <h2>
+        Frequently Asked Questions
+      </h2>
+
+      <p>
+        Everything you need to know before ordering.
+      </p>
+
+    </div>
+
+
+    <div class="faq-list">
+
+
+      <!-- FAQ 1 -->
+
+      <div class="faq-item">
+
+        <button
+          class="faq-question"
+          onclick="toggleFAQ(this)"
+        >
+
+          <span>
+            How can I place an order?
+          </span>
+
+          <span class="faq-icon">
+            +
+          </span>
+
+        </button>
+
+        <div class="faq-answer">
+
+          <div class="faq-answer-inner">
+
+            Select your favourite product, choose the
+            required size, add it to your cart and continue
+            to checkout. You can then submit your details
+            to place the order.
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- FAQ 2 -->
+
+      <div class="faq-item">
+
+        <button
+          class="faq-question"
+          onclick="toggleFAQ(this)"
+        >
+
+          <span>
+            What payment options are available?
+          </span>
+
+          <span class="faq-icon">
+            +
+          </span>
+
+        </button>
+
+        <div class="faq-answer">
+
+          <div class="faq-answer-inner">
+
+            Payment options can include UPI, online payment
+            and Cash on Delivery depending on the final
+            store setup.
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- FAQ 3 -->
+
+      <div class="faq-item">
+
+        <button
+          class="faq-question"
+          onclick="toggleFAQ(this)"
+        >
+
+          <span>
+            How long will delivery take?
+          </span>
+
+          <span class="faq-icon">
+            +
+          </span>
+
+        </button>
+
+        <div class="faq-answer">
+
+          <div class="faq-answer-inner">
+
+            Orders are generally expected to arrive within
+            a few business days. The exact delivery time
+            can vary depending on your location and courier
+            service.
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- FAQ 4 -->
+
+      <div class="faq-item">
+
+        <button
+          class="faq-question"
+          onclick="toggleFAQ(this)"
+        >
+
+          <span>
+            Can I return or exchange my order?
+          </span>
+
+          <span class="faq-icon">
+            +
+          </span>
+
+        </button>
+
+        <div class="faq-answer">
+
+          <div class="faq-answer-inner">
+
+            Yes, returns or exchanges can be accepted
+            according to the store's final return policy.
+            Please check the product and return conditions
+            before placing your order.
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- FAQ 5 -->
+
+      <div class="faq-item">
+
+        <button
+          class="faq-question"
+          onclick="toggleFAQ(this)"
+        >
+
+          <span>
+            How do I choose my size?
+          </span>
+
+          <span class="faq-icon">
+            +
+          </span>
+
+        </button>
+
+        <div class="faq-answer">
+
+          <div class="faq-answer-inner">
+
+            Use the size selector and size guide available
+            on the product section. If you are between two
+            sizes, check the individual product measurements
+            before ordering.
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- FAQ 6 -->
+
+      <div class="faq-item">
+
+        <button
+          class="faq-question"
+          onclick="toggleFAQ(this)"
+        >
+
+          <span>
+            How can I contact customer support?
+          </span>
+
+          <span class="faq-icon">
+            +
+          </span>
+
+        </button>
+
+        <div class="faq-answer">
+
+          <div class="faq-answer-inner">
+
+            You can contact the store through WhatsApp,
+            email or the contact form available on the
+            website.
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     SUPPORT SECTION
+========================= -->
+
+<section
+  class="support-section"
+  id="support"
+>
+
+  <div class="support-container">
+
+    <div class="support-grid">
+
+
+      <!-- SUPPORT 1 -->
+
+      <div class="support-card">
+
+        <div class="support-icon">
+          🚚
+        </div>
+
+        <h3>
+          Shipping
+        </h3>
+
+        <p>
+          Safe and reliable delivery to your
+          doorstep.
+        </p>
+
+        <button
+          onclick="showSupportMessage('Shipping')"
+        >
+          KNOW MORE
+        </button>
+
+      </div>
+
+
+      <!-- SUPPORT 2 -->
+
+      <div class="support-card">
+
+        <div class="support-icon">
+          ↩️
+        </div>
+
+        <h3>
+          Returns
+        </h3>
+
+        <p>
+          Easy return and exchange support
+          according to store policy.
+        </p>
+
+        <button
+          onclick="showSupportMessage('Returns')"
+        >
+          KNOW MORE
+        </button>
+
+      </div>
+
+
+      <!-- SUPPORT 3 -->
+
+      <div class="support-card">
+
+        <div class="support-icon">
+          💬
+        </div>
+
+        <h3>
+          Customer Care
+        </h3>
+
+        <p>
+          Need help? Connect with our support
+          team directly.
+        </p>
+
+        <button
+          onclick="openSupportWhatsApp()"
+        >
+          CHAT NOW
+        </button>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<script>
+
+/* =========================
+   FAQ TOGGLE
+========================= */
+
+function toggleFAQ(button){
+
+  const item =
+    button.closest(".faq-item");
+
+  if(!item) return;
+
+  const allItems =
+    document.querySelectorAll(
+      ".faq-item"
+    );
+
+  allItems.forEach(function(otherItem){
+
+    if(otherItem !== item){
+
+      otherItem.classList.remove("open");
+
+    }
+
+  });
+
+  item.classList.toggle("open");
+
+}
+
+
+/* =========================
+   SUPPORT MESSAGE
+========================= */
+
+function showSupportMessage(type){
+
+  if(type === "Shipping"){
+
+    alert(
+      "Shipping Information\n\n" +
+      "Delivery time and charges depend on " +
+      "your location and the final store policy."
+    );
+
+  }
+
+
+  if(type === "Returns"){
+
+    alert(
+      "Return & Exchange Information\n\n" +
+      "Returns and exchanges will be handled " +
+      "according to the final store return policy."
+    );
+
+  }
+
+}
+
+
+/* =========================
+   SUPPORT WHATSAPP
+========================= */
+
+function openSupportWhatsApp(){
+
+  const number =
+    "919999999999";
+
+  const message =
+    encodeURIComponent(
+      "Hi, I need help with my order."
+    );
+
+  window.open(
+    "https://wa.me/" +
+    number +
+    "?text=" +
+    message,
+    "_blank"
+  );
+
+}
+
+</script>
+   <!-- =========================
+     PART 15 - ORDER TRACKING
+========================= -->
+
+<style>
+
+.order-track-section{
+  padding:70px 20px;
+  background:#f8f8f8;
+}
+
+.order-track-container{
+  max-width:900px;
+  margin:auto;
+}
+
+.order-track-heading{
+  text-align:center;
+  margin-bottom:30px;
+}
+
+.order-track-heading h2{
+  font-size:30px;
+  margin:0 0 8px;
+  color:#111;
+}
+
+.order-track-heading p{
+  color:#777;
+  font-size:14px;
+  margin:0;
+}
+
+.order-track-box{
+  background:#fff;
+  border:1px solid #eee;
+  border-radius:16px;
+  padding:25px;
+  box-shadow:0 8px 25px rgba(0,0,0,.04);
+}
+
+.order-search{
+  display:flex;
+  gap:10px;
+  margin-bottom:30px;
+}
+
+.order-search input{
+  flex:1;
+  height:48px;
+  border:1px solid #ddd;
+  border-radius:8px;
+  padding:0 14px;
+  outline:none;
+  font-size:14px;
+}
+
+.order-search button{
+  border:0;
+  background:#111;
+  color:#fff;
+  padding:0 22px;
+  border-radius:8px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.order-result{
+  display:none;
+  border-top:1px solid #eee;
+  padding-top:25px;
+}
+
+.order-result.show{
+  display:block;
+}
+
+.order-result-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:25px;
+}
+
+.order-result-header h3{
+  margin:0;
+  font-size:18px;
+}
+
+.order-status{
+  background:#f1f1f1;
+  padding:7px 12px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:700;
+}
+
+.tracking-line{
+  position:relative;
+  display:flex;
+  justify-content:space-between;
+  margin:30px 0 15px;
+}
+
+.tracking-line:before{
+  content:"";
+  position:absolute;
+  top:14px;
+  left:8%;
+  right:8%;
+  height:3px;
+  background:#ddd;
+  z-index:0;
+}
+
+.track-step{
+  position:relative;
+  z-index:1;
+  text-align:center;
+  width:25%;
+}
+
+.track-circle{
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  background:#111;
+  color:#fff;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+  font-weight:700;
+}
+
+.track-step.pending .track-circle{
+  background:#ddd;
+  color:#777;
+}
+
+.track-step span{
+  display:block;
+  margin-top:9px;
+  font-size:11px;
+  color:#555;
+}
+
+.track-date{
+  display:block;
+  font-size:10px !important;
+  color:#999 !important;
+  margin-top:3px !important;
+}
+
+
+/* SUCCESS POPUP */
+
+.order-success-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  z-index:10070;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.order-success-overlay.show{
+  display:flex;
+}
+
+.order-success-box{
+  width:100%;
+  max-width:450px;
+  background:#fff;
+  border-radius:20px;
+  padding:35px 25px;
+  text-align:center;
+  position:relative;
+}
+
+.success-icon{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  background:#111;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 18px;
+  font-size:30px;
+}
+
+.order-success-box h3{
+  font-size:25px;
+  margin:0 0 10px;
+}
+
+.order-success-box p{
+  color:#666;
+  font-size:14px;
+  line-height:1.6;
+}
+
+.success-order-id{
+  background:#f5f5f5;
+  border-radius:9px;
+  padding:12px;
+  margin:20px 0;
+  font-size:13px;
+}
+
+.success-order-id strong{
+  letter-spacing:1px;
+}
+
+.success-close-btn{
+  width:100%;
+  padding:13px;
+  border:0;
+  background:#111;
+  color:#fff;
+  border-radius:8px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  .order-track-section{
+    padding:45px 14px;
+  }
+
+  .order-track-heading h2{
+    font-size:25px;
+  }
+
+  .order-track-box{
+    padding:18px;
+  }
+
+  .order-search{
+    flex-direction:column;
+  }
+
+  .order-search button{
+    height:46px;
+  }
+
+  .tracking-line:before{
+    left:10%;
+    right:10%;
+  }
+
+  .track-step span{
+    font-size:9px;
+  }
+
+  .track-date{
+    font-size:8px !important;
+  }
+
+}
+
+</style>
+
+
+<!-- =========================
+     ORDER TRACKING SECTION
+========================= -->
+
+<section
+  class="order-track-section"
+  id="orderTracking"
+>
+
+  <div class="order-track-container">
+
+    <div class="order-track-heading">
+
+      <h2>
+        Track Your Order
+      </h2>
+
+      <p>
+        Enter your order ID to check your order status.
+      </p>
+
+    </div>
+
+
+    <div class="order-track-box">
+
+      <div class="order-search">
+
+        <input
+          type="text"
+          id="orderTrackingInput"
+          placeholder="Enter Order ID"
+        >
+
+        <button
+          onclick="trackFashionOrder()"
+        >
+          TRACK ORDER
+        </button>
+
+      </div>
+
+
+      <div
+        class="order-result"
+        id="orderTrackingResult"
+      >
+
+        <div class="order-result-header">
+
+          <h3>
+            Order #<span id="trackingOrderId">
+              PV2026
+            </span>
+          </h3>
+
+          <span
+            class="order-status"
+            id="trackingStatus"
+          >
+            Processing
+          </span>
+
+        </div>
+
+
+        <div class="tracking-line">
+
+
+          <div class="track-step">
+
+            <div class="track-circle">
+              ✓
+            </div>
+
+            <span>
+              Ordered
+            </span>
+
+            <span class="track-date">
+              Confirmed
+            </span>
+
+          </div>
+
+
+          <div class="track-step">
+
+            <div class="track-circle">
+              ✓
+            </div>
+
+            <span>
+              Packed
+            </span>
+
+            <span class="track-date">
+              Preparing
+            </span>
+
+          </div>
+
+
+          <div class="track-step pending">
+
+            <div class="track-circle">
+              3
+            </div>
+
+            <span>
+              Shipped
+            </span>
+
+            <span class="track-date">
+              Coming soon
+            </span>
+
+          </div>
+
+
+          <div class="track-step pending">
+
+            <div class="track-circle">
+              4
+            </div>
+
+            <span>
+              Delivered
+            </span>
+
+            <span class="track-date">
+              Coming soon
+            </span>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     ORDER SUCCESS POPUP
+========================= -->
+
+<div
+  class="order-success-overlay"
+  id="orderSuccessPopup"
+>
+
+  <div class="order-success-box">
+
+    <div class="success-icon">
+      ✓
+    </div>
+
+    <h3>
+      Order Placed Successfully!
+    </h3>
+
+    <p>
+      Thank you for shopping with
+      PATTERN वाली × MODERN नारी.
+    </p>
+
+    <div class="success-order-id">
+
+      Your Order ID:
+
+      <strong id="successOrderId">
+        PV2026
+      </strong>
+
+    </div>
+
+    <button
+      class="success-close-btn"
+      onclick="closeOrderSuccess()"
+    >
+      CONTINUE SHOPPING
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   GENERATE ORDER ID
+========================= */
+
+function generateFashionOrderId(){
+
+  const randomNumber =
+    Math.floor(
+      1000 + Math.random() * 9000
+    );
+
+  return "PV" + randomNumber;
+
+}
+
+
+/* =========================
+   SHOW ORDER SUCCESS
+========================= */
+
+function showOrderSuccess(){
+
+  const orderId =
+    generateFashionOrderId();
+
+  const popup =
+    document.getElementById(
+      "orderSuccessPopup"
+    );
+
+  const idElement =
+    document.getElementById(
+      "successOrderId"
+    );
+
+  if(idElement){
+
+    idElement.innerText =
+      orderId;
+
+  }
+
+  if(popup){
+
+    popup.classList.add("show");
+
+  }
+
+}
+
+
+/* =========================
+   CLOSE SUCCESS
+========================= */
+
+function closeOrderSuccess(){
+
+  const popup =
+    document.getElementById(
+      "orderSuccessPopup"
+    );
+
+  if(popup){
+
+    popup.classList.remove("show");
+
+  }
+
+}
+
+
+/* =========================
+   TRACK ORDER
+========================= */
+
+function trackFashionOrder(){
+
+  const input =
+    document.getElementById(
+      "orderTrackingInput"
+    );
+
+  const result =
+    document.getElementById(
+      "orderTrackingResult"
+    );
+
+  const orderId =
+    document.getElementById(
+      "trackingOrderId"
+    );
+
+  const status =
+    document.getElementById(
+      "trackingStatus"
+    );
+
+
+  if(!input || !result) return;
+
+
+  const value =
+    input.value.trim();
+
+
+  if(value === ""){
+
+    alert(
+      "Please enter your Order ID."
+    );
+
+    input.focus();
+
+    return;
+
+  }
+
+
+  if(orderId){
+
+    orderId.innerText =
+      value.toUpperCase();
+
+  }
+
+
+  if(status){
+
+    status.innerText =
+      "Processing";
+
+  }
+
+
+  result.classList.add("show");
+
+}
+
+
+/* =========================
+   ENTER KEY TRACKING
+========================= */
+
+const trackingInput =
+  document.getElementById(
+    "orderTrackingInput"
+  );
+
+if(trackingInput){
+
+  trackingInput.addEventListener(
+    "keydown",
+    function(event){
+
+      if(event.key === "Enter"){
+
+        trackFashionOrder();
+
+      }
+
+    }
+  );
+
+}
+
+</script>
 </body>
                          </html>
