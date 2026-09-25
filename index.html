@@ -6215,5 +6215,1946 @@ window.addEventListener(
 );
 
 </script>
+   <!-- =========================
+     PART 10 - MOBILE NAVIGATION
+========================= -->
+
+<style>
+/* MOBILE BOTTOM NAV */
+.mobile-bottom-nav{
+  display:none;
+}
+
+@media(max-width:768px){
+
+  body{
+    padding-bottom:72px;
+  }
+
+  .mobile-bottom-nav{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    height:68px;
+    background:#ffffff;
+    border-top:1px solid #eeeeee;
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    z-index:9998;
+    box-shadow:0 -5px 20px rgba(0,0,0,.06);
+  }
+
+  .mobile-nav-item{
+    border:0;
+    background:none;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    color:#555;
+    font-size:11px;
+    font-weight:600;
+    cursor:pointer;
+    min-width:55px;
+  }
+
+  .mobile-nav-item span:first-child{
+    font-size:21px;
+    line-height:20px;
+  }
+
+  .mobile-nav-item.active{
+    color:#111;
+  }
+
+  .mobile-nav-item:hover{
+    color:#111;
+  }
+
+  .mobile-cart-count{
+    position:absolute;
+    top:8px;
+    margin-left:22px;
+    background:#111;
+    color:#fff;
+    width:17px;
+    height:17px;
+    border-radius:50%;
+    font-size:9px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .mobile-quick-search{
+    position:fixed;
+    left:12px;
+    right:12px;
+    bottom:78px;
+    background:#fff;
+    border:1px solid #eee;
+    border-radius:16px;
+    padding:10px;
+    display:none;
+    z-index:9997;
+    box-shadow:0 10px 30px rgba(0,0,0,.12);
+  }
+
+  .mobile-quick-search.show{
+    display:block;
+  }
+
+  .mobile-quick-search input{
+    width:100%;
+    height:44px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    padding:0 14px;
+    font-size:14px;
+    outline:none;
+  }
+}
+</style>
+
+
+<!-- MOBILE QUICK SEARCH -->
+<div class="mobile-quick-search" id="mobileQuickSearch">
+  <input
+    type="text"
+    id="mobileSearchInput"
+    placeholder="Search products..."
+    oninput="mobileSearchProducts()"
+  >
+</div>
+
+
+<!-- MOBILE BOTTOM NAV -->
+<div class="mobile-bottom-nav">
+
+  <button class="mobile-nav-item active" onclick="mobileGoHome()">
+    <span>⌂</span>
+    <span>Home</span>
+  </button>
+
+  <button class="mobile-nav-item" onclick="mobileOpenSearch()">
+    <span>⌕</span>
+    <span>Search</span>
+  </button>
+
+  <button class="mobile-nav-item" onclick="mobileGoShop()">
+    <span>◉</span>
+    <span>Shop</span>
+  </button>
+
+  <button class="mobile-nav-item" onclick="openWishlistFromMobile()">
+    <span>♡</span>
+    <span>Wishlist</span>
+  </button>
+
+  <button class="mobile-nav-item" onclick="openCart()">
+    <span style="position:relative;">
+      🛒
+      <span class="mobile-cart-count" id="mobileCartCount">0</span>
+    </span>
+    <span>Cart</span>
+  </button>
+
+</div>
+
+
+<script>
+
+/* =========================
+   MOBILE HOME
+========================= */
+
+function mobileGoHome(){
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* =========================
+   MOBILE SHOP
+========================= */
+
+function mobileGoShop(){
+
+  const shopSection =
+    document.getElementById("shop") ||
+    document.getElementById("products");
+
+  if(shopSection){
+
+    shopSection.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+
+  }else{
+
+    const productSection =
+      document.querySelector(".products-section") ||
+      document.querySelector("#products");
+
+    if(productSection){
+      productSection.scrollIntoView({
+        behavior:"smooth"
+      });
+    }
+
+  }
+
+}
+
+
+/* =========================
+   MOBILE SEARCH
+========================= */
+
+function mobileOpenSearch(){
+
+  const box =
+    document.getElementById("mobileQuickSearch");
+
+  if(!box) return;
+
+  box.classList.toggle("show");
+
+  if(box.classList.contains("show")){
+
+    setTimeout(function(){
+
+      const input =
+        document.getElementById("mobileSearchInput");
+
+      if(input){
+        input.focus();
+      }
+
+    },100);
+
+  }
+
+}
+
+
+/* =========================
+   MOBILE SEARCH PRODUCTS
+========================= */
+
+function mobileSearchProducts(){
+
+  const input =
+    document.getElementById("mobileSearchInput");
+
+  if(!input) return;
+
+  const value =
+    input.value.toLowerCase().trim();
+
+  const products =
+    document.querySelectorAll(".product-card");
+
+  products.forEach(function(card){
+
+    const text =
+      card.innerText.toLowerCase();
+
+    if(value === "" || text.includes(value)){
+
+      card.style.display = "";
+
+    }else{
+
+      card.style.display = "none";
+
+    }
+
+  });
+
+}
+
+
+/* =========================
+   MOBILE WISHLIST
+========================= */
+
+function openWishlistFromMobile(){
+
+  const wishlist =
+    document.querySelector(".wishlist-items");
+
+  if(wishlist){
+
+    wishlist.scrollIntoView({
+      behavior:"smooth"
+    });
+
+  }else{
+
+    alert(
+      "Your wishlist items will appear here."
+    );
+
+  }
+
+}
+
+
+/* =========================
+   UPDATE MOBILE CART COUNT
+========================= */
+
+function updateMobileCartCount(){
+
+  const countElement =
+    document.getElementById("mobileCartCount");
+
+  if(!countElement) return;
+
+  let total = 0;
+
+  if(typeof cart !== "undefined"){
+
+    cart.forEach(function(item){
+
+      total += Number(item.quantity || 1);
+
+    });
+
+  }
+
+  countElement.innerText = total;
+
+}
+
+
+/* =========================
+   KEEP CART COUNT UPDATED
+========================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    updateMobileCartCount();
+
+  }
+);
+
+
+/* Update whenever cart functions are used */
+const originalUpdateCartBadge =
+  window.updateCartBadge;
+
+if(typeof originalUpdateCartBadge === "function"){
+
+  window.updateCartBadge = function(){
+
+    originalUpdateCartBadge();
+
+    updateMobileCartCount();
+
+  };
+
+}
+
+
+/* =========================
+   CLOSE SEARCH ON SCROLL
+========================= */
+
+window.addEventListener(
+  "scroll",
+  function(){
+
+    const box =
+      document.getElementById("mobileQuickSearch");
+
+    if(box){
+
+      box.classList.remove("show");
+
+    }
+
+  }
+);
+
+</script>
+   <!-- =========================
+     PART 11 - PRODUCT FILTER
+========================= -->
+
+<style>
+
+.category-filter-section{
+  padding:70px 20px 30px;
+  background:#fff;
+}
+
+.category-filter-wrap{
+  max-width:1200px;
+  margin:auto;
+}
+
+.category-filter-title{
+  text-align:center;
+  margin-bottom:28px;
+}
+
+.category-filter-title h2{
+  font-size:30px;
+  margin:0 0 8px;
+  color:#111;
+}
+
+.category-filter-title p{
+  color:#777;
+  font-size:14px;
+  margin:0;
+}
+
+.filter-bar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:28px;
+  flex-wrap:wrap;
+}
+
+.filter-buttons{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.filter-btn{
+  border:1px solid #ddd;
+  background:#fff;
+  padding:10px 16px;
+  border-radius:30px;
+  cursor:pointer;
+  font-size:13px;
+  font-weight:600;
+  transition:.2s;
+}
+
+.filter-btn:hover,
+.filter-btn.active{
+  background:#111;
+  color:#fff;
+  border-color:#111;
+}
+
+.sort-select{
+  border:1px solid #ddd;
+  background:#fff;
+  padding:10px 14px;
+  border-radius:8px;
+  outline:none;
+  font-size:13px;
+  cursor:pointer;
+}
+
+.filter-product-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+}
+
+.filter-product-card{
+  background:#fff;
+  border:1px solid #eee;
+  border-radius:14px;
+  overflow:hidden;
+  transition:.25s;
+}
+
+.filter-product-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.filter-product-image{
+  width:100%;
+  height:280px;
+  object-fit:cover;
+  display:block;
+}
+
+.filter-product-info{
+  padding:15px;
+}
+
+.filter-product-brand{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:#888;
+  margin-bottom:5px;
+}
+
+.filter-product-name{
+  font-size:15px;
+  font-weight:600;
+  color:#111;
+  margin-bottom:8px;
+}
+
+.filter-product-price{
+  font-size:16px;
+  font-weight:700;
+}
+
+.filter-product-old{
+  font-size:12px;
+  color:#999;
+  text-decoration:line-through;
+  margin-left:5px;
+}
+
+.filter-product-btn{
+  width:100%;
+  margin-top:12px;
+  padding:11px;
+  border:0;
+  background:#111;
+  color:#fff;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.no-products{
+  display:none;
+  text-align:center;
+  padding:40px 10px;
+  color:#777;
+  grid-column:1/-1;
+}
+
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  .category-filter-section{
+    padding:45px 14px 25px;
+  }
+
+  .category-filter-title h2{
+    font-size:24px;
+  }
+
+  .filter-bar{
+    align-items:flex-start;
+  }
+
+  .filter-buttons{
+    width:100%;
+    overflow-x:auto;
+    flex-wrap:nowrap;
+    padding-bottom:5px;
+  }
+
+  .filter-btn{
+    white-space:nowrap;
+    padding:9px 14px;
+  }
+
+  .sort-select{
+    width:100%;
+  }
+
+  .filter-product-grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+  }
+
+  .filter-product-image{
+    height:210px;
+  }
+
+  .filter-product-info{
+    padding:11px;
+  }
+
+  .filter-product-name{
+    font-size:13px;
+  }
+
+  .filter-product-price{
+    font-size:14px;
+  }
+
+  .filter-product-btn{
+    font-size:12px;
+    padding:9px;
+  }
+
+}
+
+</style>
+
+
+<!-- =========================
+     CATEGORY FILTER SECTION
+========================= -->
+
+<section class="category-filter-section" id="categoryShop">
+
+  <div class="category-filter-wrap">
+
+    <div class="category-filter-title">
+
+      <h2>Shop Our Collection</h2>
+
+      <p>
+        Find your perfect style from PATTERN वाली × MODERN नारी
+      </p>
+
+    </div>
+
+
+    <div class="filter-bar">
+
+      <div class="filter-buttons">
+
+        <button
+          class="filter-btn active"
+          onclick="filterFashionProducts('all',this)"
+        >
+          All
+        </button>
+
+        <button
+          class="filter-btn"
+          onclick="filterFashionProducts('kurtis',this)"
+        >
+          Kurtis
+        </button>
+
+        <button
+          class="filter-btn"
+          onclick="filterFashionProducts('dresses',this)"
+        >
+          Dresses
+        </button>
+
+        <button
+          class="filter-btn"
+          onclick="filterFashionProducts('ethnic',this)"
+        >
+          Ethnic
+        </button>
+
+        <button
+          class="filter-btn"
+          onclick="filterFashionProducts('tops',this)"
+        >
+          Tops
+        </button>
+
+        <button
+          class="filter-btn"
+          onclick="filterFashionProducts('accessories',this)"
+        >
+          Accessories
+        </button>
+
+      </div>
+
+
+      <select
+        class="sort-select"
+        id="fashionSort"
+        onchange="sortFashionProducts()"
+      >
+
+        <option value="default">
+          Sort: Featured
+        </option>
+
+        <option value="low">
+          Price: Low to High
+        </option>
+
+        <option value="high">
+          Price: High to Low
+        </option>
+
+        <option value="name">
+          Name: A to Z
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div
+      class="filter-product-grid"
+      id="filterProductGrid"
+    >
+
+      <!-- PRODUCT 1 -->
+
+      <div
+        class="filter-product-card"
+        data-category="kurtis"
+        data-price="1299"
+        data-name="Printed Everyday Kurti"
+      >
+
+        <img
+          class="filter-product-image"
+          src="https://images.unsplash.com/photo-1583391733956-6c78276477e2?auto=format&fit=crop&w=800&q=80"
+          alt="Printed Everyday Kurti"
+        >
+
+        <div class="filter-product-info">
+
+          <div class="filter-product-brand">
+            PATTERN वाली
+          </div>
+
+          <div class="filter-product-name">
+            Printed Everyday Kurti
+          </div>
+
+          <div>
+            <span class="filter-product-price">
+              ₹1,299
+            </span>
+
+            <span class="filter-product-old">
+              ₹1,699
+            </span>
+          </div>
+
+          <button
+            class="filter-product-btn"
+            onclick="addToCart('Printed Everyday Kurti',1299)"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- PRODUCT 2 -->
+
+      <div
+        class="filter-product-card"
+        data-category="ethnic"
+        data-price="1899"
+        data-name="Elegant Ethnic Set"
+      >
+
+        <img
+          class="filter-product-image"
+          src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80"
+          alt="Elegant Ethnic Set"
+        >
+
+        <div class="filter-product-info">
+
+          <div class="filter-product-brand">
+            MODERN नारी
+          </div>
+
+          <div class="filter-product-name">
+            Elegant Ethnic Set
+          </div>
+
+          <div>
+
+            <span class="filter-product-price">
+              ₹1,899
+            </span>
+
+            <span class="filter-product-old">
+              ₹2,499
+            </span>
+
+          </div>
+
+          <button
+            class="filter-product-btn"
+            onclick="addToCart('Elegant Ethnic Set',1899)"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- PRODUCT 3 -->
+
+      <div
+        class="filter-product-card"
+        data-category="dresses"
+        data-price="1599"
+        data-name="Modern Everyday Dress"
+      >
+
+        <img
+          class="filter-product-image"
+          src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80"
+          alt="Modern Everyday Dress"
+        >
+
+        <div class="filter-product-info">
+
+          <div class="filter-product-brand">
+            MODERN नारी
+          </div>
+
+          <div class="filter-product-name">
+            Modern Everyday Dress
+          </div>
+
+          <div>
+
+            <span class="filter-product-price">
+              ₹1,599
+            </span>
+
+            <span class="filter-product-old">
+              ₹2,099
+            </span>
+
+          </div>
+
+          <button
+            class="filter-product-btn"
+            onclick="addToCart('Modern Everyday Dress',1599)"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- PRODUCT 4 -->
+
+      <div
+        class="filter-product-card"
+        data-category="tops"
+        data-price="999"
+        data-name="Soft Casual Top"
+      >
+
+        <img
+          class="filter-product-image"
+          src="https://images.unsplash.com/photo-1564257577054-7f5d5b3f0b4a?auto=format&fit=crop&w=800&q=80"
+          alt="Soft Casual Top"
+        >
+
+        <div class="filter-product-info">
+
+          <div class="filter-product-brand">
+            PATTERN वाली
+          </div>
+
+          <div class="filter-product-name">
+            Soft Casual Top
+          </div>
+
+          <div>
+
+            <span class="filter-product-price">
+              ₹999
+            </span>
+
+            <span class="filter-product-old">
+              ₹1,299
+            </span>
+
+          </div>
+
+          <button
+            class="filter-product-btn"
+            onclick="addToCart('Soft Casual Top',999)"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- PRODUCT 5 -->
+
+      <div
+        class="filter-product-card"
+        data-category="ethnic"
+        data-price="2199"
+        data-name="Premium Ethnic Collection"
+      >
+
+        <img
+          class="filter-product-image"
+          src="https://images.unsplash.com/photo-1585488437490-5b3f6f3e2a5a?auto=format&fit=crop&w=800&q=80"
+          alt="Premium Ethnic Collection"
+        >
+
+        <div class="filter-product-info">
+
+          <div class="filter-product-brand">
+            PATTERN वाली
+          </div>
+
+          <div class="filter-product-name">
+            Premium Ethnic Collection
+          </div>
+
+          <div>
+
+            <span class="filter-product-price">
+              ₹2,199
+            </span>
+
+            <span class="filter-product-old">
+              ₹2,799
+            </span>
+
+          </div>
+
+          <button
+            class="filter-product-btn"
+            onclick="addToCart('Premium Ethnic Collection',2199)"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- PRODUCT 6 -->
+
+      <div
+        class="filter-product-card"
+        data-category="dresses"
+        data-price="2299"
+        data-name="Signature Modern Dress"
+      >
+
+        <img
+          class="filter-product-image"
+          src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&w=800&q=80"
+          alt="Signature Modern Dress"
+        >
+
+        <div class="filter-product-info">
+
+          <div class="filter-product-brand">
+            MODERN नारी
+          </div>
+
+          <div class="filter-product-name">
+            Signature Modern Dress
+          </div>
+
+          <div>
+
+            <span class="filter-product-price">
+              ₹2,299
+            </span>
+
+            <span class="filter-product-old">
+              ₹2,999
+            </span>
+
+          </div>
+
+          <button
+            class="filter-product-btn"
+            onclick="addToCart('Signature Modern Dress',2299)"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- PRODUCT 7 -->
+
+      <div
+        class="filter-product-card"
+        data-category="accessories"
+        data-price="699"
+        data-name="Minimal Fashion Accessory"
+      >
+
+        <img
+          class="filter-product-image"
+          src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=800&q=80"
+          alt="Minimal Fashion Accessory"
+        >
+
+        <div class="filter-product-info">
+
+          <div class="filter-product-brand">
+            MODERN नारी
+          </div>
+
+          <div class="filter-product-name">
+            Minimal Fashion Accessory
+          </div>
+
+          <div>
+
+            <span class="filter-product-price">
+              ₹699
+            </span>
+
+            <span class="filter-product-old">
+              ₹899
+            </span>
+
+          </div>
+
+          <button
+            class="filter-product-btn"
+            onclick="addToCart('Minimal Fashion Accessory',699)"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- PRODUCT 8 -->
+
+      <div
+        class="filter-product-card"
+        data-category="kurtis"
+        data-price="1499"
+        data-name="Floral Everyday Kurti"
+      >
+
+        <img
+          class="filter-product-image"
+          src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=800&q=80"
+          alt="Floral Everyday Kurti"
+        >
+
+        <div class="filter-product-info">
+
+          <div class="filter-product-brand">
+            PATTERN वाली
+          </div>
+
+          <div class="filter-product-name">
+            Floral Everyday Kurti
+          </div>
+
+          <div>
+
+            <span class="filter-product-price">
+              ₹1,499
+            </span>
+
+            <span class="filter-product-old">
+              ₹1,899
+            </span>
+
+          </div>
+
+          <button
+            class="filter-product-btn"
+            onclick="addToCart('Floral Everyday Kurti',1499)"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="no-products"
+        id="noFashionProducts"
+      >
+        No products found.
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<script>
+
+/* =========================
+   FILTER PRODUCTS
+========================= */
+
+function filterFashionProducts(category,button){
+
+  const products =
+    document.querySelectorAll(
+      "#filterProductGrid .filter-product-card"
+    );
+
+  const buttons =
+    document.querySelectorAll(
+      ".filter-buttons .filter-btn"
+    );
+
+  buttons.forEach(function(btn){
+
+    btn.classList.remove("active");
+
+  });
+
+  if(button){
+    button.classList.add("active");
+  }
+
+  let visibleCount = 0;
+
+  products.forEach(function(product){
+
+    const productCategory =
+      product.getAttribute("data-category");
+
+    if(
+      category === "all" ||
+      productCategory === category
+    ){
+
+      product.style.display = "";
+
+      visibleCount++;
+
+    }else{
+
+      product.style.display = "none";
+
+    }
+
+  });
+
+  const noProducts =
+    document.getElementById("noFashionProducts");
+
+  if(noProducts){
+
+    noProducts.style.display =
+      visibleCount === 0 ? "block" : "none";
+
+  }
+
+}
+
+
+/* =========================
+   SORT PRODUCTS
+========================= */
+
+function sortFashionProducts(){
+
+  const grid =
+    document.getElementById("filterProductGrid");
+
+  const select =
+    document.getElementById("fashionSort");
+
+  if(!grid || !select) return;
+
+  const value = select.value;
+
+  const products =
+    Array.from(
+      grid.querySelectorAll(
+        ".filter-product-card"
+      )
+    );
+
+  products.sort(function(a,b){
+
+    const priceA =
+      Number(a.getAttribute("data-price"));
+
+    const priceB =
+      Number(b.getAttribute("data-price"));
+
+    const nameA =
+      a.getAttribute("data-name").toLowerCase();
+
+    const nameB =
+      b.getAttribute("data-name").toLowerCase();
+
+    if(value === "low"){
+      return priceA - priceB;
+    }
+
+    if(value === "high"){
+      return priceB - priceA;
+    }
+
+    if(value === "name"){
+      return nameA.localeCompare(nameB);
+    }
+
+    return 0;
+
+  });
+
+  const noProducts =
+    document.getElementById("noFashionProducts");
+
+  products.forEach(function(product){
+
+    grid.appendChild(product);
+
+  });
+
+  if(noProducts){
+    grid.appendChild(noProducts);
+  }
+
+}
+
+
+/* =========================
+   CATEGORY SHOP BUTTON
+========================= */
+
+function openCategoryShop(){
+
+  const section =
+    document.getElementById("categoryShop");
+
+  if(section){
+
+    section.scrollIntoView({
+      behavior:"smooth"
+    });
+
+  }
+
+}
+
+</script>
+   <!-- =========================
+     PART 12 - SIZE SELECTOR + QUICK VIEW
+========================= -->
+
+<style>
+
+.size-section{
+  padding:70px 20px;
+  background:#fafafa;
+}
+
+.size-container{
+  max-width:1100px;
+  margin:auto;
+}
+
+.size-heading{
+  text-align:center;
+  margin-bottom:30px;
+}
+
+.size-heading h2{
+  font-size:30px;
+  margin:0 0 8px;
+  color:#111;
+}
+
+.size-heading p{
+  color:#777;
+  font-size:14px;
+  margin:0;
+}
+
+.size-product-box{
+  background:#fff;
+  border:1px solid #eee;
+  border-radius:18px;
+  padding:25px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:30px;
+  align-items:center;
+}
+
+.size-product-image{
+  width:100%;
+  height:430px;
+  object-fit:cover;
+  border-radius:14px;
+}
+
+.size-product-details h3{
+  font-size:25px;
+  margin:0 0 10px;
+}
+
+.size-product-details p{
+  color:#666;
+  line-height:1.7;
+  font-size:14px;
+}
+
+.size-price{
+  font-size:22px;
+  font-weight:700;
+  margin:15px 0;
+}
+
+.size-old-price{
+  font-size:14px;
+  color:#999;
+  text-decoration:line-through;
+  margin-left:8px;
+}
+
+.size-label{
+  display:block;
+  font-size:13px;
+  font-weight:700;
+  margin:20px 0 10px;
+}
+
+.size-options{
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+}
+
+.size-option{
+  width:48px;
+  height:42px;
+  border:1px solid #ddd;
+  background:#fff;
+  border-radius:7px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.size-option:hover,
+.size-option.active{
+  background:#111;
+  color:#fff;
+  border-color:#111;
+}
+
+.size-guide{
+  margin-top:12px;
+  display:inline-block;
+  font-size:12px;
+  color:#555;
+  text-decoration:underline;
+  cursor:pointer;
+}
+
+.quick-view-btn{
+  margin-top:20px;
+  width:100%;
+  padding:13px;
+  border:0;
+  border-radius:8px;
+  background:#111;
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.quick-view-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  z-index:10020;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+}
+
+.quick-view-overlay.show{
+  display:flex;
+}
+
+.quick-view-box{
+  width:100%;
+  max-width:900px;
+  max-height:90vh;
+  overflow:auto;
+  background:#fff;
+  border-radius:18px;
+  position:relative;
+  padding:25px;
+}
+
+.quick-view-close{
+  position:absolute;
+  right:15px;
+  top:12px;
+  width:38px;
+  height:38px;
+  border:0;
+  border-radius:50%;
+  background:#f3f3f3;
+  font-size:22px;
+  cursor:pointer;
+}
+
+.quick-view-content{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:25px;
+  align-items:center;
+}
+
+.quick-view-content img{
+  width:100%;
+  height:400px;
+  object-fit:cover;
+  border-radius:12px;
+}
+
+.quick-view-content h3{
+  font-size:26px;
+  margin-bottom:10px;
+}
+
+.quick-view-brand{
+  color:#888;
+  font-size:12px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  margin-bottom:8px;
+}
+
+.quick-view-price{
+  font-size:22px;
+  font-weight:700;
+  margin:15px 0;
+}
+
+.quick-view-size{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin:12px 0 20px;
+}
+
+.quick-size{
+  width:45px;
+  height:40px;
+  border:1px solid #ddd;
+  background:#fff;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.quick-size.active{
+  background:#111;
+  color:#fff;
+}
+
+.quick-add-btn{
+  width:100%;
+  padding:13px;
+  background:#111;
+  color:#fff;
+  border:0;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:700;
+}
+
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  .size-section{
+    padding:45px 14px;
+  }
+
+  .size-heading h2{
+    font-size:24px;
+  }
+
+  .size-product-box{
+    grid-template-columns:1fr;
+    padding:15px;
+    gap:20px;
+  }
+
+  .size-product-image{
+    height:330px;
+  }
+
+  .size-product-details h3{
+    font-size:21px;
+  }
+
+  .quick-view-box{
+    padding:18px;
+    border-radius:14px;
+  }
+
+  .quick-view-content{
+    grid-template-columns:1fr;
+    gap:18px;
+  }
+
+  .quick-view-content img{
+    height:300px;
+  }
+
+  .quick-view-content h3{
+    font-size:21px;
+  }
+
+}
+
+</style>
+
+
+<!-- =========================
+     SIZE SECTION
+========================= -->
+
+<section class="size-section" id="sizeGuideSection">
+
+  <div class="size-container">
+
+    <div class="size-heading">
+
+      <h2>Find Your Perfect Fit</h2>
+
+      <p>
+        Choose the right size and shop with confidence.
+      </p>
+
+    </div>
+
+
+    <div class="size-product-box">
+
+      <img
+        class="size-product-image"
+        src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=900&q=80"
+        alt="Fashion Collection"
+      >
+
+
+      <div class="size-product-details">
+
+        <div class="size-product-brand">
+          PATTERN वाली
+        </div>
+
+        <h3>
+          Floral Everyday Collection
+        </h3>
+
+        <p>
+          Comfortable everyday fashion designed with a
+          simple, elegant and modern look.
+        </p>
+
+        <div class="size-price">
+          ₹1,499
+          <span class="size-old-price">
+            ₹1,899
+          </span>
+        </div>
+
+
+        <label class="size-label">
+          Select Size
+        </label>
+
+        <div class="size-options">
+
+          <button
+            class="size-option"
+            onclick="selectMainSize(this)"
+          >
+            XS
+          </button>
+
+          <button
+            class="size-option"
+            onclick="selectMainSize(this)"
+          >
+            S
+          </button>
+
+          <button
+            class="size-option"
+            onclick="selectMainSize(this)"
+          >
+            M
+          </button>
+
+          <button
+            class="size-option"
+            onclick="selectMainSize(this)"
+          >
+            L
+          </button>
+
+          <button
+            class="size-option"
+            onclick="selectMainSize(this)"
+          >
+            XL
+          </button>
+
+          <button
+            class="size-option"
+            onclick="selectMainSize(this)"
+          >
+            XXL
+          </button>
+
+        </div>
+
+
+        <span
+          class="size-guide"
+          onclick="showSizeGuide()"
+        >
+          View Size Guide
+        </span>
+
+
+        <button
+          class="quick-view-btn"
+          onclick="openFashionQuickView()"
+        >
+          QUICK VIEW
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     QUICK VIEW MODAL
+========================= -->
+
+<div
+  class="quick-view-overlay"
+  id="fashionQuickView"
+  onclick="closeFashionQuickView(event)"
+>
+
+  <div
+    class="quick-view-box"
+    onclick="event.stopPropagation()"
+  >
+
+    <button
+      class="quick-view-close"
+      onclick="closeFashionQuickView()"
+    >
+      ×
+    </button>
+
+
+    <div class="quick-view-content">
+
+      <img
+        src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=900&q=80"
+        alt="Floral Everyday Collection"
+      >
+
+
+      <div>
+
+        <div class="quick-view-brand">
+          PATTERN वाली
+        </div>
+
+        <h3>
+          Floral Everyday Collection
+        </h3>
+
+        <div class="quick-view-price">
+          ₹1,499
+        </div>
+
+        <p>
+          A comfortable and stylish everyday collection
+          made for a simple, confident and elegant look.
+        </p>
+
+
+        <strong>
+          Select Size
+        </strong>
+
+        <div class="quick-view-size">
+
+          <button
+            class="quick-size"
+            onclick="selectQuickSize(this)"
+          >
+            XS
+          </button>
+
+          <button
+            class="quick-size"
+            onclick="selectQuickSize(this)"
+          >
+            S
+          </button>
+
+          <button
+            class="quick-size"
+            onclick="selectQuickSize(this)"
+          >
+            M
+          </button>
+
+          <button
+            class="quick-size"
+            onclick="selectQuickSize(this)"
+          >
+            L
+          </button>
+
+          <button
+            class="quick-size"
+            onclick="selectQuickSize(this)"
+          >
+            XL
+          </button>
+
+          <button
+            class="quick-size"
+            onclick="selectQuickSize(this)"
+          >
+            XXL
+          </button>
+
+        </div>
+
+
+        <button
+          class="quick-add-btn"
+          onclick="addQuickViewProduct()"
+        >
+          ADD TO CART
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   MAIN SIZE SELECTION
+========================= */
+
+let selectedFashionSize = "";
+
+
+function selectMainSize(button){
+
+  document
+    .querySelectorAll(".size-option")
+    .forEach(function(btn){
+
+      btn.classList.remove("active");
+
+    });
+
+
+  button.classList.add("active");
+
+  selectedFashionSize =
+    button.innerText.trim();
+
+}
+
+
+/* =========================
+   SIZE GUIDE
+========================= */
+
+function showSizeGuide(){
+
+  alert(
+    "SIZE GUIDE\n\n" +
+    "XS - 32\n" +
+    "S  - 34\n" +
+    "M  - 36\n" +
+    "L  - 38\n" +
+    "XL - 40\n" +
+    "XXL - 42\n\n" +
+    "For the best fit, please check your measurements before ordering."
+  );
+
+}
+
+
+/* =========================
+   OPEN QUICK VIEW
+========================= */
+
+function openFashionQuickView(){
+
+  const modal =
+    document.getElementById(
+      "fashionQuickView"
+    );
+
+  if(modal){
+
+    modal.classList.add("show");
+
+    document.body.style.overflow =
+      "hidden";
+
+  }
+
+}
+
+
+/* =========================
+   CLOSE QUICK VIEW
+========================= */
+
+function closeFashionQuickView(event){
+
+  if(
+    event &&
+    event.target &&
+    event.target.id !== "fashionQuickView"
+  ){
+    return;
+  }
+
+  const modal =
+    document.getElementById(
+      "fashionQuickView"
+    );
+
+  if(modal){
+
+    modal.classList.remove("show");
+
+    document.body.style.overflow =
+      "";
+
+  }
+
+}
+
+
+/* =========================
+   QUICK VIEW SIZE
+========================= */
+
+let selectedQuickSize = "";
+
+
+function selectQuickSize(button){
+
+  document
+    .querySelectorAll(".quick-size")
+    .forEach(function(btn){
+
+      btn.classList.remove("active");
+
+    });
+
+
+  button.classList.add("active");
+
+  selectedQuickSize =
+    button.innerText.trim();
+
+}
+
+
+/* =========================
+   ADD QUICK VIEW PRODUCT
+========================= */
+
+function addQuickViewProduct(){
+
+  if(selectedQuickSize === ""){
+
+    alert(
+      "Please select a size first."
+    );
+
+    return;
+
+  }
+
+
+  if(typeof addToCart === "function"){
+
+    addToCart(
+      "Floral Everyday Collection (" +
+      selectedQuickSize +
+      ")",
+      1499
+    );
+
+  }else{
+
+    alert(
+      "Product added to cart."
+    );
+
+  }
+
+
+  closeFashionQuickView();
+
+}
+
+</script>
 </body>
                          </html>
