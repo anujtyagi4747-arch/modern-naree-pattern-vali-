@@ -4931,5 +4931,1289 @@ document.querySelectorAll(
 });
 
 </script>
+   <!-- =========================
+     PART 8 - REVIEWS + INSTAGRAM + CONTACT
+========================= -->
+
+<style>
+
+.reviews-section{
+  padding:75px 20px;
+  background:#f8f7f4;
+}
+
+.reviews-grid{
+  max-width:1100px;
+  margin:40px auto 0;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.review-card{
+  background:#fff;
+  padding:25px;
+  border-radius:14px;
+  border:1px solid #eee;
+}
+
+.review-stars{
+  font-size:14px;
+  letter-spacing:2px;
+  margin-bottom:15px;
+}
+
+.review-card p{
+  color:#666;
+  line-height:1.7;
+  font-size:14px;
+  margin:0 0 20px;
+}
+
+.review-user{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.review-avatar{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:#111;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+}
+
+.review-user strong{
+  display:block;
+  font-size:13px;
+}
+
+.review-user span{
+  display:block;
+  color:#999;
+  font-size:11px;
+  margin-top:3px;
+}
+
+
+/* =========================
+   INSTAGRAM
+========================= */
+
+.instagram-section{
+  padding:75px 20px;
+  background:#fff;
+}
+
+.instagram-grid{
+  max-width:1100px;
+  margin:40px auto 0;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.instagram-item{
+  aspect-ratio:1/1;
+  overflow:hidden;
+  border-radius:10px;
+  position:relative;
+}
+
+.instagram-item img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:.4s ease;
+}
+
+.instagram-item:hover img{
+  transform:scale(1.06);
+}
+
+.instagram-overlay{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.4);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-size:25px;
+  opacity:0;
+  transition:.3s ease;
+}
+
+.instagram-item:hover .instagram-overlay{
+  opacity:1;
+}
+
+.instagram-follow{
+  display:block;
+  width:max-content;
+  margin:25px auto 0;
+  padding:12px 22px;
+  border-radius:8px;
+  background:#111;
+  color:#fff;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:700;
+}
+
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact-section{
+  padding:75px 20px;
+  background:#f8f7f4;
+}
+
+.contact-grid{
+  max-width:1100px;
+  margin:40px auto 0;
+  display:grid;
+  grid-template-columns:.8fr 1.2fr;
+  gap:35px;
+}
+
+.contact-info{
+  background:#111;
+  color:#fff;
+  border-radius:16px;
+  padding:35px;
+}
+
+.contact-info h3{
+  margin:0 0 10px;
+  font-size:25px;
+}
+
+.contact-info > p{
+  color:#bbb;
+  font-size:13px;
+  line-height:1.7;
+  margin-bottom:30px;
+}
+
+.contact-item{
+  display:flex;
+  gap:12px;
+  margin-bottom:20px;
+}
+
+.contact-icon{
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  background:#fff;
+  color:#111;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
+
+.contact-item strong{
+  display:block;
+  font-size:13px;
+  margin-bottom:4px;
+}
+
+.contact-item span{
+  color:#bbb;
+  font-size:12px;
+}
+
+.contact-form-box{
+  background:#fff;
+  border-radius:16px;
+  padding:35px;
+}
+
+.contact-form{
+  display:grid;
+  gap:13px;
+}
+
+.contact-form input,
+.contact-form textarea{
+  width:100%;
+  box-sizing:border-box;
+  border:1px solid #ddd;
+  border-radius:9px;
+  padding:14px;
+  font-family:inherit;
+  font-size:14px;
+  outline:none;
+}
+
+.contact-form textarea{
+  min-height:130px;
+  resize:vertical;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus{
+  border-color:#111;
+}
+
+.contact-submit{
+  border:0;
+  background:#111;
+  color:#fff;
+  padding:15px;
+  border-radius:9px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:700px){
+
+  .reviews-section,
+  .instagram-section,
+  .contact-section{
+    padding:55px 16px;
+  }
+
+  .reviews-grid{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+
+  .review-card{
+    padding:22px;
+  }
+
+  .instagram-grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:7px;
+  }
+
+  .contact-grid{
+    grid-template-columns:1fr;
+    gap:18px;
+  }
+
+  .contact-info,
+  .contact-form-box{
+    padding:25px 20px;
+  }
+
+}
+
+</style>
+
+
+<!-- =========================
+     CUSTOMER REVIEWS
+========================= -->
+
+<section class="reviews-section" id="reviews">
+
+  <div class="section-heading">
+
+    <div class="small-title">
+      Customer Love
+    </div>
+
+    <h2>
+      What They Say
+    </h2>
+
+    <p>
+      A few words from our fashion community.
+    </p>
+
+  </div>
+
+
+  <div class="reviews-grid">
+
+
+    <div class="review-card">
+
+      <div class="review-stars">
+        ⭐⭐⭐⭐⭐
+      </div>
+
+      <p>
+        “The collection feels so simple and elegant.
+        I really loved the overall look and quality.”
+      </p>
+
+      <div class="review-user">
+
+        <div class="review-avatar">
+          A
+        </div>
+
+        <div>
+          <strong>
+            Aanya
+          </strong>
+
+          <span>
+            Verified Customer
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="review-card">
+
+      <div class="review-stars">
+        ⭐⭐⭐⭐⭐
+      </div>
+
+      <p>
+        “Beautiful designs and very easy to style.
+        The modern collection is my favourite.”
+      </p>
+
+      <div class="review-user">
+
+        <div class="review-avatar">
+          R
+        </div>
+
+        <div>
+          <strong>
+            Riya
+          </strong>
+
+          <span>
+            Verified Customer
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="review-card">
+
+      <div class="review-stars">
+        ⭐⭐⭐⭐⭐
+      </div>
+
+      <p>
+        “I love the clean and premium feel of the
+        website. The pieces are perfect for everyday.”
+      </p>
+
+      <div class="review-user">
+
+        <div class="review-avatar">
+          N
+        </div>
+
+        <div>
+          <strong>
+            Neha
+          </strong>
+
+          <span>
+            Verified Customer
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     INSTAGRAM
+========================= -->
+
+<section class="instagram-section" id="instagram">
+
+  <div class="section-heading">
+
+    <div class="small-title">
+      Follow Our Style
+    </div>
+
+    <h2>
+      On Instagram
+    </h2>
+
+    <p>
+      Discover our latest looks, collections and
+      everyday fashion inspiration.
+    </p>
+
+  </div>
+
+
+  <div class="instagram-grid">
+
+
+    <div class="instagram-item">
+
+      <img
+        src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=600&q=80"
+        alt="Fashion"
+      >
+
+      <div class="instagram-overlay">
+        ♡
+      </div>
+
+    </div>
+
+
+    <div class="instagram-item">
+
+      <img
+        src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=600&q=80"
+        alt="Fashion"
+      >
+
+      <div class="instagram-overlay">
+        ♡
+      </div>
+
+    </div>
+
+
+    <div class="instagram-item">
+
+      <img
+        src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=600&q=80"
+        alt="Fashion"
+      >
+
+      <div class="instagram-overlay">
+        ♡
+      </div>
+
+    </div>
+
+
+    <div class="instagram-item">
+
+      <img
+        src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80"
+        alt="Fashion"
+      >
+
+      <div class="instagram-overlay">
+        ♡
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+  <a
+    href="#"
+    class="instagram-follow"
+    onclick="openInstagram(); return false;">
+
+    Follow Us on Instagram →
+
+  </a>
+
+</section>
+
+
+<!-- =========================
+     CONTACT
+========================= -->
+
+<section class="contact-section" id="contact">
+
+  <div class="section-heading">
+
+    <div class="small-title">
+      Get In Touch
+    </div>
+
+    <h2>
+      We'd Love To Hear From You
+    </h2>
+
+    <p>
+      Have a question about an order, product or
+      collection? Send us a message.
+    </p>
+
+  </div>
+
+
+  <div class="contact-grid">
+
+
+    <!-- CONTACT INFO -->
+
+    <div class="contact-info">
+
+      <h3>
+        Let's Connect
+      </h3>
+
+      <p>
+        We're here to help with your shopping experience
+        and answer any questions you may have.
+      </p>
+
+
+      <div class="contact-item">
+
+        <div class="contact-icon">
+          ✉
+        </div>
+
+        <div>
+
+          <strong>
+            Email
+          </strong>
+
+          <span>
+            hello@patternvali.com
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="contact-item">
+
+        <div class="contact-icon">
+          ☎
+        </div>
+
+        <div>
+
+          <strong>
+            Phone
+          </strong>
+
+          <span>
+            +91 00000 00000
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="contact-item">
+
+        <div class="contact-icon">
+          ◉
+        </div>
+
+        <div>
+
+          <strong>
+            Location
+          </strong>
+
+          <span>
+            India
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- CONTACT FORM -->
+
+    <div class="contact-form-box">
+
+      <form
+        class="contact-form"
+        onsubmit="submitContactForm(event)">
+
+        <input
+          type="text"
+          id="contactName"
+          placeholder="Your Name"
+          required
+        >
+
+        <input
+          type="email"
+          id="contactEmail"
+          placeholder="Your Email"
+          required
+        >
+
+        <input
+          type="tel"
+          id="contactPhone"
+          placeholder="Mobile Number"
+        >
+
+        <textarea
+          id="contactMessage"
+          placeholder="Write your message..."
+          required>
+        </textarea>
+
+        <button
+          type="submit"
+          class="contact-submit">
+
+          Send Message →
+
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<script>
+
+/* =========================
+   CONTACT FORM
+========================= */
+
+function submitContactForm(event){
+
+  event.preventDefault();
+
+
+  const name =
+    document.getElementById("contactName").value.trim();
+
+  const email =
+    document.getElementById("contactEmail").value.trim();
+
+  const phone =
+    document.getElementById("contactPhone").value.trim();
+
+  const message =
+    document.getElementById("contactMessage").value.trim();
+
+
+  if(!name || !email || !message){
+
+    alert("Please fill all required fields.");
+
+    return;
+  }
+
+
+  alert(
+    "Thank you " +
+    name +
+    "! Your message has been received."
+  );
+
+
+  event.target.reset();
+
+}
+
+
+/* =========================
+   INSTAGRAM
+========================= */
+
+function openInstagram(){
+
+  /*
+    Later replace # with the actual
+    Instagram profile URL.
+  */
+
+  alert(
+    "Instagram profile will be connected here."
+  );
+
+}
+
+</script>
+   <!-- =========================
+     PART 9 - FOOTER
+========================= -->
+
+<style>
+
+.site-footer{
+  background:#111;
+  color:#fff;
+  padding:65px 20px 25px;
+}
+
+.footer-container{
+  max-width:1150px;
+  margin:auto;
+}
+
+.footer-top{
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr 1fr;
+  gap:45px;
+  padding-bottom:45px;
+}
+
+.footer-brand h2{
+  margin:0 0 12px;
+  font-size:24px;
+}
+
+.footer-brand h2 span{
+  font-weight:400;
+}
+
+.footer-brand p{
+  color:#aaa;
+  font-size:13px;
+  line-height:1.7;
+  max-width:300px;
+}
+
+.footer-column h3{
+  margin:0 0 18px;
+  font-size:14px;
+}
+
+.footer-column a{
+  display:block;
+  color:#aaa;
+  text-decoration:none;
+  font-size:13px;
+  margin-bottom:11px;
+  transition:.2s;
+}
+
+.footer-column a:hover{
+  color:#fff;
+}
+
+.footer-social{
+  display:flex;
+  gap:9px;
+  margin-top:20px;
+}
+
+.footer-social a{
+  width:34px;
+  height:34px;
+  border:1px solid #444;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  margin:0;
+  font-size:13px;
+}
+
+.footer-newsletter{
+  border-top:1px solid #333;
+  border-bottom:1px solid #333;
+  padding:28px 0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:30px;
+}
+
+.newsletter-text h3{
+  margin:0 0 7px;
+  font-size:18px;
+}
+
+.newsletter-text p{
+  margin:0;
+  color:#999;
+  font-size:12px;
+}
+
+.newsletter-form{
+  display:flex;
+  width:400px;
+  max-width:100%;
+}
+
+.newsletter-form input{
+  flex:1;
+  min-width:0;
+  border:1px solid #444;
+  background:#1b1b1b;
+  color:#fff;
+  padding:13px;
+  border-radius:7px 0 0 7px;
+  outline:none;
+}
+
+.newsletter-form button{
+  border:0;
+  background:#fff;
+  color:#111;
+  padding:0 18px;
+  border-radius:0 7px 7px 0;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.footer-bottom{
+  padding-top:25px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  color:#777;
+  font-size:11px;
+}
+
+.footer-bottom-links{
+  display:flex;
+  gap:18px;
+}
+
+.footer-bottom-links a{
+  color:#777;
+  text-decoration:none;
+}
+
+.floating-whatsapp{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  background:#111;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:23px;
+  text-decoration:none;
+  z-index:9990;
+  box-shadow:0 5px 20px rgba(0,0,0,.2);
+  cursor:pointer;
+}
+
+.back-to-top{
+  position:fixed;
+  right:18px;
+  bottom:82px;
+  width:40px;
+  height:40px;
+  border:1px solid #ddd;
+  background:#fff;
+  color:#111;
+  border-radius:50%;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  font-size:18px;
+  cursor:pointer;
+  z-index:9990;
+  box-shadow:0 4px 15px rgba(0,0,0,.1);
+}
+
+.back-to-top.show{
+  display:flex;
+}
+
+@media(max-width:750px){
+
+  .site-footer{
+    padding:50px 18px 20px;
+  }
+
+  .footer-top{
+    grid-template-columns:1fr 1fr;
+    gap:30px 20px;
+  }
+
+  .footer-brand{
+    grid-column:1/-1;
+  }
+
+  .footer-newsletter{
+    display:block;
+  }
+
+  .newsletter-text{
+    margin-bottom:18px;
+  }
+
+  .newsletter-form{
+    width:100%;
+  }
+
+  .footer-bottom{
+    display:block;
+    text-align:center;
+  }
+
+  .footer-bottom-links{
+    justify-content:center;
+    margin-top:12px;
+  }
+
+}
+
+@media(max-width:420px){
+
+  .footer-top{
+    grid-template-columns:1fr;
+  }
+
+  .footer-brand{
+    grid-column:auto;
+  }
+
+}
+
+</style>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="site-footer">
+
+  <div class="footer-container">
+
+
+    <div class="footer-top">
+
+
+      <!-- BRAND -->
+
+      <div class="footer-brand">
+
+        <h2>
+          PATTERN <span>वाली</span>
+        </h2>
+
+        <p>
+          Simple, bold and beautiful fashion for
+          the modern woman. Discover everyday styles
+          from PATTERN वाली and MODERN नारी.
+        </p>
+
+
+        <div class="footer-social">
+
+          <a
+            href="#"
+            onclick="openInstagram();return false;">
+            ◎
+          </a>
+
+          <a
+            href="#"
+            onclick="openFooterWhatsApp();return false;">
+            ◉
+          </a>
+
+          <a
+            href="#contact">
+            ✉
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- SHOP -->
+
+      <div class="footer-column">
+
+        <h3>
+          SHOP
+        </h3>
+
+        <a href="#products">
+          All Products
+        </a>
+
+        <a href="#collections">
+          Collections
+        </a>
+
+        <a href="#products">
+          New Arrivals
+        </a>
+
+        <a href="#products">
+          Best Sellers
+        </a>
+
+      </div>
+
+
+      <!-- COMPANY -->
+
+      <div class="footer-column">
+
+        <h3>
+          COMPANY
+        </h3>
+
+        <a href="#about-pattern">
+          About PATTERN वाली
+        </a>
+
+        <a href="#about-modern">
+          About MODERN नारी
+        </a>
+
+        <a href="#why-us">
+          Why Us
+        </a>
+
+        <a href="#contact">
+          Contact
+        </a>
+
+      </div>
+
+
+      <!-- HELP -->
+
+      <div class="footer-column">
+
+        <h3>
+          HELP
+        </h3>
+
+        <a href="#">
+          Shipping & Delivery
+        </a>
+
+        <a href="#">
+          Returns & Exchange
+        </a>
+
+        <a href="#">
+          Privacy Policy
+        </a>
+
+        <a href="#">
+          Terms & Conditions
+        </a>
+
+      </div>
+
+
+    </div>
+
+
+    <!-- NEWSLETTER -->
+
+    <div class="footer-newsletter">
+
+      <div class="newsletter-text">
+
+        <h3>
+          Stay in the style loop.
+        </h3>
+
+        <p>
+          Subscribe for new collections and updates.
+        </p>
+
+      </div>
+
+
+      <form
+        class="newsletter-form"
+        onsubmit="subscribeNewsletter(event)">
+
+        <input
+          type="email"
+          id="newsletterEmail"
+          placeholder="Your email address"
+          required
+        >
+
+        <button type="submit">
+          Join
+        </button>
+
+      </form>
+
+    </div>
+
+
+    <!-- BOTTOM -->
+
+    <div class="footer-bottom">
+
+      <div>
+        © 2026 PATTERN वाली × MODERN नारी.
+        All rights reserved.
+      </div>
+
+
+      <div class="footer-bottom-links">
+
+        <a href="#">
+          Privacy
+        </a>
+
+        <a href="#">
+          Terms
+        </a>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</footer>
+
+
+<!-- =========================
+     FLOATING WHATSAPP
+========================= -->
+
+<a
+  href="#"
+  class="floating-whatsapp"
+  onclick="openFooterWhatsApp();return false;"
+  aria-label="WhatsApp">
+
+  ◉
+
+</a>
+
+
+<!-- =========================
+     BACK TO TOP
+========================= -->
+
+<button
+  class="back-to-top"
+  id="backToTop"
+  onclick="window.scrollTo({top:0,behavior:'smooth'})">
+
+  ↑
+
+</button>
+
+
+<script>
+
+/* =========================
+   NEWSLETTER
+========================= */
+
+function subscribeNewsletter(event){
+
+  event.preventDefault();
+
+  const email =
+    document.getElementById("newsletterEmail")
+    .value.trim();
+
+  if(!email) return;
+
+  alert(
+    "Thank you for subscribing!"
+  );
+
+  event.target.reset();
+
+}
+
+
+/* =========================
+   FOOTER WHATSAPP
+========================= */
+
+function openFooterWhatsApp(){
+
+  /*
+    Later replace this demo number
+    with the client's real WhatsApp number.
+  */
+
+  const number =
+    "919999999999";
+
+  const message =
+    encodeURIComponent(
+      "Hello, I am interested in PATTERN वाली × MODERN नारी."
+    );
+
+  window.open(
+    "https://wa.me/" +
+    number +
+    "?text=" +
+    message,
+    "_blank"
+  );
+
+}
+
+
+/* =========================
+   BACK TO TOP
+========================= */
+
+window.addEventListener(
+  "scroll",
+  function(){
+
+    const button =
+      document.getElementById("backToTop");
+
+    if(!button) return;
+
+    if(window.scrollY > 500){
+
+      button.classList.add("show");
+
+    }else{
+
+      button.classList.remove("show");
+
+    }
+
+  }
+);
+
+</script>
 </body>
                          </html>
