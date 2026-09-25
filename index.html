@@ -14666,5 +14666,1879 @@ document.addEventListener(
 );
 
 </script>
+   <!-- =========================
+     PART 24 - PRODUCT COMPARISON
+========================= -->
+
+<style>
+.compare-section{
+  padding:50px 16px;
+  background:#fff;
+}
+
+.compare-head{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.compare-head h2{
+  font-size:28px;
+  margin:0 0 8px;
+  font-weight:800;
+}
+
+.compare-head p{
+  color:#777;
+  font-size:14px;
+  margin:0;
+}
+
+.compare-selected{
+  display:flex;
+  gap:12px;
+  overflow-x:auto;
+  padding:5px 0 15px;
+  scrollbar-width:none;
+}
+
+.compare-selected::-webkit-scrollbar{
+  display:none;
+}
+
+.compare-product{
+  min-width:145px;
+  border:1px solid #eee;
+  border-radius:14px;
+  padding:10px;
+  background:#fff;
+  position:relative;
+}
+
+.compare-product img{
+  width:100%;
+  height:150px;
+  object-fit:cover;
+  border-radius:10px;
+}
+
+.compare-product h4{
+  font-size:14px;
+  margin:8px 0 4px;
+}
+
+.compare-product p{
+  font-size:13px;
+  margin:0;
+  font-weight:700;
+}
+
+.compare-remove{
+  position:absolute;
+  right:7px;
+  top:7px;
+  width:25px;
+  height:25px;
+  border:none;
+  border-radius:50%;
+  background:#111;
+  color:#fff;
+  cursor:pointer;
+}
+
+.compare-actions{
+  display:flex;
+  gap:10px;
+  margin-top:18px;
+}
+
+.compare-btn{
+  flex:1;
+  border:none;
+  padding:13px;
+  border-radius:10px;
+  background:#111;
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.compare-clear{
+  background:#eee;
+  color:#111;
+}
+
+.compare-table-wrap{
+  margin-top:25px;
+  overflow-x:auto;
+  display:none;
+}
+
+.compare-table{
+  width:100%;
+  min-width:620px;
+  border-collapse:collapse;
+  background:#fff;
+}
+
+.compare-table th,
+.compare-table td{
+  border:1px solid #eee;
+  padding:14px;
+  text-align:center;
+  font-size:14px;
+}
+
+.compare-table th{
+  background:#f7f7f7;
+  font-weight:800;
+}
+
+.compare-table td:first-child{
+  text-align:left;
+  font-weight:700;
+  background:#fafafa;
+}
+
+.compare-empty{
+  text-align:center;
+  padding:30px 10px;
+  color:#777;
+  border:1px dashed #ddd;
+  border-radius:14px;
+}
+
+.compare-add-btn{
+  width:100%;
+  margin-top:8px;
+  border:1px solid #111;
+  background:#fff;
+  color:#111;
+  padding:9px;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.compare-add-btn.active{
+  background:#111;
+  color:#fff;
+}
+
+@media(max-width:600px){
+  .compare-section{
+    padding:40px 12px;
+  }
+
+  .compare-head h2{
+    font-size:24px;
+  }
+
+  .compare-product{
+    min-width:135px;
+  }
+
+  .compare-product img{
+    height:135px;
+  }
+}
+</style>
+
+<section class="compare-section" id="productCompare">
+
+  <div class="compare-head">
+    <h2>Compare Products</h2>
+    <p>Choose products and compare them easily.</p>
+  </div>
+
+  <div id="compareSelectedBox"></div>
+
+  <div class="compare-actions">
+    <button class="compare-btn" onclick="showFashionComparison()">
+      Compare Now
+    </button>
+
+    <button class="compare-btn compare-clear" onclick="clearFashionComparison()">
+      Clear
+    </button>
+  </div>
+
+  <div class="compare-table-wrap" id="compareTableWrap">
+    <table class="compare-table">
+      <thead id="compareTableHead"></thead>
+      <tbody id="compareTableBody"></tbody>
+    </table>
+  </div>
+
+</section>
+
+<script>
+
+let fashionCompare = JSON.parse(
+  localStorage.getItem("fashionCompare") || "[]"
+);
+
+function saveFashionCompare(){
+  localStorage.setItem(
+    "fashionCompare",
+    JSON.stringify(fashionCompare)
+  );
+}
+
+function addToFashionCompare(product){
+
+  if(!product) return;
+
+  const productName =
+    product.name ||
+    product.title ||
+    "Fashion Product";
+
+  const alreadyAdded = fashionCompare.some(
+    item => item.name === productName
+  );
+
+  if(alreadyAdded){
+    fashionCompare = fashionCompare.filter(
+      item => item.name !== productName
+    );
+
+    saveFashionCompare();
+    renderFashionComparison();
+    return;
+  }
+
+  if(fashionCompare.length >= 3){
+    if(typeof showToast === "function"){
+      showToast("You can compare maximum 3 products");
+    }else{
+      alert("You can compare maximum 3 products");
+    }
+    return;
+  }
+
+  fashionCompare.push({
+    name: productName,
+    price: product.price || "₹999",
+    image: product.image || "",
+    category: product.category || "Fashion",
+    brand: product.brand || "PATTERN वाली",
+    size: product.size || "S, M, L, XL",
+    material: product.material || "Premium Fabric",
+    availability: product.availability || "In Stock"
+  });
+
+  saveFashionCompare();
+  renderFashionComparison();
+
+  if(typeof showToast === "function"){
+    showToast("Product added for comparison");
+  }
+}
+
+function removeFromFashionCompare(index){
+
+  fashionCompare.splice(index,1);
+
+  saveFashionCompare();
+  renderFashionComparison();
+
+  document.getElementById("compareTableWrap").style.display="none";
+}
+
+function clearFashionComparison(){
+
+  fashionCompare = [];
+
+  saveFashionCompare();
+  renderFashionComparison();
+
+  document.getElementById("compareTableWrap").style.display="none";
+
+  if(typeof showToast === "function"){
+    showToast("Comparison cleared");
+  }
+}
+
+function renderFashionComparison(){
+
+  const box =
+    document.getElementById("compareSelectedBox");
+
+  if(!box) return;
+
+  if(fashionCompare.length === 0){
+
+    box.innerHTML = `
+      <div class="compare-empty">
+        <strong>No products selected</strong>
+        <br>
+        <span>Add products to compare them here.</span>
+      </div>
+    `;
+
+    return;
+  }
+
+  box.innerHTML = `
+    <div class="compare-selected">
+
+      ${fashionCompare.map((item,index)=>`
+
+        <div class="compare-product">
+
+          <button
+            class="compare-remove"
+            onclick="removeFromFashionCompare(${index})">
+            ×
+          </button>
+
+          ${
+            item.image
+            ?
+            `<img src="${item.image}" alt="${item.name}">`
+            :
+            `<div style="
+              height:150px;
+              display:flex;
+              align-items:center;
+              justify-content:center;
+              background:#f5f5f5;
+              border-radius:10px;
+              font-size:12px;
+            ">
+              Product
+            </div>`
+          }
+
+          <h4>${item.name}</h4>
+
+          <p>${item.price}</p>
+
+        </div>
+
+      `).join("")}
+
+    </div>
+  `;
+}
+
+function showFashionComparison(){
+
+  const wrap =
+    document.getElementById("compareTableWrap");
+
+  const head =
+    document.getElementById("compareTableHead");
+
+  const body =
+    document.getElementById("compareTableBody");
+
+  if(fashionCompare.length < 2){
+
+    if(typeof showToast === "function"){
+      showToast("Select at least 2 products");
+    }else{
+      alert("Select at least 2 products");
+    }
+
+    return;
+  }
+
+  head.innerHTML = `
+    <tr>
+      <th>Details</th>
+
+      ${fashionCompare.map(item=>`
+        <th>${item.name}</th>
+      `).join("")}
+
+    </tr>
+  `;
+
+  const rows = [
+    ["Price","price"],
+    ["Category","category"],
+    ["Brand","brand"],
+    ["Available Sizes","size"],
+    ["Material","material"],
+    ["Availability","availability"]
+  ];
+
+  body.innerHTML = rows.map(row=>`
+
+    <tr>
+
+      <td>${row[0]}</td>
+
+      ${
+        fashionCompare.map(item=>`
+          <td>${item[row[1]] || "—"}</td>
+        `).join("")
+      }
+
+    </tr>
+
+  `).join("");
+
+  wrap.style.display="block";
+
+  wrap.scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+}
+
+function toggleFashionCompare(product){
+
+  addToFashionCompare(product);
+}
+
+function openFashionCompare(){
+
+  const section =
+    document.getElementById("productCompare");
+
+  if(section){
+
+    section.scrollIntoView({
+      behavior:"smooth"
+    });
+
+  }
+
+  renderFashionComparison();
+}
+
+
+/* Initial Load */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    renderFashionComparison();
+
+  }
+);
+
+</script>
+   <!-- =========================
+     PART 25 - ADD TO COMPARE BUTTONS
+========================= -->
+
+<style>
+.product-compare-action{
+  width:100%;
+  margin-top:8px;
+  padding:10px 12px;
+  border:1px solid #111;
+  background:#fff;
+  color:#111;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.product-compare-action:hover{
+  background:#111;
+  color:#fff;
+}
+
+.product-compare-action.selected{
+  background:#111;
+  color:#fff;
+}
+
+.compare-floating-btn{
+  position:fixed;
+  right:18px;
+  bottom:85px;
+  z-index:9998;
+  background:#111;
+  color:#fff;
+  border:none;
+  border-radius:30px;
+  padding:12px 18px;
+  font-size:13px;
+  font-weight:800;
+  box-shadow:0 8px 25px rgba(0,0,0,.18);
+  cursor:pointer;
+  display:none;
+}
+
+.compare-floating-btn span{
+  background:#fff;
+  color:#111;
+  border-radius:50%;
+  min-width:21px;
+  height:21px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  margin-left:6px;
+  font-size:11px;
+}
+
+@media(max-width:600px){
+  .compare-floating-btn{
+    right:12px;
+    bottom:78px;
+  }
+}
+</style>
+
+
+<!-- Floating Compare Button -->
+
+<button
+  id="fashionCompareFloating"
+  class="compare-floating-btn"
+  onclick="openFashionCompare()">
+
+  Compare
+  <span id="fashionCompareCount">0</span>
+
+</button>
+
+
+<script>
+
+/* =====================================
+   PRODUCT DATA HELPER
+===================================== */
+
+function getFashionProductFromCard(card){
+
+  if(!card) return null;
+
+  const nameElement =
+    card.querySelector("h3") ||
+    card.querySelector("h4") ||
+    card.querySelector(".product-name") ||
+    card.querySelector(".title");
+
+  const priceElement =
+    card.querySelector(".price") ||
+    card.querySelector(".product-price") ||
+    card.querySelector("p");
+
+  const imageElement =
+    card.querySelector("img");
+
+  let name =
+    nameElement
+    ? nameElement.innerText.trim()
+    : "Fashion Product";
+
+  let price =
+    priceElement
+    ? priceElement.innerText.trim()
+    : "₹999";
+
+  let image =
+    imageElement
+    ? imageElement.src
+    : "";
+
+  return {
+    name:name,
+    price:price,
+    image:image,
+    category:"Fashion",
+    brand:"PATTERN वाली / MODERN नारी",
+    size:"S, M, L, XL",
+    material:"Premium Fabric",
+    availability:"In Stock"
+  };
+}
+
+
+/* =====================================
+   ADD COMPARE BUTTON TO PRODUCT CARDS
+===================================== */
+
+function addCompareButtonsToProducts(){
+
+  const cards =
+    document.querySelectorAll(
+      ".product-card, .product, .product-item, .card"
+    );
+
+  cards.forEach(function(card){
+
+    if(card.dataset.compareAdded === "true"){
+      return;
+    }
+
+    const compareButton =
+      document.createElement("button");
+
+    compareButton.className =
+      "product-compare-action";
+
+    compareButton.innerHTML =
+      "＋ Add to Compare";
+
+    compareButton.type = "button";
+
+    compareButton.addEventListener(
+      "click",
+      function(event){
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        const product =
+          getFashionProductFromCard(card);
+
+        toggleFashionCompare(product);
+
+        updateCompareButtons();
+
+      }
+    );
+
+    card.appendChild(compareButton);
+
+    card.dataset.compareAdded = "true";
+
+  });
+
+}
+
+
+/* =====================================
+   UPDATE BUTTON STATES
+===================================== */
+
+function updateCompareButtons(){
+
+  const cards =
+    document.querySelectorAll(
+      ".product-card, .product, .product-item, .card"
+    );
+
+  cards.forEach(function(card){
+
+    const button =
+      card.querySelector(
+        ".product-compare-action"
+      );
+
+    if(!button) return;
+
+    const product =
+      getFashionProductFromCard(card);
+
+    const selected =
+      fashionCompare.some(
+        item => item.name === product.name
+      );
+
+    if(selected){
+
+      button.classList.add("selected");
+
+      button.innerHTML =
+        "✓ Added to Compare";
+
+    }else{
+
+      button.classList.remove("selected");
+
+      button.innerHTML =
+        "＋ Add to Compare";
+
+    }
+
+  });
+
+  updateFloatingCompare();
+
+}
+
+
+/* =====================================
+   FLOATING COMPARE BUTTON
+===================================== */
+
+function updateFloatingCompare(){
+
+  const button =
+    document.getElementById(
+      "fashionCompareFloating"
+    );
+
+  const count =
+    document.getElementById(
+      "fashionCompareCount"
+    );
+
+  if(!button || !count) return;
+
+  count.innerText =
+    fashionCompare.length;
+
+  if(fashionCompare.length > 0){
+
+    button.style.display =
+      "block";
+
+  }else{
+
+    button.style.display =
+      "none";
+
+  }
+
+}
+
+
+/* =====================================
+   SAFE TOGGLE
+===================================== */
+
+function toggleFashionCompare(product){
+
+  if(!product) return;
+
+  const existing =
+    fashionCompare.findIndex(
+      item => item.name === product.name
+    );
+
+  if(existing !== -1){
+
+    fashionCompare.splice(existing,1);
+
+    saveFashionCompare();
+    renderFashionComparison();
+    updateCompareButtons();
+    updateFloatingCompare();
+
+    if(typeof showToast === "function"){
+      showToast("Removed from comparison");
+    }
+
+    return;
+  }
+
+  if(fashionCompare.length >= 3){
+
+    if(typeof showToast === "function"){
+      showToast("Maximum 3 products can be compared");
+    }else{
+      alert(
+        "Maximum 3 products can be compared"
+      );
+    }
+
+    return;
+  }
+
+  fashionCompare.push(product);
+
+  saveFashionCompare();
+  renderFashionComparison();
+  updateCompareButtons();
+  updateFloatingCompare();
+
+  if(typeof showToast === "function"){
+    showToast("Added to comparison");
+  }
+
+}
+
+
+/* =====================================
+   INITIALIZE
+===================================== */
+
+function initializeFashionCompareButtons(){
+
+  addCompareButtonsToProducts();
+
+  updateCompareButtons();
+
+  updateFloatingCompare();
+
+}
+
+
+/* Run after page loads */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    setTimeout(
+      initializeFashionCompareButtons,
+      500
+    );
+
+  }
+);
+
+
+/* Also watch dynamically loaded products */
+
+const fashionCompareObserver =
+  new MutationObserver(function(){
+
+    addCompareButtonsToProducts();
+
+    updateCompareButtons();
+
+  });
+
+
+fashionCompareObserver.observe(
+  document.body,
+  {
+    childList:true,
+    subtree:true
+  }
+);
+
+</script>
+   <!-- =========================
+     PART 26 - PRODUCT REVIEWS & RATINGS
+========================= -->
+
+<style>
+.reviews-section{
+  padding:50px 16px;
+  background:#fafafa;
+}
+
+.reviews-head{
+  text-align:center;
+  margin-bottom:28px;
+}
+
+.reviews-head h2{
+  font-size:28px;
+  margin:0 0 8px;
+  font-weight:800;
+}
+
+.reviews-head p{
+  margin:0;
+  color:#777;
+  font-size:14px;
+}
+
+.review-box{
+  max-width:650px;
+  margin:auto;
+  background:#fff;
+  border:1px solid #eee;
+  border-radius:16px;
+  padding:20px;
+}
+
+.review-rating{
+  display:flex;
+  gap:6px;
+  margin-bottom:15px;
+}
+
+.review-star{
+  border:none;
+  background:none;
+  font-size:30px;
+  cursor:pointer;
+  padding:0;
+  color:#ccc;
+}
+
+.review-star.active{
+  color:#f5b400;
+}
+
+.review-input{
+  width:100%;
+  box-sizing:border-box;
+  border:1px solid #ddd;
+  border-radius:10px;
+  padding:12px;
+  margin-bottom:12px;
+  font-family:inherit;
+  outline:none;
+}
+
+.review-input:focus{
+  border-color:#111;
+}
+
+.review-submit{
+  width:100%;
+  border:none;
+  background:#111;
+  color:#fff;
+  padding:13px;
+  border-radius:10px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.review-list{
+  max-width:650px;
+  margin:25px auto 0;
+}
+
+.single-review{
+  background:#fff;
+  border:1px solid #eee;
+  border-radius:14px;
+  padding:16px;
+  margin-bottom:12px;
+}
+
+.single-review-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.single-review-name{
+  font-weight:800;
+}
+
+.single-review-date{
+  color:#999;
+  font-size:11px;
+}
+
+.single-review-stars{
+  color:#f5b400;
+  letter-spacing:2px;
+  margin:6px 0;
+}
+
+.single-review-text{
+  color:#555;
+  font-size:14px;
+  line-height:1.6;
+}
+
+.no-reviews{
+  text-align:center;
+  padding:25px;
+  color:#777;
+  background:#fff;
+  border:1px dashed #ddd;
+  border-radius:14px;
+}
+
+.rating-summary{
+  text-align:center;
+  margin-bottom:22px;
+}
+
+.rating-number{
+  font-size:36px;
+  font-weight:900;
+}
+
+.rating-stars{
+  color:#f5b400;
+  font-size:22px;
+}
+
+.rating-count{
+  color:#777;
+  font-size:13px;
+}
+
+@media(max-width:600px){
+  .reviews-section{
+    padding:40px 12px;
+  }
+
+  .reviews-head h2{
+    font-size:24px;
+  }
+}
+</style>
+
+
+<section class="reviews-section" id="productReviews">
+
+  <div class="reviews-head">
+
+    <h2>Customer Reviews</h2>
+
+    <p>
+      Share your experience with our products.
+    </p>
+
+  </div>
+
+
+  <div class="review-box">
+
+    <div class="rating-summary">
+
+      <div class="rating-number"
+           id="fashionAverageRating">
+        0.0
+      </div>
+
+      <div class="rating-stars"
+           id="fashionAverageStars">
+        ☆☆☆☆☆
+      </div>
+
+      <div class="rating-count"
+           id="fashionReviewCount">
+        No reviews yet
+      </div>
+
+    </div>
+
+
+    <input
+      type="text"
+      id="fashionReviewerName"
+      class="review-input"
+      placeholder="Your name"
+      maxlength="40"
+    >
+
+
+    <div class="review-rating"
+         id="fashionStarSelector">
+
+      <button class="review-star"
+              data-rating="1"
+              onclick="selectFashionRating(1)">
+        ★
+      </button>
+
+      <button class="review-star"
+              data-rating="2"
+              onclick="selectFashionRating(2)">
+        ★
+      </button>
+
+      <button class="review-star"
+              data-rating="3"
+              onclick="selectFashionRating(3)">
+        ★
+      </button>
+
+      <button class="review-star"
+              data-rating="4"
+              onclick="selectFashionRating(4)">
+        ★
+      </button>
+
+      <button class="review-star"
+              data-rating="5"
+              onclick="selectFashionRating(5)">
+        ★
+      </button>
+
+    </div>
+
+
+    <textarea
+      id="fashionReviewText"
+      class="review-input"
+      rows="4"
+      placeholder="Write your review..."
+      maxlength="300"
+    ></textarea>
+
+
+    <button
+      class="review-submit"
+      onclick="submitFashionReview()">
+
+      Submit Review
+
+    </button>
+
+  </div>
+
+
+  <div
+    class="review-list"
+    id="fashionReviewList">
+  </div>
+
+</section>
+
+
+<script>
+
+/* =====================================
+   PRODUCT REVIEWS
+===================================== */
+
+let fashionReviews =
+  JSON.parse(
+    localStorage.getItem("fashionReviews") || "[]"
+  );
+
+let selectedFashionRating = 0;
+
+
+/* Select Star Rating */
+
+function selectFashionRating(rating){
+
+  selectedFashionRating = rating;
+
+  const stars =
+    document.querySelectorAll(
+      "#fashionStarSelector .review-star"
+    );
+
+  stars.forEach(function(star){
+
+    const value =
+      Number(star.dataset.rating);
+
+    if(value <= rating){
+
+      star.classList.add("active");
+
+    }else{
+
+      star.classList.remove("active");
+
+    }
+
+  });
+
+}
+
+
+/* Save Reviews */
+
+function saveFashionReviews(){
+
+  localStorage.setItem(
+    "fashionReviews",
+    JSON.stringify(fashionReviews)
+  );
+
+}
+
+
+/* Submit Review */
+
+function submitFashionReview(){
+
+  const name =
+    document
+      .getElementById("fashionReviewerName")
+      .value
+      .trim();
+
+  const text =
+    document
+      .getElementById("fashionReviewText")
+      .value
+      .trim();
+
+
+  if(!name){
+
+    alert("Please enter your name.");
+
+    return;
+
+  }
+
+
+  if(selectedFashionRating === 0){
+
+    alert("Please select a rating.");
+
+    return;
+
+  }
+
+
+  if(!text){
+
+    alert("Please write your review.");
+
+    return;
+
+  }
+
+
+  const review = {
+
+    id:
+      Date.now(),
+
+    name:
+      name,
+
+    rating:
+      selectedFashionRating,
+
+    text:
+      text,
+
+    date:
+      new Date().toLocaleDateString(
+        "en-IN"
+      )
+
+  };
+
+
+  fashionReviews.unshift(review);
+
+  saveFashionReviews();
+
+  document
+    .getElementById("fashionReviewerName")
+    .value = "";
+
+
+  document
+    .getElementById("fashionReviewText")
+    .value = "";
+
+
+  selectedFashionRating = 0;
+
+
+  document
+    .querySelectorAll(
+      "#fashionStarSelector .review-star"
+    )
+    .forEach(function(star){
+
+      star.classList.remove("active");
+
+    });
+
+
+  renderFashionReviews();
+
+
+  if(typeof showToast === "function"){
+
+    showToast(
+      "Thank you! Your review has been added."
+    );
+
+  }
+
+}
+
+
+/* Render Reviews */
+
+function renderFashionReviews(){
+
+  const list =
+    document.getElementById(
+      "fashionReviewList"
+    );
+
+  const average =
+    document.getElementById(
+      "fashionAverageRating"
+    );
+
+  const averageStars =
+    document.getElementById(
+      "fashionAverageStars"
+    );
+
+  const count =
+    document.getElementById(
+      "fashionReviewCount"
+    );
+
+
+  if(!list) return;
+
+
+  if(fashionReviews.length === 0){
+
+    average.innerText =
+      "0.0";
+
+    averageStars.innerText =
+      "☆☆☆☆☆";
+
+    count.innerText =
+      "No reviews yet";
+
+
+    list.innerHTML = `
+
+      <div class="no-reviews">
+
+        No reviews yet.
+        Be the first to review!
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  const total =
+    fashionReviews.reduce(
+      function(sum,review){
+
+        return sum + Number(review.rating);
+
+      },
+      0
+    );
+
+
+  const avg =
+    total / fashionReviews.length;
+
+
+  average.innerText =
+    avg.toFixed(1);
+
+
+  const rounded =
+    Math.round(avg);
+
+
+  averageStars.innerText =
+    "★".repeat(rounded) +
+    "☆".repeat(5-rounded);
+
+
+  count.innerText =
+    fashionReviews.length +
+    (
+      fashionReviews.length === 1
+      ? " review"
+      : " reviews"
+    );
+
+
+  list.innerHTML =
+    fashionReviews.map(function(review){
+
+      const stars =
+        "★".repeat(review.rating) +
+        "☆".repeat(5-review.rating);
+
+
+      return `
+
+        <div class="single-review">
+
+          <div class="single-review-top">
+
+            <div class="single-review-name">
+              ${escapeFashionReviewText(review.name)}
+            </div>
+
+            <div class="single-review-date">
+              ${review.date}
+            </div>
+
+          </div>
+
+
+          <div class="single-review-stars">
+            ${stars}
+          </div>
+
+
+          <div class="single-review-text">
+            ${escapeFashionReviewText(review.text)}
+          </div>
+
+        </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+/* Security Helper */
+
+function escapeFashionReviewText(text){
+
+  return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* Load Reviews */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    renderFashionReviews();
+
+  }
+);
+
+</script>
+   <!-- =========================
+     PART 27 - PRODUCT Q&A
+========================= -->
+
+<style>
+.qa-section{
+  padding:50px 16px;
+  background:#fff;
+}
+
+.qa-head{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.qa-head h2{
+  font-size:28px;
+  margin:0 0 8px;
+  font-weight:800;
+}
+
+.qa-head p{
+  margin:0;
+  color:#777;
+  font-size:14px;
+}
+
+.qa-box{
+  max-width:700px;
+  margin:auto;
+  border:1px solid #eee;
+  border-radius:16px;
+  padding:20px;
+  background:#fafafa;
+}
+
+.qa-input{
+  width:100%;
+  box-sizing:border-box;
+  border:1px solid #ddd;
+  border-radius:10px;
+  padding:13px;
+  margin-bottom:10px;
+  font-family:inherit;
+  outline:none;
+}
+
+.qa-input:focus{
+  border-color:#111;
+}
+
+.qa-submit{
+  width:100%;
+  border:none;
+  background:#111;
+  color:#fff;
+  padding:13px;
+  border-radius:10px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.qa-list{
+  max-width:700px;
+  margin:25px auto 0;
+}
+
+.qa-item{
+  border:1px solid #eee;
+  border-radius:14px;
+  padding:17px;
+  margin-bottom:12px;
+  background:#fff;
+}
+
+.qa-question{
+  font-weight:800;
+  font-size:15px;
+  line-height:1.5;
+}
+
+.qa-answer{
+  margin-top:10px;
+  padding:12px;
+  background:#f7f7f7;
+  border-radius:9px;
+  color:#555;
+  font-size:14px;
+  line-height:1.6;
+}
+
+.qa-pending{
+  margin-top:9px;
+  color:#999;
+  font-size:12px;
+}
+
+.qa-meta{
+  margin-top:8px;
+  color:#999;
+  font-size:11px;
+}
+
+.qa-empty{
+  text-align:center;
+  padding:25px;
+  border:1px dashed #ddd;
+  border-radius:14px;
+  color:#777;
+}
+
+@media(max-width:600px){
+  .qa-section{
+    padding:40px 12px;
+  }
+
+  .qa-head h2{
+    font-size:24px;
+  }
+}
+</style>
+
+
+<section class="qa-section" id="productQA">
+
+  <div class="qa-head">
+
+    <h2>Product Questions</h2>
+
+    <p>
+      Have a question? Ask us before you buy.
+    </p>
+
+  </div>
+
+
+  <div class="qa-box">
+
+    <input
+      type="text"
+      id="qaCustomerName"
+      class="qa-input"
+      placeholder="Your name"
+      maxlength="40"
+    >
+
+
+    <textarea
+      id="qaQuestion"
+      class="qa-input"
+      rows="4"
+      placeholder="Ask your question..."
+      maxlength="300"
+    ></textarea>
+
+
+    <button
+      class="qa-submit"
+      onclick="submitFashionQuestion()">
+
+      Ask Question
+
+    </button>
+
+  </div>
+
+
+  <div
+    class="qa-list"
+    id="fashionQAList">
+  </div>
+
+</section>
+
+
+<script>
+
+/* =====================================
+   PRODUCT Q&A SYSTEM
+===================================== */
+
+let fashionQuestions =
+  JSON.parse(
+    localStorage.getItem("fashionQuestions") || "[]"
+  );
+
+
+/* Save Questions */
+
+function saveFashionQuestions(){
+
+  localStorage.setItem(
+    "fashionQuestions",
+    JSON.stringify(fashionQuestions)
+  );
+
+}
+
+
+/* Submit Question */
+
+function submitFashionQuestion(){
+
+  const name =
+    document
+      .getElementById("qaCustomerName")
+      .value
+      .trim();
+
+  const question =
+    document
+      .getElementById("qaQuestion")
+      .value
+      .trim();
+
+
+  if(!name){
+
+    alert("Please enter your name.");
+
+    return;
+
+  }
+
+
+  if(!question){
+
+    alert("Please enter your question.");
+
+    return;
+
+  }
+
+
+  const newQuestion = {
+
+    id:
+      Date.now(),
+
+    name:
+      name,
+
+    question:
+      question,
+
+    answer:
+      "",
+
+    date:
+      new Date().toLocaleDateString(
+        "en-IN"
+      )
+
+  };
+
+
+  fashionQuestions.unshift(
+    newQuestion
+  );
+
+
+  saveFashionQuestions();
+
+
+  document
+    .getElementById("qaCustomerName")
+    .value = "";
+
+
+  document
+    .getElementById("qaQuestion")
+    .value = "";
+
+
+  renderFashionQuestions();
+
+
+  if(typeof showToast === "function"){
+
+    showToast(
+      "Your question has been submitted."
+    );
+
+  }
+
+}
+
+
+/* Render Questions */
+
+function renderFashionQuestions(){
+
+  const list =
+    document.getElementById(
+      "fashionQAList"
+    );
+
+
+  if(!list) return;
+
+
+  if(fashionQuestions.length === 0){
+
+    list.innerHTML = `
+
+      <div class="qa-empty">
+
+        No questions yet.
+        Be the first to ask!
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  list.innerHTML =
+    fashionQuestions.map(function(item){
+
+      let answerHTML = "";
+
+
+      if(item.answer){
+
+        answerHTML = `
+
+          <div class="qa-answer">
+
+            <strong>Answer:</strong><br>
+
+            ${escapeFashionQA(item.answer)}
+
+          </div>
+
+        `;
+
+      }else{
+
+        answerHTML = `
+
+          <div class="qa-pending">
+
+            ⏳ Waiting for answer
+
+          </div>
+
+        `;
+
+      }
+
+
+      return `
+
+        <div class="qa-item">
+
+          <div class="qa-question">
+
+            Q. ${escapeFashionQA(item.question)}
+
+          </div>
+
+
+          ${answerHTML}
+
+
+          <div class="qa-meta">
+
+            Asked by ${escapeFashionQA(item.name)}
+            • ${item.date}
+
+          </div>
+
+        </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+/* Add Demo Answer */
+
+function answerFashionQuestion(
+  questionId,
+  answer
+){
+
+  const question =
+    fashionQuestions.find(
+      item =>
+        item.id === questionId
+    );
+
+
+  if(!question) return;
+
+
+  question.answer =
+    answer;
+
+
+  saveFashionQuestions();
+
+  renderFashionQuestions();
+
+}
+
+
+/* Basic Text Protection */
+
+function escapeFashionQA(text){
+
+  return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* Load */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    renderFashionQuestions();
+
+  }
+);
+
+</script>
 </body>
                          </html>
