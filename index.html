@@ -12355,5 +12355,936 @@ document.addEventListener(
 );
 
        </script>
+   <!-- =========================
+     PART 19 - TRENDING PRODUCTS
+========================= -->
+
+<style>
+
+.trending-section{
+  padding:65px 20px;
+  background:#f8f8f8;
+}
+
+.trending-container{
+  max-width:1200px;
+  margin:auto;
+}
+
+.trending-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  margin-bottom:28px;
+}
+
+.trending-header h2{
+  margin:0 0 6px;
+  font-size:30px;
+  color:#111;
+}
+
+.trending-header p{
+  margin:0;
+  color:#777;
+  font-size:13px;
+}
+
+.trending-view{
+  border:0;
+  background:none;
+  text-decoration:underline;
+  cursor:pointer;
+  font-size:12px;
+}
+
+.trending-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+
+.trending-card{
+  background:#fff;
+  border-radius:14px;
+  overflow:hidden;
+  border:1px solid #eee;
+  transition:.25s;
+}
+
+.trending-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 12px 28px rgba(0,0,0,.08);
+}
+
+.trending-image{
+  position:relative;
+}
+
+.trending-image img{
+  width:100%;
+  height:270px;
+  object-fit:cover;
+  display:block;
+}
+
+.trending-tag{
+  position:absolute;
+  top:10px;
+  left:10px;
+  background:#111;
+  color:#fff;
+  padding:6px 9px;
+  border-radius:5px;
+  font-size:9px;
+  letter-spacing:.5px;
+}
+
+.trending-heart{
+  position:absolute;
+  top:10px;
+  right:10px;
+  width:34px;
+  height:34px;
+  border:0;
+  border-radius:50%;
+  background:#fff;
+  cursor:pointer;
+  font-size:16px;
+}
+
+.trending-info{
+  padding:14px;
+}
+
+.trending-brand{
+  color:#888;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin-bottom:5px;
+}
+
+.trending-name{
+  font-size:14px;
+  font-weight:700;
+  margin-bottom:7px;
+}
+
+.trending-rating{
+  font-size:12px;
+  margin-bottom:8px;
+}
+
+.trending-price{
+  font-size:15px;
+  font-weight:700;
+}
+
+.trending-old{
+  color:#999;
+  text-decoration:line-through;
+  font-size:12px;
+  margin-left:5px;
+}
+
+.trending-add{
+  width:100%;
+  margin-top:11px;
+  padding:10px;
+  background:#111;
+  color:#fff;
+  border:0;
+  border-radius:7px;
+  cursor:pointer;
+  font-size:11px;
+  font-weight:700;
+}
+
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  .trending-section{
+    padding:45px 14px;
+  }
+
+  .trending-header{
+    align-items:flex-start;
+    flex-direction:column;
+    gap:10px;
+  }
+
+  .trending-header h2{
+    font-size:25px;
+  }
+
+  .trending-grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+  }
+
+  .trending-image img{
+    height:205px;
+  }
+
+  .trending-info{
+    padding:10px;
+  }
+
+  .trending-name{
+    font-size:12px;
+  }
+
+  .trending-price{
+    font-size:13px;
+  }
+
+  .trending-add{
+    padding:9px 4px;
+    font-size:10px;
+  }
+
+}
+
+</style>
+
+
+<!-- =========================
+     TRENDING SECTION
+========================= -->
+
+<section
+  class="trending-section"
+  id="trendingProducts"
+>
+
+  <div class="trending-container">
+
+    <div class="trending-header">
+
+      <div>
+
+        <h2>
+          Trending Now
+        </h2>
+
+        <p>
+          Styles everyone is loving right now.
+        </p>
+
+      </div>
+
+      <button
+        class="trending-view"
+        onclick="openCategoryShop()"
+      >
+        VIEW ALL
+      </button>
+
+    </div>
+
+
+    <div class="trending-grid">
+
+
+      <!-- PRODUCT 1 -->
+
+      <div class="trending-card">
+
+        <div class="trending-image">
+
+          <span class="trending-tag">
+            TRENDING
+          </span>
+
+          <button
+            class="trending-heart"
+            onclick="addFashionWishlist('Classic Printed Kurti')"
+          >
+            ♡
+          </button>
+
+          <img
+            src="https://images.unsplash.com/photo-1583391733956-6c78276477e2?auto=format&fit=crop&w=800&q=80"
+            alt="Classic Printed Kurti"
+          >
+
+        </div>
+
+
+        <div class="trending-info">
+
+          <div class="trending-brand">
+            PATTERN वाली
+          </div>
+
+          <div class="trending-name">
+            Classic Printed Kurti
+          </div>
+
+          <div class="trending-rating">
+            ★★★★★
+          </div>
+
+          <div class="trending-price">
+            ₹1,399
+            <span class="trending-old">
+              ₹1,799
+            </span>
+          </div>
+
+          <button
+            class="trending-add"
+            onclick="addToCart('Classic Printed Kurti',1399)"
+          >
+            ADD TO CART
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- PRODUCT 2 -->
+
+      <div class="trending-card">
+
+        <div class="trending-image">
+
+          <span class="trending-tag">
+            NEW
+          </span>
+
+          <button
+            class="trending-heart"
+            onclick="addFashionWishlist('Modern Floral Dress')"
+          >
+            ♡
+          </button>
+
+          <img
+            src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80"
+            alt="Modern Floral Dress"
+          >
+
+        </div>
+
+
+        <div class="trending-info">
+
+          <div class="trending-brand">
+            MODERN नारी
+          </div>
+
+          <div class="trending-name">
+            Modern Floral Dress
+          </div>
+
+          <div class="trending-rating">
+            ★★★★★
+          </div>
+
+          <div class="trending-price">
+            ₹1,699
+            <span class="trending-old">
+              ₹2,199
+            </span>
+          </div>
+
+          <button
+            class="trending-add"
+            onclick="addToCart('Modern Floral Dress',1699)"
+          >
+            ADD TO CART
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- PRODUCT 3 -->
+
+      <div class="trending-card">
+
+        <div class="trending-image">
+
+          <span class="trending-tag">
+            BESTSELLER
+          </span>
+
+          <button
+            class="trending-heart"
+            onclick="addFashionWishlist('Premium Co-ord Set')"
+          >
+            ♡
+          </button>
+
+          <img
+            src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?auto=format&fit=crop&w=800&q=80"
+            alt="Premium Co-ord Set"
+          >
+
+        </div>
+
+
+        <div class="trending-info">
+
+          <div class="trending-brand">
+            PATTERN वाली
+          </div>
+
+          <div class="trending-name">
+            Premium Co-ord Set
+          </div>
+
+          <div class="trending-rating">
+            ★★★★★
+          </div>
+
+          <div class="trending-price">
+            ₹1,999
+            <span class="trending-old">
+              ₹2,499
+            </span>
+          </div>
+
+          <button
+            class="trending-add"
+            onclick="addToCart('Premium Co-ord Set',1999)"
+          >
+            ADD TO CART
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- PRODUCT 4 -->
+
+      <div class="trending-card">
+
+        <div class="trending-image">
+
+          <span class="trending-tag">
+            POPULAR
+          </span>
+
+          <button
+            class="trending-heart"
+            onclick="addFashionWishlist('Signature Modern Look')"
+          >
+            ♡
+          </button>
+
+          <img
+            src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&w=800&q=80"
+            alt="Signature Modern Look"
+          >
+
+        </div>
+
+
+        <div class="trending-info">
+
+          <div class="trending-brand">
+            MODERN नारी
+          </div>
+
+          <div class="trending-name">
+            Signature Modern Look
+          </div>
+
+          <div class="trending-rating">
+            ★★★★★
+          </div>
+
+          <div class="trending-price">
+            ₹2,299
+            <span class="trending-old">
+              ₹2,799
+            </span>
+          </div>
+
+          <button
+            class="trending-add"
+            onclick="addToCart('Signature Modern Look',2299)"
+          >
+            ADD TO CART
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+   <!-- =========================
+     PART 20 - BRAND SHOWCASE
+========================= -->
+
+<style>
+
+.brand-showcase{
+  padding:70px 20px;
+  background:#fff;
+}
+
+.brand-showcase-container{
+  max-width:1200px;
+  margin:auto;
+}
+
+
+/* TOP INTRO */
+
+.brand-showcase-intro{
+  text-align:center;
+  max-width:700px;
+  margin:0 auto 45px;
+}
+
+.brand-showcase-intro span{
+  font-size:11px;
+  letter-spacing:2px;
+  color:#888;
+  text-transform:uppercase;
+}
+
+.brand-showcase-intro h2{
+  margin:10px 0;
+  font-size:34px;
+  color:#111;
+}
+
+.brand-showcase-intro p{
+  margin:0;
+  color:#777;
+  font-size:14px;
+  line-height:1.8;
+}
+
+
+/* BRAND CARDS */
+
+.brand-showcase-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:22px;
+}
+
+.brand-showcase-card{
+  min-height:470px;
+  border-radius:18px;
+  overflow:hidden;
+  position:relative;
+  display:flex;
+  align-items:flex-end;
+  background:#eee;
+}
+
+.brand-showcase-card img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.brand-showcase-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to top,
+    rgba(0,0,0,.72),
+    rgba(0,0,0,.08)
+  );
+}
+
+.brand-showcase-content{
+  position:relative;
+  z-index:2;
+  padding:32px;
+  color:#fff;
+  width:100%;
+}
+
+.brand-showcase-content small{
+  font-size:10px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+.brand-showcase-content h3{
+  margin:8px 0;
+  font-size:32px;
+}
+
+.brand-showcase-content p{
+  margin:0 0 18px;
+  max-width:430px;
+  font-size:13px;
+  line-height:1.7;
+  color:rgba(255,255,255,.88);
+}
+
+.brand-showcase-btn{
+  display:inline-block;
+  padding:11px 20px;
+  border:1px solid #fff;
+  color:#fff;
+  background:transparent;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:11px;
+  font-weight:700;
+  transition:.2s;
+}
+
+.brand-showcase-btn:hover{
+  background:#fff;
+  color:#111;
+}
+
+
+/* BRAND VALUES */
+
+.brand-values{
+  margin-top:45px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  border-top:1px solid #eee;
+  border-bottom:1px solid #eee;
+}
+
+.brand-value{
+  text-align:center;
+  padding:25px 15px;
+}
+
+.brand-value:not(:last-child){
+  border-right:1px solid #eee;
+}
+
+.brand-value strong{
+  display:block;
+  font-size:14px;
+  margin-bottom:6px;
+}
+
+.brand-value span{
+  font-size:12px;
+  color:#777;
+}
+
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  .brand-showcase{
+    padding:50px 14px;
+  }
+
+  .brand-showcase-intro{
+    margin-bottom:28px;
+  }
+
+  .brand-showcase-intro h2{
+    font-size:26px;
+  }
+
+  .brand-showcase-intro p{
+    font-size:13px;
+  }
+
+  .brand-showcase-grid{
+    grid-template-columns:1fr;
+    gap:14px;
+  }
+
+  .brand-showcase-card{
+    min-height:430px;
+  }
+
+  .brand-showcase-content{
+    padding:24px;
+  }
+
+  .brand-showcase-content h3{
+    font-size:27px;
+  }
+
+  .brand-values{
+    grid-template-columns:1fr;
+  }
+
+  .brand-value{
+    border-bottom:1px solid #eee;
+  }
+
+  .brand-value:not(:last-child){
+    border-right:0;
+  }
+
+  .brand-value:last-child{
+    border-bottom:0;
+  }
+
+}
+
+</style>
+
+
+<!-- =========================
+     BRAND SHOWCASE
+========================= -->
+
+<section
+  class="brand-showcase"
+  id="brandShowcase"
+>
+
+  <div class="brand-showcase-container">
+
+
+    <div class="brand-showcase-intro">
+
+      <span>
+        TWO BRANDS · ONE VISION
+      </span>
+
+      <h2>
+        Made For Every Version Of You
+      </h2>
+
+      <p>
+        Discover two distinctive fashion identities
+        created for women who love effortless style,
+        confidence and individuality.
+      </p>
+
+    </div>
+
+
+    <div class="brand-showcase-grid">
+
+
+      <!-- PATTERN VALI -->
+
+      <div class="brand-showcase-card">
+
+        <img
+          src="https://images.unsplash.com/photo-1583391733956-6c78276477e2?auto=format&fit=crop&w=1200&q=85"
+          alt="PATTERN वाली"
+        >
+
+        <div class="brand-showcase-overlay"></div>
+
+
+        <div class="brand-showcase-content">
+
+          <small>
+            EVERYDAY ELEGANCE
+          </small>
+
+          <h3>
+            PATTERN वाली
+          </h3>
+
+          <p>
+            Easy silhouettes, expressive prints and
+            everyday pieces designed to make your
+            daily style feel effortless.
+          </p>
+
+          <button
+            class="brand-showcase-btn"
+            onclick="goToPatternBrand()"
+          >
+            EXPLORE PATTERN →
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- MODERN NAREE -->
+
+      <div class="brand-showcase-card">
+
+        <img
+          src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&w=1200&q=85"
+          alt="MODERN नारी"
+        >
+
+        <div class="brand-showcase-overlay"></div>
+
+
+        <div class="brand-showcase-content">
+
+          <small>
+            MODERN FEMININE STYLE
+          </small>
+
+          <h3>
+            MODERN नारी
+          </h3>
+
+          <p>
+            Contemporary fashion with clean lines,
+            confident details and a modern feminine
+            point of view.
+          </p>
+
+          <button
+            class="brand-showcase-btn"
+            onclick="goToModernBrand()"
+          >
+            EXPLORE MODERN →
+          </button>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+    <!-- VALUES -->
+
+    <div class="brand-values">
+
+      <div class="brand-value">
+
+        <strong>
+          Thoughtful Design
+        </strong>
+
+        <span>
+          Designed with everyday women in mind.
+        </span>
+
+      </div>
+
+
+      <div class="brand-value">
+
+        <strong>
+          Easy Style
+        </strong>
+
+        <span>
+          Looks that feel effortless and natural.
+        </span>
+
+      </div>
+
+
+      <div class="brand-value">
+
+        <strong>
+          Made To Express
+        </strong>
+
+        <span>
+          Fashion that lets your personality speak.
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<script>
+
+/* =========================
+   PATTERN BRAND BUTTON
+========================= */
+
+function goToPatternBrand(){
+
+  const section =
+    document.getElementById(
+      "about-pattern"
+    );
+
+  if(section){
+
+    section.scrollIntoView({
+      behavior:"smooth"
+    });
+
+    return;
+
+  }
+
+
+  const collections =
+    document.getElementById(
+      "collections"
+    );
+
+  if(collections){
+
+    collections.scrollIntoView({
+      behavior:"smooth"
+    });
+
+  }
+
+}
+
+
+/* =========================
+   MODERN BRAND BUTTON
+========================= */
+
+function goToModernBrand(){
+
+  const section =
+    document.getElementById(
+      "about-modern"
+    );
+
+  if(section){
+
+    section.scrollIntoView({
+      behavior:"smooth"
+    });
+
+    return;
+
+  }
+
+
+  const collections =
+    document.getElementById(
+      "collections"
+    );
+
+  if(collections){
+
+    collections.scrollIntoView({
+      behavior:"smooth"
+    });
+
+  }
+
+}
+
+</script>
 </body>
                          </html>
