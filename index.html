@@ -9319,5 +9319,97 @@ function openNewFashionMenu(){
 }
 
    </style>
+   <script>
+/* =========================================
+   REMOVE OLD SIMPLE / BOLD / BEAUTIFUL HERO
+========================================= */
+
+(function removeOldHero(){
+
+  function hideOldHero(){
+
+    const all = document.querySelectorAll("body *");
+
+    all.forEach(function(el){
+
+      const text = (el.innerText || "").trim();
+
+      if(
+        text.includes("Simple.") &&
+        text.includes("Bold.") &&
+        text.includes("Beautiful.") &&
+        text.includes("SHOP COLLECTION")
+      ){
+
+        /*
+          Parent section ko find karo
+          taaki sirf heading nahi,
+          poora peach hero remove ho.
+        */
+
+        let target = el;
+
+        for(let i = 0; i < 8; i++){
+
+          if(!target.parentElement) break;
+
+          target = target.parentElement;
+
+          const rect = target.getBoundingClientRect();
+
+          if(
+            rect.height > 300 &&
+            rect.width > 250
+          ){
+            target.style.display = "none";
+            break;
+          }
+
+        }
+
+      }
+
+    });
+
+  }
+
+
+  /* Page load */
+
+  if(document.readyState === "loading"){
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      hideOldHero
+    );
+
+  }else{
+
+    hideOldHero();
+
+  }
+
+
+  /* Agar koi section baad me load ho */
+
+  const observer = new MutationObserver(function(){
+
+    hideOldHero();
+
+  });
+
+  observer.observe(document.body, {
+    childList:true,
+    subtree:true
+  });
+
+
+  /* 2 sec baad final check */
+
+  setTimeout(hideOldHero,1000);
+  setTimeout(hideOldHero,2500);
+
+})();
+   </script>
 </body>
 </html>
