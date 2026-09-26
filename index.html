@@ -4931,5 +4931,2538 @@ document.querySelectorAll(
 });
 
 </script>
+   <!-- =========================
+     PART 8 - REVIEWS + INSTAGRAM + CONTACT
+========================= -->
+
+<style>
+
+.reviews-section{
+  padding:75px 20px;
+  background:#f8f7f4;
+}
+
+.reviews-grid{
+  max-width:1100px;
+  margin:40px auto 0;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.review-card{
+  background:#fff;
+  padding:25px;
+  border-radius:14px;
+  border:1px solid #eee;
+}
+
+.review-stars{
+  font-size:14px;
+  letter-spacing:2px;
+  margin-bottom:15px;
+}
+
+.review-card p{
+  color:#666;
+  line-height:1.7;
+  font-size:14px;
+  margin:0 0 20px;
+}
+
+.review-user{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.review-avatar{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:#111;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+}
+
+.review-user strong{
+  display:block;
+  font-size:13px;
+}
+
+.review-user span{
+  display:block;
+  color:#999;
+  font-size:11px;
+  margin-top:3px;
+}
+
+
+/* =========================
+   INSTAGRAM
+========================= */
+
+.instagram-section{
+  padding:75px 20px;
+  background:#fff;
+}
+
+.instagram-grid{
+  max-width:1100px;
+  margin:40px auto 0;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.instagram-item{
+  aspect-ratio:1/1;
+  overflow:hidden;
+  border-radius:10px;
+  position:relative;
+}
+
+.instagram-item img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:.4s ease;
+}
+
+.instagram-item:hover img{
+  transform:scale(1.06);
+}
+
+.instagram-overlay{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.4);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-size:25px;
+  opacity:0;
+  transition:.3s ease;
+}
+
+.instagram-item:hover .instagram-overlay{
+  opacity:1;
+}
+
+.instagram-follow{
+  display:block;
+  width:max-content;
+  margin:25px auto 0;
+  padding:12px 22px;
+  border-radius:8px;
+  background:#111;
+  color:#fff;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:700;
+}
+
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact-section{
+  padding:75px 20px;
+  background:#f8f7f4;
+}
+
+.contact-grid{
+  max-width:1100px;
+  margin:40px auto 0;
+  display:grid;
+  grid-template-columns:.8fr 1.2fr;
+  gap:35px;
+}
+
+.contact-info{
+  background:#111;
+  color:#fff;
+  border-radius:16px;
+  padding:35px;
+}
+
+.contact-info h3{
+  margin:0 0 10px;
+  font-size:25px;
+}
+
+.contact-info > p{
+  color:#bbb;
+  font-size:13px;
+  line-height:1.7;
+  margin-bottom:30px;
+}
+
+.contact-item{
+  display:flex;
+  gap:12px;
+  margin-bottom:20px;
+}
+
+.contact-icon{
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  background:#fff;
+  color:#111;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
+
+.contact-item strong{
+  display:block;
+  font-size:13px;
+  margin-bottom:4px;
+}
+
+.contact-item span{
+  color:#bbb;
+  font-size:12px;
+}
+
+.contact-form-box{
+  background:#fff;
+  border-radius:16px;
+  padding:35px;
+}
+
+.contact-form{
+  display:grid;
+  gap:13px;
+}
+
+.contact-form input,
+.contact-form textarea{
+  width:100%;
+  box-sizing:border-box;
+  border:1px solid #ddd;
+  border-radius:9px;
+  padding:14px;
+  font-family:inherit;
+  font-size:14px;
+  outline:none;
+}
+
+.contact-form textarea{
+  min-height:130px;
+  resize:vertical;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus{
+  border-color:#111;
+}
+
+.contact-submit{
+  border:0;
+  background:#111;
+  color:#fff;
+  padding:15px;
+  border-radius:9px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:700px){
+
+  .reviews-section,
+  .instagram-section,
+  .contact-section{
+    padding:55px 16px;
+  }
+
+  .reviews-grid{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+
+  .review-card{
+    padding:22px;
+  }
+
+  .instagram-grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:7px;
+  }
+
+  .contact-grid{
+    grid-template-columns:1fr;
+    gap:18px;
+  }
+
+  .contact-info,
+  .contact-form-box{
+    padding:25px 20px;
+  }
+
+}
+
+</style>
+
+
+<!-- =========================
+     CUSTOMER REVIEWS
+========================= -->
+
+<section class="reviews-section" id="reviews">
+
+  <div class="section-heading">
+
+    <div class="small-title">
+      Customer Love
+    </div>
+
+    <h2>
+      What They Say
+    </h2>
+
+    <p>
+      A few words from our fashion community.
+    </p>
+
+  </div>
+
+
+  <div class="reviews-grid">
+
+
+    <div class="review-card">
+
+      <div class="review-stars">
+        ⭐⭐⭐⭐⭐
+      </div>
+
+      <p>
+        “The collection feels so simple and elegant.
+        I really loved the overall look and quality.”
+      </p>
+
+      <div class="review-user">
+
+        <div class="review-avatar">
+          A
+        </div>
+
+        <div>
+          <strong>
+            Aanya
+          </strong>
+
+          <span>
+            Verified Customer
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="review-card">
+
+      <div class="review-stars">
+        ⭐⭐⭐⭐⭐
+      </div>
+
+      <p>
+        “Beautiful designs and very easy to style.
+        The modern collection is my favourite.”
+      </p>
+
+      <div class="review-user">
+
+        <div class="review-avatar">
+          R
+        </div>
+
+        <div>
+          <strong>
+            Riya
+          </strong>
+
+          <span>
+            Verified Customer
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="review-card">
+
+      <div class="review-stars">
+        ⭐⭐⭐⭐⭐
+      </div>
+
+      <p>
+        “I love the clean and premium feel of the
+        website. The pieces are perfect for everyday.”
+      </p>
+
+      <div class="review-user">
+
+        <div class="review-avatar">
+          N
+        </div>
+
+        <div>
+          <strong>
+            Neha
+          </strong>
+
+          <span>
+            Verified Customer
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     INSTAGRAM
+========================= -->
+
+<section class="instagram-section" id="instagram">
+
+  <div class="section-heading">
+
+    <div class="small-title">
+      Follow Our Style
+    </div>
+
+    <h2>
+      On Instagram
+    </h2>
+
+    <p>
+      Discover our latest looks, collections and
+      everyday fashion inspiration.
+    </p>
+
+  </div>
+
+
+  <div class="instagram-grid">
+
+
+    <div class="instagram-item">
+
+      <img
+        src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=600&q=80"
+        alt="Fashion"
+      >
+
+      <div class="instagram-overlay">
+        ♡
+      </div>
+
+    </div>
+
+
+    <div class="instagram-item">
+
+      <img
+        src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=600&q=80"
+        alt="Fashion"
+      >
+
+      <div class="instagram-overlay">
+        ♡
+      </div>
+
+    </div>
+
+
+    <div class="instagram-item">
+
+      <img
+        src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=600&q=80"
+        alt="Fashion"
+      >
+
+      <div class="instagram-overlay">
+        ♡
+      </div>
+
+    </div>
+
+
+    <div class="instagram-item">
+
+      <img
+        src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80"
+        alt="Fashion"
+      >
+
+      <div class="instagram-overlay">
+        ♡
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+  <a
+    href="#"
+    class="instagram-follow"
+    onclick="openInstagram(); return false;">
+
+    Follow Us on Instagram →
+
+  </a>
+
+</section>
+
+
+<!-- =========================
+     CONTACT
+========================= -->
+
+<section class="contact-section" id="contact">
+
+  <div class="section-heading">
+
+    <div class="small-title">
+      Get In Touch
+    </div>
+
+    <h2>
+      We'd Love To Hear From You
+    </h2>
+
+    <p>
+      Have a question about an order, product or
+      collection? Send us a message.
+    </p>
+
+  </div>
+
+
+  <div class="contact-grid">
+
+
+    <!-- CONTACT INFO -->
+
+    <div class="contact-info">
+
+      <h3>
+        Let's Connect
+      </h3>
+
+      <p>
+        We're here to help with your shopping experience
+        and answer any questions you may have.
+      </p>
+
+
+      <div class="contact-item">
+
+        <div class="contact-icon">
+          ✉
+        </div>
+
+        <div>
+
+          <strong>
+            Email
+          </strong>
+
+          <span>
+            hello@patternvali.com
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="contact-item">
+
+        <div class="contact-icon">
+          ☎
+        </div>
+
+        <div>
+
+          <strong>
+            Phone
+          </strong>
+
+          <span>
+            +91 00000 00000
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="contact-item">
+
+        <div class="contact-icon">
+          ◉
+        </div>
+
+        <div>
+
+          <strong>
+            Location
+          </strong>
+
+          <span>
+            India
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- CONTACT FORM -->
+
+    <div class="contact-form-box">
+
+      <form
+        class="contact-form"
+        onsubmit="submitContactForm(event)">
+
+        <input
+          type="text"
+          id="contactName"
+          placeholder="Your Name"
+          required
+        >
+
+        <input
+          type="email"
+          id="contactEmail"
+          placeholder="Your Email"
+          required
+        >
+
+        <input
+          type="tel"
+          id="contactPhone"
+          placeholder="Mobile Number"
+        >
+
+        <textarea
+          id="contactMessage"
+          placeholder="Write your message..."
+          required>
+        </textarea>
+
+        <button
+          type="submit"
+          class="contact-submit">
+
+          Send Message →
+
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<script>
+
+/* =========================
+   CONTACT FORM
+========================= */
+
+function submitContactForm(event){
+
+  event.preventDefault();
+
+
+  const name =
+    document.getElementById("contactName").value.trim();
+
+  const email =
+    document.getElementById("contactEmail").value.trim();
+
+  const phone =
+    document.getElementById("contactPhone").value.trim();
+
+  const message =
+    document.getElementById("contactMessage").value.trim();
+
+
+  if(!name || !email || !message){
+
+    alert("Please fill all required fields.");
+
+    return;
+  }
+
+
+  alert(
+    "Thank you " +
+    name +
+    "! Your message has been received."
+  );
+
+
+  event.target.reset();
+
+}
+
+
+/* =========================
+   INSTAGRAM
+========================= */
+
+function openInstagram(){
+
+  /*
+    Later replace # with the actual
+    Instagram profile URL.
+  */
+
+  alert(
+    "Instagram profile will be connected here."
+  );
+
+}
+
+</script>
+   <!-- =========================
+     PART 9 - FOOTER
+========================= -->
+
+<style>
+
+.site-footer{
+  background:#111;
+  color:#fff;
+  padding:65px 20px 25px;
+}
+
+.footer-container{
+  max-width:1150px;
+  margin:auto;
+}
+
+.footer-top{
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr 1fr;
+  gap:45px;
+  padding-bottom:45px;
+}
+
+.footer-brand h2{
+  margin:0 0 12px;
+  font-size:24px;
+}
+
+.footer-brand h2 span{
+  font-weight:400;
+}
+
+.footer-brand p{
+  color:#aaa;
+  font-size:13px;
+  line-height:1.7;
+  max-width:300px;
+}
+
+.footer-column h3{
+  margin:0 0 18px;
+  font-size:14px;
+}
+
+.footer-column a{
+  display:block;
+  color:#aaa;
+  text-decoration:none;
+  font-size:13px;
+  margin-bottom:11px;
+  transition:.2s;
+}
+
+.footer-column a:hover{
+  color:#fff;
+}
+
+.footer-social{
+  display:flex;
+  gap:9px;
+  margin-top:20px;
+}
+
+.footer-social a{
+  width:34px;
+  height:34px;
+  border:1px solid #444;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  margin:0;
+  font-size:13px;
+}
+
+.footer-newsletter{
+  border-top:1px solid #333;
+  border-bottom:1px solid #333;
+  padding:28px 0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:30px;
+}
+
+.newsletter-text h3{
+  margin:0 0 7px;
+  font-size:18px;
+}
+
+.newsletter-text p{
+  margin:0;
+  color:#999;
+  font-size:12px;
+}
+
+.newsletter-form{
+  display:flex;
+  width:400px;
+  max-width:100%;
+}
+
+.newsletter-form input{
+  flex:1;
+  min-width:0;
+  border:1px solid #444;
+  background:#1b1b1b;
+  color:#fff;
+  padding:13px;
+  border-radius:7px 0 0 7px;
+  outline:none;
+}
+
+.newsletter-form button{
+  border:0;
+  background:#fff;
+  color:#111;
+  padding:0 18px;
+  border-radius:0 7px 7px 0;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.footer-bottom{
+  padding-top:25px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  color:#777;
+  font-size:11px;
+}
+
+.footer-bottom-links{
+  display:flex;
+  gap:18px;
+}
+
+.footer-bottom-links a{
+  color:#777;
+  text-decoration:none;
+}
+
+.floating-whatsapp{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  background:#111;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:23px;
+  text-decoration:none;
+  z-index:9990;
+  box-shadow:0 5px 20px rgba(0,0,0,.2);
+  cursor:pointer;
+}
+
+.back-to-top{
+  position:fixed;
+  right:18px;
+  bottom:82px;
+  width:40px;
+  height:40px;
+  border:1px solid #ddd;
+  background:#fff;
+  color:#111;
+  border-radius:50%;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  font-size:18px;
+  cursor:pointer;
+  z-index:9990;
+  box-shadow:0 4px 15px rgba(0,0,0,.1);
+}
+
+.back-to-top.show{
+  display:flex;
+}
+
+@media(max-width:750px){
+
+  .site-footer{
+    padding:50px 18px 20px;
+  }
+
+  .footer-top{
+    grid-template-columns:1fr 1fr;
+    gap:30px 20px;
+  }
+
+  .footer-brand{
+    grid-column:1/-1;
+  }
+
+  .footer-newsletter{
+    display:block;
+  }
+
+  .newsletter-text{
+    margin-bottom:18px;
+  }
+
+  .newsletter-form{
+    width:100%;
+  }
+
+  .footer-bottom{
+    display:block;
+    text-align:center;
+  }
+
+  .footer-bottom-links{
+    justify-content:center;
+    margin-top:12px;
+  }
+
+}
+
+@media(max-width:420px){
+
+  .footer-top{
+    grid-template-columns:1fr;
+  }
+
+  .footer-brand{
+    grid-column:auto;
+  }
+
+}
+
+</style>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="site-footer">
+
+  <div class="footer-container">
+
+
+    <div class="footer-top">
+
+
+      <!-- BRAND -->
+
+      <div class="footer-brand">
+
+        <h2>
+          PATTERN <span>वाली</span>
+        </h2>
+
+        <p>
+          Simple, bold and beautiful fashion for
+          the modern woman. Discover everyday styles
+          from PATTERN वाली and MODERN नारी.
+        </p>
+
+
+        <div class="footer-social">
+
+          <a
+            href="#"
+            onclick="openInstagram();return false;">
+            ◎
+          </a>
+
+          <a
+            href="#"
+            onclick="openFooterWhatsApp();return false;">
+            ◉
+          </a>
+
+          <a
+            href="#contact">
+            ✉
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- SHOP -->
+
+      <div class="footer-column">
+
+        <h3>
+          SHOP
+        </h3>
+
+        <a href="#products">
+          All Products
+        </a>
+
+        <a href="#collections">
+          Collections
+        </a>
+
+        <a href="#products">
+          New Arrivals
+        </a>
+
+        <a href="#products">
+          Best Sellers
+        </a>
+
+      </div>
+
+
+      <!-- COMPANY -->
+
+      <div class="footer-column">
+
+        <h3>
+          COMPANY
+        </h3>
+
+        <a href="#about-pattern">
+          About PATTERN वाली
+        </a>
+
+        <a href="#about-modern">
+          About MODERN नारी
+        </a>
+
+        <a href="#why-us">
+          Why Us
+        </a>
+
+        <a href="#contact">
+          Contact
+        </a>
+
+      </div>
+
+
+      <!-- HELP -->
+
+      <div class="footer-column">
+
+        <h3>
+          HELP
+        </h3>
+
+        <a href="#">
+          Shipping & Delivery
+        </a>
+
+        <a href="#">
+          Returns & Exchange
+        </a>
+
+        <a href="#">
+          Privacy Policy
+        </a>
+
+        <a href="#">
+          Terms & Conditions
+        </a>
+
+      </div>
+
+
+    </div>
+
+
+    <!-- NEWSLETTER -->
+
+    <div class="footer-newsletter">
+
+      <div class="newsletter-text">
+
+        <h3>
+          Stay in the style loop.
+        </h3>
+
+        <p>
+          Subscribe for new collections and updates.
+        </p>
+
+      </div>
+
+
+      <form
+        class="newsletter-form"
+        onsubmit="subscribeNewsletter(event)">
+
+        <input
+          type="email"
+          id="newsletterEmail"
+          placeholder="Your email address"
+          required
+        >
+
+        <button type="submit">
+          Join
+        </button>
+
+      </form>
+
+    </div>
+
+
+    <!-- BOTTOM -->
+
+    <div class="footer-bottom">
+
+      <div>
+        © 2026 PATTERN वाली × MODERN नारी.
+        All rights reserved.
+      </div>
+
+
+      <div class="footer-bottom-links">
+
+        <a href="#">
+          Privacy
+        </a>
+
+        <a href="#">
+          Terms
+        </a>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</footer>
+
+
+<!-- =========================
+     FLOATING WHATSAPP
+========================= -->
+
+<a
+  href="#"
+  class="floating-whatsapp"
+  onclick="openFooterWhatsApp();return false;"
+  aria-label="WhatsApp">
+
+  ◉
+
+</a>
+
+
+<!-- =========================
+     BACK TO TOP
+========================= -->
+
+<button
+  class="back-to-top"
+  id="backToTop"
+  onclick="window.scrollTo({top:0,behavior:'smooth'})">
+
+  ↑
+
+</button>
+
+
+<script>
+
+/* =========================
+   NEWSLETTER
+========================= */
+
+function subscribeNewsletter(event){
+
+  event.preventDefault();
+
+  const email =
+    document.getElementById("newsletterEmail")
+    .value.trim();
+
+  if(!email) return;
+
+  alert(
+    "Thank you for subscribing!"
+  );
+
+  event.target.reset();
+
+}
+
+
+/* =========================
+   FOOTER WHATSAPP
+========================= */
+
+function openFooterWhatsApp(){
+
+  /*
+    Later replace this demo number
+    with the client's real WhatsApp number.
+  */
+
+  const number =
+    "919999999999";
+
+  const message =
+    encodeURIComponent(
+      "Hello, I am interested in PATTERN वाली × MODERN नारी."
+    );
+
+  window.open(
+    "https://wa.me/" +
+    number +
+    "?text=" +
+    message,
+    "_blank"
+  );
+
+}
+
+
+/* =========================
+   BACK TO TOP
+========================= */
+
+window.addEventListener(
+  "scroll",
+  function(){
+
+    const button =
+      document.getElementById("backToTop");
+
+    if(!button) return;
+
+    if(window.scrollY > 500){
+
+      button.classList.add("show");
+
+    }else{
+
+      button.classList.remove("show");
+
+    }
+
+  }
+);
+
+</script>
+   <!-- =========================
+     PART 10 - MOBILE NAVIGATION
+========================= -->
+
+<style>
+/* MOBILE BOTTOM NAV */
+.mobile-bottom-nav{
+  display:none;
+}
+
+@media(max-width:768px){
+
+  body{
+    padding-bottom:72px;
+  }
+
+  .mobile-bottom-nav{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    height:68px;
+    background:#ffffff;
+    border-top:1px solid #eeeeee;
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    z-index:9998;
+    box-shadow:0 -5px 20px rgba(0,0,0,.06);
+  }
+
+  .mobile-nav-item{
+    border:0;
+    background:none;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    color:#555;
+    font-size:11px;
+    font-weight:600;
+    cursor:pointer;
+    min-width:55px;
+  }
+
+  .mobile-nav-item span:first-child{
+    font-size:21px;
+    line-height:20px;
+  }
+
+  .mobile-nav-item.active{
+    color:#111;
+  }
+
+  .mobile-nav-item:hover{
+    color:#111;
+  }
+
+  .mobile-cart-count{
+    position:absolute;
+    top:8px;
+    margin-left:22px;
+    background:#111;
+    color:#fff;
+    width:17px;
+    height:17px;
+    border-radius:50%;
+    font-size:9px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .mobile-quick-search{
+    position:fixed;
+    left:12px;
+    right:12px;
+    bottom:78px;
+    background:#fff;
+    border:1px solid #eee;
+    border-radius:16px;
+    padding:10px;
+    display:none;
+    z-index:9997;
+    box-shadow:0 10px 30px rgba(0,0,0,.12);
+  }
+
+  .mobile-quick-search.show{
+    display:block;
+  }
+
+  .mobile-quick-search input{
+    width:100%;
+    height:44px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    padding:0 14px;
+    font-size:14px;
+    outline:none;
+  }
+}
+</style>
+
+
+<!-- MOBILE QUICK SEARCH -->
+<div class="mobile-quick-search" id="mobileQuickSearch">
+  <input
+    type="text"
+    id="mobileSearchInput"
+    placeholder="Search products..."
+    oninput="mobileSearchProducts()"
+  >
+</div>
+
+
+<!-- MOBILE BOTTOM NAV -->
+<div class="mobile-bottom-nav">
+
+  <button class="mobile-nav-item active" onclick="mobileGoHome()">
+    <span>⌂</span>
+    <span>Home</span>
+  </button>
+
+  <button class="mobile-nav-item" onclick="mobileOpenSearch()">
+    <span>⌕</span>
+    <span>Search</span>
+  </button>
+
+  <button class="mobile-nav-item" onclick="mobileGoShop()">
+    <span>◉</span>
+    <span>Shop</span>
+  </button>
+
+  <button class="mobile-nav-item" onclick="openWishlistFromMobile()">
+    <span>♡</span>
+    <span>Wishlist</span>
+  </button>
+
+  <button class="mobile-nav-item" onclick="openCart()">
+    <span style="position:relative;">
+      🛒
+      <span class="mobile-cart-count" id="mobileCartCount">0</span>
+    </span>
+    <span>Cart</span>
+  </button>
+
+</div>
+
+
+<script>
+
+/* =========================
+   MOBILE HOME
+========================= */
+
+function mobileGoHome(){
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* =========================
+   MOBILE SHOP
+========================= */
+
+function mobileGoShop(){
+
+  const shopSection =
+    document.getElementById("shop") ||
+    document.getElementById("products");
+
+  if(shopSection){
+
+    shopSection.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+
+  }else{
+
+    const productSection =
+      document.querySelector(".products-section") ||
+      document.querySelector("#products");
+
+    if(productSection){
+      productSection.scrollIntoView({
+        behavior:"smooth"
+      });
+    }
+
+  }
+
+}
+
+
+/* =========================
+   MOBILE SEARCH
+========================= */
+
+function mobileOpenSearch(){
+
+  const box =
+    document.getElementById("mobileQuickSearch");
+
+  if(!box) return;
+
+  box.classList.toggle("show");
+
+  if(box.classList.contains("show")){
+
+    setTimeout(function(){
+
+      const input =
+        document.getElementById("mobileSearchInput");
+
+      if(input){
+        input.focus();
+      }
+
+    },100);
+
+  }
+
+}
+
+
+/* =========================
+   MOBILE SEARCH PRODUCTS
+========================= */
+
+function mobileSearchProducts(){
+
+  const input =
+    document.getElementById("mobileSearchInput");
+
+  if(!input) return;
+
+  const value =
+    input.value.toLowerCase().trim();
+
+  const products =
+    document.querySelectorAll(".product-card");
+
+  products.forEach(function(card){
+
+    const text =
+      card.innerText.toLowerCase();
+
+    if(value === "" || text.includes(value)){
+
+      card.style.display = "";
+
+    }else{
+
+      card.style.display = "none";
+
+    }
+
+  });
+
+}
+
+
+/* =========================
+   MOBILE WISHLIST
+========================= */
+
+function openWishlistFromMobile(){
+
+  const wishlist =
+    document.querySelector(".wishlist-items");
+
+  if(wishlist){
+
+    wishlist.scrollIntoView({
+      behavior:"smooth"
+    });
+
+  }else{
+
+    alert(
+      "Your wishlist items will appear here."
+    );
+
+  }
+
+}
+
+
+/* =========================
+   UPDATE MOBILE CART COUNT
+========================= */
+
+function updateMobileCartCount(){
+
+  const countElement =
+    document.getElementById("mobileCartCount");
+
+  if(!countElement) return;
+
+  let total = 0;
+
+  if(typeof cart !== "undefined"){
+
+    cart.forEach(function(item){
+
+      total += Number(item.quantity || 1);
+
+    });
+
+  }
+
+  countElement.innerText = total;
+
+}
+
+
+/* =========================
+   KEEP CART COUNT UPDATED
+========================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    updateMobileCartCount();
+
+  }
+);
+
+
+/* Update whenever cart functions are used */
+const originalUpdateCartBadge =
+  window.updateCartBadge;
+
+if(typeof originalUpdateCartBadge === "function"){
+
+  window.updateCartBadge = function(){
+
+    originalUpdateCartBadge();
+
+    updateMobileCartCount();
+
+  };
+
+}
+
+
+/* =========================
+   CLOSE SEARCH ON SCROLL
+========================= */
+
+window.addEventListener(
+  "scroll",
+  function(){
+
+    const box =
+      document.getElementById("mobileQuickSearch");
+
+    if(box){
+
+      box.classList.remove("show");
+
+    }
+
+  }
+);
+
+</script>
+   <!-- =========================
+     PART 11 - PRODUCT FILTER
+========================= -->
+
+<style>
+
+.category-filter-section{
+  padding:70px 20px 30px;
+  background:#fff;
+}
+
+.category-filter-wrap{
+  max-width:1200px;
+  margin:auto;
+}
+
+.category-filter-title{
+  text-align:center;
+  margin-bottom:28px;
+}
+
+.category-filter-title h2{
+  font-size:30px;
+  margin:0 0 8px;
+  color:#111;
+}
+
+.category-filter-title p{
+  color:#777;
+  font-size:14px;
+  margin:0;
+}
+
+.filter-bar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:28px;
+  flex-wrap:wrap;
+}
+
+.filter-buttons{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.filter-btn{
+  border:1px solid #ddd;
+  background:#fff;
+  padding:10px 16px;
+  border-radius:30px;
+  cursor:pointer;
+  font-size:13px;
+  font-weight:600;
+  transition:.2s;
+}
+
+.filter-btn:hover,
+.filter-btn.active{
+  background:#111;
+  color:#fff;
+  border-color:#111;
+}
+
+.sort-select{
+  border:1px solid #ddd;
+  background:#fff;
+  padding:10px 14px;
+  border-radius:8px;
+  outline:none;
+  font-size:13px;
+  cursor:pointer;
+}
+
+.filter-product-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+}
+
+.filter-product-card{
+  background:#fff;
+  border:1px solid #eee;
+  border-radius:14px;
+  overflow:hidden;
+  transition:.25s;
+}
+
+.filter-product-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.filter-product-image{
+  width:100%;
+  height:280px;
+  object-fit:cover;
+  display:block;
+}
+
+.filter-product-info{
+  padding:15px;
+}
+
+.filter-product-brand{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:#888;
+  margin-bottom:5px;
+}
+
+.filter-product-name{
+  font-size:15px;
+  font-weight:600;
+  color:#111;
+  margin-bottom:8px;
+}
+
+.filter-product-price{
+  font-size:16px;
+  font-weight:700;
+}
+
+.filter-product-old{
+  font-size:12px;
+  color:#999;
+  text-decoration:line-through;
+  margin-left:5px;
+}
+
+.filter-product-btn{
+  width:100%;
+  margin-top:12px;
+  padding:11px;
+  border:0;
+  background:#111;
+  color:#fff;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.no-products{
+  display:none;
+  text-align:center;
+  padding:40px 10px;
+  color:#777;
+  grid-column:1/-1;
+}
+
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  .category-filter-section{
+    padding:45px 14px 25px;
+  }
+
+  .category-filter-title h2{
+    font-size:24px;
+  }
+
+  .filter-bar{
+    align-items:flex-start;
+  }
+
+  .filter-buttons{
+    width:100%;
+    overflow-x:auto;
+    flex-wrap:nowrap;
+    padding-bottom:5px;
+  }
+
+  .filter-btn{
+    white-space:nowrap;
+    padding:9px 14px;
+  }
+
+  .sort-select{
+    width:100%;
+  }
+
+  .filter-product-grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+  }
+
+  .filter-product-image{
+    height:210px;
+  }
+
+  .filter-product-info{
+    padding:11px;
+  }
+
+  .filter-product-name{
+    font-size:13px;
+  }
+
+  .filter-product-price{
+    font-size:14px;
+  }
+
+  .filter-product-btn{
+    font-size:12px;
+    padding:9px;
+  }
+
+}
+
+</style>
+
+
+<!-- =========================
+     CATEGORY FILTER SECTION
+========================= -->
+
+<section class="category-filter-section" id="categoryShop">
+
+  <div class="category-filter-wrap">
+
+    <div class="category-filter-title">
+
+      <h2>Shop Our Collection</h2>
+
+      <p>
+        Find your perfect style from PATTERN वाली × MODERN नारी
+      </p>
+
+    </div>
+
+
+    <div class="filter-bar">
+
+      <div class="filter-buttons">
+
+        <button
+          class="filter-btn active"
+          onclick="filterFashionProducts('all',this)"
+        >
+          All
+        </button>
+
+        <button
+          class="filter-btn"
+          onclick="filterFashionProducts('kurtis',this)"
+        >
+          Kurtis
+        </button>
+
+        <button
+          class="filter-btn"
+          onclick="filterFashionProducts('dresses',this)"
+        >
+          Dresses
+        </button>
+
+        <button
+          class="filter-btn"
+          onclick="filterFashionProducts('ethnic',this)"
+        >
+          Ethnic
+        </button>
+
+        <button
+          class="filter-btn"
+          onclick="filterFashionProducts('tops',this)"
+        >
+          Tops
+        </button>
+
+        <button
+          class="filter-btn"
+          onclick="filterFashionProducts('accessories',this)"
+        >
+          Accessories
+        </button>
+
+      </div>
+
+
+      <select
+        class="sort-select"
+        id="fashionSort"
+        onchange="sortFashionProducts()"
+      >
+
+        <option value="default">
+          Sort: Featured
+        </option>
+
+        <option value="low">
+          Price: Low to High
+        </option>
+
+        <option value="high">
+          Price: High to Low
+        </option>
+
+        <option value="name">
+          Name: A to Z
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div
+      class="filter-product-grid"
+      id="filterProductGrid"
+    >
+
+      <!-- PRODUCT 1 -->
+
+      <div
+        class="filter-product-card"
+        data-category="kurtis"
+        data-price="1299"
+        data-name="Printed Everyday Kurti"
+      >
+
+        <img
+          class="filter-product-image"
+          src="https://images.unsplash.com/photo-1583391733956-6c78276477e2?auto=format&fit=crop&w=800&q=80"
+          alt="Printed Everyday Kurti"
+        >
+
+        <div class="filter-product-info">
+
+          <div class="filter-product-brand">
+            PATTERN वाली
+          </div>
+
+          <div class="filter-product-name">
+            Printed Everyday Kurti
+          </div>
+
+          <div>
+            <span class="filter-product-price">
+              ₹1,299
+            </span>
+
+            <span class="filter-product-old">
+              ₹1,699
+            </span>
+          </div>
+
+          <button
+            class="filter-product-btn"
+            onclick="addToCart('Printed Everyday Kurti',1299)"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- PRODUCT 2 -->
+
+      <div
+        class="filter-product-card"
+        data-category="ethnic"
+        data-price="1899"
+        data-name="Elegant Ethnic Set"
+      >
+
+        <img
+          class="filter-product-image"
+          src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80"
+          alt="Elegant Ethnic Set"
+        >
+
+        <div class="filter-product-info">
+
+          <div class="filter-product-brand">
+            MODERN नारी
+          </div>
+
+          <div class="filter-product-name">
+            Elegant Ethnic Set
+          </div>
+
+          <div>
+
+            <span class="filter-product-price">
+              ₹1,899
+            </span>
+
+            <span class="filter-product-old">
+              ₹2,499
+            </span>
+
+          </div>
+
+          <button
+            class="filter-product-btn"
+            onclick="addToCart('Elegant Ethnic Set',1899)"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- PRODUCT 3 -->
+
+      <div
+        class="filter-product-card"
+        data-category="dresses"
+        data-price="1599"
+        data-name="Modern Everyday Dress"
+      >
+
+        <img
+          class="filter-product-image"
+          src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80"
+          alt="Modern Everyday Dress"
+        >
+
+        <div class="filter-product-info">
+
+          <div class="filter-product-brand">
+            MODERN नारी
+          </div>
+
+          <div class="filter-product-name">
+            Modern Everyday Dress
+          </div>
+
+          <div>
+
+            <span class="filter-product-price">
+              ₹1,599
+            </span>
+
+            <span class="filter-product-old">
+              ₹2,099
+            </span>
+
+          </div>
+
+          <button
+            class="filter-product-btn"
+            onclick="addToCart('Modern Everyday Dress',1599)"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- PRODUCT 4 -->
+
+      <div
+        class="filter-product-card"
+        data-category="tops"
+        data-price="999"
+        data-name="Soft Casual Top"
+      >
+
+        <img
+          class="filter-product-image"
+          src="https://images.unsplash.com/photo-1564257577054-7f5d5b3f0b4a?auto=format&fit=crop&w=800&q=80"
+          alt="Soft Casual Top"
+        >
+
+        <div class="filter-product-info">
+
+          <div class="filter-product-brand">
+            PATTERN वाली
+          </div>
+
+          <div class="filter-product-name">
+            Soft Casual Top
+          </div>
+
+          <div>
+
+            <span class="filter-product-price">
+              ₹999
+            </span>
+
+            <span class="filter-product-old">
+              ₹1,299
+            </span>
+
+          </div>
+
+          <button
+            class="filter-product-btn"
+            onclick="addToCart('Soft Casual Top',999)"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- PRODUCT 5 -->
+
+      <div
+        class="filter-product-card"
+        data-category="ethnic"
+        data-price="2199"
+        data-name="Premium Ethnic Collection"
+      >
+
+        <img
+          class="filter-product-image"
+          src="https://images.unsplash.com/photo-1585488437490-5b3f6f3e2a5a?auto=format&fit=crop&w=800&q=80"
+          alt="Premium Ethnic Collection"
+        >
+
+        <div class="filter-product-info">
+
+          <div class="filter-product-brand">
+            PATTERN वाली
+          </div>
+
+          <div class="filter-product-name">
+            Premium Ethnic Collection
+          </div>
+
+          <div>
+
+            <span class="filter-product-price">
+              ₹2,199
+            </span>
+
+            <span class="filter-product-old">
+              ₹2,799
+            </span>
+
+          </div>
+
+          <button
+            class="filter-product-btn"
+            onclick="addToCart('Premium Ethnic Collection',2199)"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- PRODUCT 6 -->
+
+      <div
+        class="filter-product-card"
+        data-category="dresses"
+        data-price="2299"
+        data-name="Signature Modern Dress"
+      >
+
+        <img
+          class="filter-product-image"
+          src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&w=800&q=80"
+          alt="Signature Modern Dress"
+        >
+
+        <div class="filter-product-info">
+
+          <div class="filter-product-brand">
+            MODERN नारी
+          </div>
+
+          <div class="filter-product-name">
+            Signature Modern Dress
+          </div>
+
+          <div>
+
+            <span class="filter-product-price">
+              ₹2,299
+            </span>
+
+            <span class="filter-product-old">
+              ₹2,999
+            </span>
+
+          </div>
+
+          <button
+            class="filter-product-btn"
+            onclick="addToCart('Signature Modern Dress',2299)"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- PRODUCT 7 -->
+
+      <div
+        class="filter-product-card"
+        data-category="accessories"
+        data-price="699"
+        data-name="Minimal Fashion Accessory"
+      >
+
+        <img
+          class="filter-product-image"
+          src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=800&q=80"
+          alt="Minimal Fashion Accessory"
+        >
+
+        <div class="filter-product-info">
+
+          <div class="filter-product-brand">
+            MODERN नारी
+          </div>
+
+          <div class="filter-product-name">
+            Minimal Fashion Accessory
+          </div>
+
+          <div>
+
+            <span class="filter-product-price">
+              ₹699
+            </span>
+
+            <span class="filter-product-old">
+              ₹899
+            </span>
+
+          </div>
+
+          <button
+            class="filter-product-btn"
+            onclick="addToCart('Minimal Fashion Accessory',699)"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- PRODUCT 8 -->
+
+      <div
+        class="filter-product-card"
+        data-category="kurtis"
+        data-price="1499"
+        data-name="Floral Everyday Kurti"
+      >
+
+        <img
+          class="filter-product-image"
+          src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=800&q=80"
+          alt="Floral Everyday Kurti"
+        >
+
+        <div class="filter-product-info">
+
+          <div class="filter-product-brand">
+            PATTERN वाली
+          </div>
+
+          <div class="filter-product-name">
+            Floral Everyday Kurti
+          </div>
+
+          <div>
+
+            <span class="filter-product-price">
+              ₹1,499
+            </span>
+
+            <span class="filter-product-old">
+              ₹1,899
+            </span>
+
+          </div>
+
+          <button
+            class="filter-product-btn"
+            onclick="addToCart('Floral Everyday Kurti',1499)"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="no-products"
+        id="noFashionProducts"
+      >
+        No products found.
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<script>
+
+/* =========================
+   FILTER PRODUCTS
+========================= */
+
+function filterFashionProducts(category,button){
+
+  const products =
+    document.querySelectorAll(
+      "#filterProductGrid .filter-product-card"
+    );
+
+  const buttons =
+    document.querySelectorAll(
+      ".filter-buttons .filter-btn"
+    );
+
+  buttons.forEach(function(btn){
+
+    btn.classList.remove("active");
+
+  });
+
+  if(button){
+    button.classList.add("active");
+  }
+
+  let visibleCount = 0;
+
+  products.forEach(function(product){
+
+    const productCategory =
+      product.getAttribute("data-category");
+
+    if(
+      category === "all" ||
+      productCategory === category
+    ){
+
+      product.style.display = "";
+
+      visibleCount++;
+
+    }else{
+
+      product.style.display = "none";
+
+    }
+
+  });
+
+  const noProducts =
+    document.getElementById("noFashionProducts");
+
+  if(noProducts){
+
+    noProducts.style.display =
+      visibleCount === 0 ? "block" : "none";
+
+  }
+
+}
+
+
+/* =========================
+   SORT PRODUCTS
+========================= */
+
+function sortFashionProducts(){
+
+  const grid =
+    document.getElementById("filterProductGrid");
+
+  const select =
+    document.getElementById("fashionSort");
+
+  if(!grid || !select) return;
+
+  const value = select.value;
+
+  const products =
+    Array.from(
+      grid.querySelectorAll(
+        ".filter-product-card"
+      )
+    );
+
+  products.sort(function(a,b){
+
+    const priceA =
+      Number(a.getAttribute("data-price"));
+
+    const priceB =
+      Number(b.getAttribute("data-price"));
+
+    const nameA =
+      a.getAttribute("data-name").toLowerCase();
+
+    const nameB =
+      b.getAttribute("data-name").toLowerCase();
+
+    if(value === "low"){
+      return priceA - priceB;
+    }
+
+    if(value === "high"){
+      return priceB - priceA;
+    }
+
+    if(value === "name"){
+      return nameA.localeCompare(nameB);
+    }
+
+    return 0;
+
+  });
+
+  const noProducts =
+    document.getElementById("noFashionProducts");
+
+  products.forEach(function(product){
+
+    grid.appendChild(product);
+
+  });
+
+  if(noProducts){
+    grid.appendChild(noProducts);
+  }
+
+}
+
+
+/* =========================
+   CATEGORY SHOP BUTTON
+========================= */
+
+function openCategoryShop(){
+
+  const section =
+    document.getElementById("categoryShop");
+
+  if(section){
+
+    section.scrollIntoView({
+      behavior:"smooth"
+    });
+
+  }
+
+}
+
+</script>
 </body>
 </html>
