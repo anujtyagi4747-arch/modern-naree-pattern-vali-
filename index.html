@@ -2279,6 +2279,2657 @@ function showCartMessage(name){
 }
 
                    </script>
+<!-- =========================
+     PART 4 - CART DRAWER
+========================= -->
 
+<style>
+.cart-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  z-index:9998;
+  display:none;
+}
+
+.cart-overlay.active{
+  display:block;
+}
+
+.cart-drawer{
+  position:fixed;
+  top:0;
+  right:-430px;
+  width:420px;
+  max-width:100%;
+  height:100vh;
+  background:#fff;
+  z-index:9999;
+  transition:.35s ease;
+  display:flex;
+  flex-direction:column;
+  box-shadow:-8px 0 30px rgba(0,0,0,.15);
+}
+
+.cart-drawer.active{
+  right:0;
+}
+
+.cart-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:20px;
+  border-bottom:1px solid #eee;
+}
+
+.cart-header h2{
+  margin:0;
+  font-size:22px;
+  font-weight:800;
+}
+
+.cart-close{
+  width:38px;
+  height:38px;
+  border:none;
+  border-radius:50%;
+  background:#f5f5f5;
+  font-size:22px;
+  cursor:pointer;
+}
+
+.cart-items{
+  flex:1;
+  overflow-y:auto;
+  padding:15px;
+}
+
+.cart-item{
+  display:flex;
+  gap:12px;
+  padding:15px 0;
+  border-bottom:1px solid #eee;
+}
+
+.cart-item-img{
+  width:78px;
+  height:95px;
+  object-fit:cover;
+  border-radius:10px;
+}
+
+.cart-item-info{
+  flex:1;
+}
+
+.cart-item-info h4{
+  margin:0 0 6px;
+  font-size:15px;
+  line-height:1.3;
+}
+
+.cart-price{
+  font-weight:800;
+  font-size:15px;
+  margin-bottom:10px;
+}
+
+.qty-box{
+  display:flex;
+  align-items:center;
+  width:max-content;
+  border:1px solid #ddd;
+  border-radius:8px;
+  overflow:hidden;
+}
+
+.qty-box button{
+  width:30px;
+  height:30px;
+  border:0;
+  background:#f7f7f7;
+  cursor:pointer;
+  font-size:17px;
+}
+
+.qty-box span{
+  min-width:30px;
+  text-align:center;
+  font-size:14px;
+  font-weight:600;
+}
+
+.remove-item{
+  margin-top:8px;
+  border:0;
+  background:none;
+  color:#777;
+  padding:0;
+  font-size:12px;
+  cursor:pointer;
+  text-decoration:underline;
+}
+
+.cart-empty{
+  text-align:center;
+  padding:70px 20px;
+  color:#777;
+}
+
+.cart-empty-icon{
+  font-size:45px;
+  margin-bottom:15px;
+}
+
+.cart-empty h3{
+  color:#111;
+  margin-bottom:8px;
+}
+
+.cart-footer{
+  border-top:1px solid #eee;
+  padding:18px 20px 20px;
+  background:#fff;
+}
+
+.cart-total-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
+  font-size:16px;
+}
+
+.cart-total-row strong{
+  font-size:20px;
+}
+
+.checkout-btn{
+  width:100%;
+  border:0;
+  padding:15px;
+  border-radius:10px;
+  background:#111;
+  color:#fff;
+  font-size:15px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.checkout-btn:hover{
+  background:#333;
+}
+
+.cart-badge{
+  position:absolute;
+  top:-6px;
+  right:-6px;
+  min-width:18px;
+  height:18px;
+  padding:0 4px;
+  border-radius:50%;
+  background:#111;
+  color:#fff;
+  font-size:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+}
+
+.nav-actions .icon-btn{
+  position:relative;
+}
+
+@media(max-width:600px){
+
+  .cart-drawer{
+    width:100%;
+    height:88vh;
+    top:auto;
+    bottom:-100%;
+    right:0;
+    border-radius:20px 20px 0 0;
+  }
+
+  .cart-drawer.active{
+    right:0;
+    bottom:0;
+  }
+
+  .cart-header{
+    padding:17px 18px;
+  }
+
+  .cart-items{
+    padding:10px 18px;
+  }
+
+  .cart-footer{
+    padding:15px 18px 18px;
+  }
+}
+</style>
+
+
+<!-- CART OVERLAY -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+
+
+<!-- CART DRAWER -->
+<div class="cart-drawer" id="cartDrawer">
+
+  <div class="cart-header">
+    <h2>My Cart</h2>
+
+    <button class="cart-close" onclick="closeCart()">
+      ×
+    </button>
+  </div>
+
+
+  <div class="cart-items" id="cartItems">
+    <!-- Products will appear here -->
+  </div>
+
+
+  <div class="cart-footer">
+
+    <div class="cart-total-row">
+      <span>Subtotal</span>
+      <strong id="cartTotal">₹0</strong>
+    </div>
+
+    <button class="checkout-btn" onclick="goToCheckout()">
+      Proceed to Checkout →
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+function openCart(){
+
+  const drawer = document.getElementById("cartDrawer");
+  const overlay = document.getElementById("cartOverlay");
+
+  if(drawer) drawer.classList.add("active");
+  if(overlay) overlay.classList.add("active");
+
+  renderCart();
+}
+
+
+function closeCart(){
+
+  const drawer = document.getElementById("cartDrawer");
+  const overlay = document.getElementById("cartOverlay");
+
+  if(drawer) drawer.classList.remove("active");
+  if(overlay) overlay.classList.remove("active");
+}
+
+
+function renderCart(){
+
+  const container = document.getElementById("cartItems");
+  const totalElement = document.getElementById("cartTotal");
+
+  if(!container || !totalElement) return;
+
+  if(!cart || cart.length === 0){
+
+    container.innerHTML = `
+      <div class="cart-empty">
+        <div class="cart-empty-icon">🛍️</div>
+        <h3>Your Cart is Empty</h3>
+        <p>Add something beautiful to your cart.</p>
+      </div>
+    `;
+
+    totalElement.innerText = "₹0";
+    updateCartBadge();
+    return;
+  }
+
+
+  let total = 0;
+
+
+  container.innerHTML = cart.map((item,index)=>{
+
+    const itemTotal = Number(item.price) * Number(item.quantity || 1);
+
+    total += itemTotal;
+
+    return `
+      <div class="cart-item">
+
+        <img
+          class="cart-item-img"
+          src="${item.image || 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=300&q=80'}"
+          alt="${item.name}"
+        >
+
+        <div class="cart-item-info">
+
+          <h4>${item.name}</h4>
+
+          <div class="cart-price">
+            ₹${Number(item.price).toLocaleString("en-IN")}
+          </div>
+
+          <div class="qty-box">
+
+            <button onclick="changeCartQty(${index},-1)">
+              −
+            </button>
+
+            <span>${item.quantity || 1}</span>
+
+            <button onclick="changeCartQty(${index},1)">
+              +
+            </button>
+
+          </div>
+
+          <button
+            class="remove-item"
+            onclick="removeCartItem(${index})">
+            Remove
+          </button>
+
+        </div>
+
+      </div>
+    `;
+
+  }).join("");
+
+
+  totalElement.innerText =
+    "₹" + total.toLocaleString("en-IN");
+
+  updateCartBadge();
+}
+
+
+function changeCartQty(index,change){
+
+  if(!cart[index]) return;
+
+  cart[index].quantity =
+    Number(cart[index].quantity || 1) + change;
+
+
+  if(cart[index].quantity <= 0){
+
+    cart.splice(index,1);
+
+  }
+
+
+  localStorage.setItem(
+    "fashionCart",
+    JSON.stringify(cart)
+  );
+
+
+  renderCart();
+}
+
+
+function removeCartItem(index){
+
+  if(!cart[index]) return;
+
+  cart.splice(index,1);
+
+  localStorage.setItem(
+    "fashionCart",
+    JSON.stringify(cart)
+  );
+
+  renderCart();
+}
+
+
+function updateCartBadge(){
+
+  const buttons =
+    document.querySelectorAll(".nav-actions .icon-btn");
+
+  if(!buttons.length) return;
+
+
+  const cartButton =
+    buttons[buttons.length - 1];
+
+
+  let badge =
+    cartButton.querySelector(".cart-badge");
+
+
+  const count =
+    cart.reduce(
+      (sum,item)=>sum + Number(item.quantity || 1),
+      0
+    );
+
+
+  if(!badge){
+
+    badge = document.createElement("span");
+
+    badge.className = "cart-badge";
+
+    cartButton.appendChild(badge);
+  }
+
+
+  badge.innerText = count;
+
+  badge.style.display =
+    count > 0 ? "flex" : "none";
+}
+
+
+function goToCheckout(){
+
+  if(!cart || cart.length === 0){
+
+    alert("Your cart is empty.");
+
+    return;
+  }
+
+
+  alert(
+    "Checkout page will be connected in the next part."
+  );
+}
+
+
+/* CART ICON OPEN */
+
+document.addEventListener("DOMContentLoaded",function(){
+
+  const buttons =
+    document.querySelectorAll(".nav-actions .icon-btn");
+
+  if(buttons.length){
+
+    const cartButton =
+      buttons[buttons.length - 1];
+
+    cartButton.onclick = openCart;
+  }
+
+  updateCartBadge();
+
+});
+
+
+/* Update cart badge immediately */
+
+updateCartBadge();
+
+</script>
+   <!-- =========================
+     PART 5 - PRODUCT DETAILS
+========================= -->
+
+<style>
+
+.product-modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.5);
+  z-index:10000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
+}
+
+.product-modal-overlay.active{
+  display:flex;
+}
+
+.product-modal{
+  width:900px;
+  max-width:100%;
+  max-height:90vh;
+  overflow-y:auto;
+  background:#fff;
+  border-radius:18px;
+  position:relative;
+}
+
+.product-modal-close{
+  position:absolute;
+  right:15px;
+  top:15px;
+  width:40px;
+  height:40px;
+  border:0;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 3px 12px rgba(0,0,0,.12);
+  font-size:23px;
+  cursor:pointer;
+  z-index:2;
+}
+
+.product-modal-content{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+}
+
+.product-modal-image{
+  width:100%;
+  height:520px;
+  object-fit:cover;
+}
+
+.product-modal-info{
+  padding:40px 35px;
+}
+
+.product-modal-brand{
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  color:#777;
+  margin-bottom:10px;
+}
+
+.product-modal-title{
+  font-size:28px;
+  margin:0 0 15px;
+  line-height:1.2;
+}
+
+.product-modal-price{
+  font-size:24px;
+  font-weight:800;
+  margin-bottom:5px;
+}
+
+.product-modal-old{
+  color:#999;
+  text-decoration:line-through;
+  font-size:14px;
+  margin-bottom:20px;
+}
+
+.product-modal-rating{
+  margin-bottom:22px;
+  font-size:14px;
+}
+
+.product-description{
+  color:#666;
+  font-size:14px;
+  line-height:1.7;
+  margin-bottom:25px;
+}
+
+.modal-quantity{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  margin-bottom:20px;
+}
+
+.modal-quantity-box{
+  display:flex;
+  align-items:center;
+  border:1px solid #ddd;
+  border-radius:8px;
+  overflow:hidden;
+}
+
+.modal-quantity-box button{
+  width:38px;
+  height:38px;
+  border:0;
+  background:#f7f7f7;
+  font-size:18px;
+  cursor:pointer;
+}
+
+.modal-quantity-box span{
+  width:38px;
+  text-align:center;
+  font-weight:700;
+}
+
+.modal-add-btn{
+  width:100%;
+  border:0;
+  background:#111;
+  color:#fff;
+  padding:15px;
+  border-radius:10px;
+  font-size:15px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.modal-add-btn:hover{
+  background:#333;
+}
+
+
+/* SEARCH BOX */
+
+.search-box{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  background:#fff;
+  z-index:10001;
+  padding:18px;
+  box-shadow:0 5px 20px rgba(0,0,0,.12);
+  transform:translateY(-110%);
+  transition:.3s ease;
+}
+
+.search-box.active{
+  transform:translateY(0);
+}
+
+.search-inner{
+  max-width:700px;
+  margin:auto;
+  display:flex;
+  gap:10px;
+}
+
+.search-inner input{
+  flex:1;
+  border:1px solid #ddd;
+  border-radius:10px;
+  padding:14px;
+  outline:none;
+  font-size:15px;
+}
+
+.search-inner button{
+  width:48px;
+  border:0;
+  border-radius:10px;
+  background:#111;
+  color:#fff;
+  font-size:20px;
+}
+
+.search-results{
+  max-width:700px;
+  margin:12px auto 0;
+  max-height:300px;
+  overflow-y:auto;
+}
+
+.search-result-item{
+  padding:12px;
+  border-bottom:1px solid #eee;
+  cursor:pointer;
+}
+
+.search-result-item:hover{
+  background:#f7f7f7;
+}
+
+
+@media(max-width:650px){
+
+  .product-modal-overlay{
+    align-items:flex-end;
+    padding:0;
+  }
+
+  .product-modal{
+    width:100%;
+    max-height:92vh;
+    border-radius:20px 20px 0 0;
+  }
+
+  .product-modal-content{
+    display:block;
+  }
+
+  .product-modal-image{
+    height:330px;
+  }
+
+  .product-modal-info{
+    padding:25px 20px 30px;
+  }
+
+  .product-modal-title{
+    font-size:23px;
+  }
+
+  .product-modal-price{
+    font-size:21px;
+  }
+}
+
+</style>
+
+
+<!-- =========================
+     PRODUCT DETAILS MODAL
+========================= -->
+
+<div class="product-modal-overlay" id="productModal">
+
+  <div class="product-modal">
+
+    <button
+      class="product-modal-close"
+      onclick="closeProductModal()">
+      ×
+    </button>
+
+    <div class="product-modal-content">
+
+      <img
+        id="modalProductImage"
+        class="product-modal-image"
+        src=""
+        alt="Product"
+      >
+
+      <div class="product-modal-info">
+
+        <div
+          id="modalProductBrand"
+          class="product-modal-brand">
+        </div>
+
+        <h2
+          id="modalProductTitle"
+          class="product-modal-title">
+        </h2>
+
+        <div
+          id="modalProductPrice"
+          class="product-modal-price">
+        </div>
+
+        <div
+          id="modalProductOldPrice"
+          class="product-modal-old">
+        </div>
+
+        <div class="product-modal-rating">
+          ⭐⭐⭐⭐⭐ <span>4.8/5</span>
+        </div>
+
+        <p class="product-description">
+          A carefully selected fashion piece designed
+          for everyday comfort, modern style and effortless
+          elegance. Perfect for your wardrobe and easy
+          to pair with your favourite accessories.
+        </p>
+
+        <div class="modal-quantity">
+
+          <strong>Qty:</strong>
+
+          <div class="modal-quantity-box">
+
+            <button onclick="changeModalQty(-1)">
+              −
+            </button>
+
+            <span id="modalQty">1</span>
+
+            <button onclick="changeModalQty(1)">
+              +
+            </button>
+
+          </div>
+
+        </div>
+
+        <button
+          class="modal-add-btn"
+          onclick="addModalProductToCart()">
+
+          Add To Cart →
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     SEARCH BAR
+========================= -->
+
+<div class="search-box" id="searchBox">
+
+  <div class="search-inner">
+
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search products..."
+      oninput="searchProducts()"
+    >
+
+    <button onclick="closeSearch()">
+      ×
+    </button>
+
+  </div>
+
+  <div
+    class="search-results"
+    id="searchResults">
+  </div>
+
+</div>
+
+
+<script>
+
+let currentProduct = null;
+let modalQuantity = 1;
+
+
+/* =========================
+   OPEN PRODUCT MODAL
+========================= */
+
+function openProductModal(
+  name,
+  price,
+  oldPrice,
+  image,
+  brand
+){
+
+  currentProduct = {
+    name:name,
+    price:Number(price),
+    oldPrice:oldPrice,
+    image:image,
+    brand:brand
+  };
+
+  modalQuantity = 1;
+
+  document.getElementById("modalProductImage").src = image;
+
+  document.getElementById("modalProductBrand").innerText =
+    brand || "PATTERN वाली";
+
+  document.getElementById("modalProductTitle").innerText =
+    name;
+
+  document.getElementById("modalProductPrice").innerText =
+    "₹" + Number(price).toLocaleString("en-IN");
+
+  document.getElementById("modalProductOldPrice").innerText =
+    oldPrice ? "₹" + Number(oldPrice).toLocaleString("en-IN") : "";
+
+  document.getElementById("modalQty").innerText =
+    modalQuantity;
+
+  document.getElementById("productModal")
+    .classList.add("active");
+}
+
+
+/* =========================
+   CLOSE MODAL
+========================= */
+
+function closeProductModal(){
+
+  document.getElementById("productModal")
+    .classList.remove("active");
+}
+
+
+/* =========================
+   MODAL QUANTITY
+========================= */
+
+function changeModalQty(change){
+
+  modalQuantity += change;
+
+  if(modalQuantity < 1){
+    modalQuantity = 1;
+  }
+
+  document.getElementById("modalQty").innerText =
+    modalQuantity;
+}
+
+
+/* =========================
+   ADD MODAL PRODUCT
+========================= */
+
+function addModalProductToCart(){
+
+  if(!currentProduct) return;
+
+  let existing =
+    cart.find(item =>
+      item.name === currentProduct.name
+    );
+
+
+  if(existing){
+
+    existing.quantity =
+      Number(existing.quantity || 1) + modalQuantity;
+
+  }else{
+
+    cart.push({
+
+      name:currentProduct.name,
+
+      price:currentProduct.price,
+
+      image:currentProduct.image,
+
+      brand:currentProduct.brand,
+
+      quantity:modalQuantity
+
+    });
+
+  }
+
+
+  localStorage.setItem(
+    "fashionCart",
+    JSON.stringify(cart)
+  );
+
+
+  if(typeof updateCartBadge === "function"){
+    updateCartBadge();
+  }
+
+
+  closeProductModal();
+
+
+  if(typeof openCart === "function"){
+    openCart();
+  }
+
+}
+
+
+/* =========================
+   MAKE PRODUCT CARDS CLICKABLE
+========================= */
+
+document.addEventListener("DOMContentLoaded",function(){
+
+  const productCards =
+    document.querySelectorAll(".product-card");
+
+  productCards.forEach(function(card){
+
+    const button =
+      card.querySelector("button");
+
+    if(!button) return;
+
+    const titleElement =
+      card.querySelector("h3");
+
+    const priceElement =
+      card.querySelector(".price");
+
+    const imageElement =
+      card.querySelector("img");
+
+    if(!titleElement || !priceElement || !imageElement)
+      return;
+
+
+    button.addEventListener("dblclick",function(e){
+
+      e.preventDefault();
+
+      const name =
+        titleElement.innerText;
+
+      const priceText =
+        priceElement.innerText
+        .replace(/[₹,]/g,"");
+
+      openProductModal(
+        name,
+        priceText,
+        "",
+        imageElement.src,
+        "Fashion Collection"
+      );
+
+    });
+
+  });
+
+});
+
+
+/* =========================
+   SEARCH
+========================= */
+
+function openSearch(){
+
+  const box =
+    document.getElementById("searchBox");
+
+  const input =
+    document.getElementById("searchInput");
+
+  box.classList.add("active");
+
+  setTimeout(function(){
+    input.focus();
+  },200);
+}
+
+
+function closeSearch(){
+
+  document.getElementById("searchBox")
+    .classList.remove("active");
+
+  document.getElementById("searchInput").value = "";
+
+  document.getElementById("searchResults").innerHTML = "";
+}
+
+
+function searchProducts(){
+
+  const query =
+    document.getElementById("searchInput")
+    .value
+    .toLowerCase()
+    .trim();
+
+
+  const results =
+    document.getElementById("searchResults");
+
+
+  if(!query){
+
+    results.innerHTML = "";
+
+    return;
+  }
+
+
+  const cards =
+    document.querySelectorAll(".product-card");
+
+
+  let found = [];
+
+
+  cards.forEach(function(card){
+
+    const title =
+      card.querySelector("h3");
+
+    if(!title) return;
+
+
+    const name =
+      title.innerText;
+
+
+    if(name.toLowerCase().includes(query)){
+
+      found.push({
+
+        name:name,
+
+        card:card
+
+      });
+
+    }
+
+  });
+
+
+  if(found.length === 0){
+
+    results.innerHTML = `
+      <div class="search-result-item">
+        No products found.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  results.innerHTML =
+    found.map(function(item){
+
+      return `
+        <div
+          class="search-result-item"
+          onclick="openSearchProduct(this)"
+          data-name="${item.name.replace(/"/g,'&quot;')}">
+
+          ${item.name}
+
+        </div>
+      `;
+
+    }).join("");
+
+}
+
+
+function openSearchProduct(element){
+
+  const name =
+    element.getAttribute("data-name");
+
+  const cards =
+    document.querySelectorAll(".product-card");
+
+
+  cards.forEach(function(card){
+
+    const title =
+      card.querySelector("h3");
+
+    if(!title) return;
+
+
+    if(title.innerText === name){
+
+      card.scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+      });
+
+    }
+
+  });
+
+
+  closeSearch();
+}
+
+
+/* =========================
+   ESC KEY
+========================= */
+
+document.addEventListener("keydown",function(e){
+
+  if(e.key === "Escape"){
+
+    closeProductModal();
+    closeSearch();
+
+  }
+
+});
+
+                </script>
+   <!-- =========================
+     PART 6 - CHECKOUT
+========================= -->
+
+<style>
+
+.checkout-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  z-index:10002;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
+}
+
+.checkout-overlay.active{
+  display:flex;
+}
+
+.checkout-box{
+  width:850px;
+  max-width:100%;
+  max-height:92vh;
+  overflow-y:auto;
+  background:#fff;
+  border-radius:18px;
+  padding:30px;
+  position:relative;
+}
+
+.checkout-close{
+  position:absolute;
+  right:15px;
+  top:15px;
+  width:38px;
+  height:38px;
+  border:0;
+  border-radius:50%;
+  background:#f5f5f5;
+  font-size:22px;
+  cursor:pointer;
+}
+
+.checkout-title{
+  margin:0 0 5px;
+  font-size:28px;
+  font-weight:800;
+}
+
+.checkout-subtitle{
+  color:#777;
+  margin:0 0 25px;
+  font-size:14px;
+}
+
+.checkout-layout{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:30px;
+}
+
+.checkout-section{
+  margin-bottom:22px;
+}
+
+.checkout-section h3{
+  margin:0 0 14px;
+  font-size:17px;
+}
+
+.checkout-form{
+  display:grid;
+  gap:12px;
+}
+
+.checkout-form input,
+.checkout-form textarea,
+.checkout-form select{
+  width:100%;
+  box-sizing:border-box;
+  border:1px solid #ddd;
+  border-radius:9px;
+  padding:13px;
+  font-size:14px;
+  outline:none;
+  font-family:inherit;
+}
+
+.checkout-form input:focus,
+.checkout-form textarea:focus,
+.checkout-form select:focus{
+  border-color:#111;
+}
+
+.checkout-form textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+.order-summary{
+  background:#f8f8f8;
+  border-radius:14px;
+  padding:20px;
+}
+
+.order-summary h3{
+  margin-top:0;
+}
+
+.summary-items{
+  max-height:260px;
+  overflow-y:auto;
+}
+
+.summary-item{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  padding:10px 0;
+  border-bottom:1px solid #e5e5e5;
+  font-size:13px;
+}
+
+.summary-item-name{
+  flex:1;
+}
+
+.summary-total{
+  display:flex;
+  justify-content:space-between;
+  margin-top:15px;
+  font-size:18px;
+  font-weight:800;
+}
+
+.whatsapp-order-btn{
+  width:100%;
+  border:0;
+  background:#111;
+  color:#fff;
+  padding:15px;
+  border-radius:10px;
+  font-size:15px;
+  font-weight:800;
+  cursor:pointer;
+  margin-top:18px;
+}
+
+.whatsapp-order-btn:hover{
+  background:#333;
+}
+
+.checkout-note{
+  margin-top:10px;
+  font-size:11px;
+  color:#777;
+  line-height:1.5;
+}
+
+@media(max-width:700px){
+
+  .checkout-overlay{
+    align-items:flex-end;
+    padding:0;
+  }
+
+  .checkout-box{
+    width:100%;
+    max-height:94vh;
+    border-radius:20px 20px 0 0;
+    padding:22px 18px 25px;
+  }
+
+  .checkout-layout{
+    display:block;
+  }
+
+  .checkout-title{
+    font-size:23px;
+  }
+
+  .order-summary{
+    margin-top:20px;
+  }
+
+}
+
+</style>
+
+
+<!-- =========================
+     CHECKOUT POPUP
+========================= -->
+
+<div class="checkout-overlay" id="checkoutOverlay">
+
+  <div class="checkout-box">
+
+    <button
+      class="checkout-close"
+      onclick="closeCheckout()">
+      ×
+    </button>
+
+    <h2 class="checkout-title">
+      Checkout
+    </h2>
+
+    <p class="checkout-subtitle">
+      Enter your details to place your order.
+    </p>
+
+
+    <div class="checkout-layout">
+
+
+      <!-- CUSTOMER DETAILS -->
+
+      <div>
+
+        <div class="checkout-section">
+
+          <h3>Customer Details</h3>
+
+          <div class="checkout-form">
+
+            <input
+              type="text"
+              id="customerName"
+              placeholder="Full Name"
+            >
+
+            <input
+              type="tel"
+              id="customerPhone"
+              placeholder="Mobile Number"
+              maxlength="10"
+            >
+
+            <input
+              type="email"
+              id="customerEmail"
+              placeholder="Email Address"
+            >
+
+            <textarea
+              id="customerAddress"
+              placeholder="Complete Delivery Address">
+            </textarea>
+
+            <input
+              type="text"
+              id="customerCity"
+              placeholder="City"
+            >
+
+            <input
+              type="text"
+              id="customerPincode"
+              placeholder="Pincode"
+              maxlength="6"
+            >
+
+          </div>
+
+        </div>
+
+
+        <div class="checkout-section">
+
+          <h3>Payment Method</h3>
+
+          <div class="checkout-form">
+
+            <select id="paymentMethod">
+
+              <option value="Cash on Delivery">
+                Cash on Delivery
+              </option>
+
+              <option value="UPI">
+                UPI
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ORDER SUMMARY -->
+
+      <div>
+
+        <div class="order-summary">
+
+          <h3>Order Summary</h3>
+
+          <div
+            class="summary-items"
+            id="summaryItems">
+          </div>
+
+          <div class="summary-total">
+
+            <span>Total</span>
+
+            <span id="summaryTotal">
+              ₹0
+            </span>
+
+          </div>
+
+          <button
+            class="whatsapp-order-btn"
+            onclick="placeWhatsAppOrder()">
+
+            Place Order on WhatsApp →
+
+          </button>
+
+          <div class="checkout-note">
+
+            Your order details will be prepared and
+            opened in WhatsApp for confirmation.
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   OPEN CHECKOUT
+========================= */
+
+function openCheckout(){
+
+  if(!cart || cart.length === 0){
+
+    alert("Your cart is empty.");
+
+    return;
+  }
+
+  renderCheckoutSummary();
+
+  document
+    .getElementById("checkoutOverlay")
+    .classList.add("active");
+
+}
+
+
+/* =========================
+   CLOSE CHECKOUT
+========================= */
+
+function closeCheckout(){
+
+  document
+    .getElementById("checkoutOverlay")
+    .classList.remove("active");
+
+}
+
+
+/* =========================
+   CHECKOUT SUMMARY
+========================= */
+
+function renderCheckoutSummary(){
+
+  const items =
+    document.getElementById("summaryItems");
+
+  const totalElement =
+    document.getElementById("summaryTotal");
+
+
+  if(!items || !totalElement) return;
+
+
+  let total = 0;
+
+
+  items.innerHTML =
+    cart.map(function(item){
+
+      const quantity =
+        Number(item.quantity || 1);
+
+      const price =
+        Number(item.price || 0);
+
+      const itemTotal =
+        price * quantity;
+
+      total += itemTotal;
+
+
+      return `
+        <div class="summary-item">
+
+          <div class="summary-item-name">
+            ${item.name}
+            × ${quantity}
+          </div>
+
+          <strong>
+            ₹${itemTotal.toLocaleString("en-IN")}
+          </strong>
+
+        </div>
+      `;
+
+    }).join("");
+
+
+  totalElement.innerText =
+    "₹" + total.toLocaleString("en-IN");
+
+}
+
+
+/* =========================
+   REPLACE PART 4 CHECKOUT
+========================= */
+
+function goToCheckout(){
+
+  if(!cart || cart.length === 0){
+
+    alert("Your cart is empty.");
+
+    return;
+  }
+
+
+  /* Close cart drawer */
+
+  if(typeof closeCart === "function"){
+    closeCart();
+  }
+
+
+  openCheckout();
+
+}
+
+
+/* =========================
+   PLACE WHATSAPP ORDER
+========================= */
+
+function placeWhatsAppOrder(){
+
+  const name =
+    document.getElementById("customerName").value.trim();
+
+  const phone =
+    document.getElementById("customerPhone").value.trim();
+
+  const email =
+    document.getElementById("customerEmail").value.trim();
+
+  const address =
+    document.getElementById("customerAddress").value.trim();
+
+  const city =
+    document.getElementById("customerCity").value.trim();
+
+  const pincode =
+    document.getElementById("customerPincode").value.trim();
+
+  const payment =
+    document.getElementById("paymentMethod").value;
+
+
+  /* BASIC VALIDATION */
+
+  if(!name){
+
+    alert("Please enter your name.");
+
+    return;
+  }
+
+
+  if(!phone || phone.length !== 10){
+
+    alert("Please enter a valid 10-digit mobile number.");
+
+    return;
+  }
+
+
+  if(!address){
+
+    alert("Please enter your delivery address.");
+
+    return;
+  }
+
+
+  if(!city){
+
+    alert("Please enter your city.");
+
+    return;
+  }
+
+
+  if(!pincode || pincode.length !== 6){
+
+    alert("Please enter a valid 6-digit pincode.");
+
+    return;
+  }
+
+
+  if(!cart || cart.length === 0){
+
+    alert("Your cart is empty.");
+
+    return;
+  }
+
+
+  let total = 0;
+
+  let orderText =
+    "Hello, I want to place an order.%0A%0A";
+
+
+  orderText +=
+    "*Customer Details*%0A";
+
+  orderText +=
+    "Name: " + encodeURIComponent(name) + "%0A";
+
+  orderText +=
+    "Phone: " + encodeURIComponent(phone) + "%0A";
+
+  if(email){
+
+    orderText +=
+      "Email: " + encodeURIComponent(email) + "%0A";
+
+  }
+
+  orderText +=
+    "Address: " + encodeURIComponent(address) + "%0A";
+
+  orderText +=
+    "City: " + encodeURIComponent(city) + "%0A";
+
+  orderText +=
+    "Pincode: " + encodeURIComponent(pincode) + "%0A";
+
+  orderText +=
+    "Payment: " + encodeURIComponent(payment) + "%0A%0A";
+
+
+  orderText +=
+    "*Order Details*%0A";
+
+
+  cart.forEach(function(item){
+
+    const quantity =
+      Number(item.quantity || 1);
+
+    const price =
+      Number(item.price || 0);
+
+    const itemTotal =
+      price * quantity;
+
+    total += itemTotal;
+
+
+    orderText +=
+      encodeURIComponent(item.name) +
+      " × " +
+      quantity +
+      " = ₹" +
+      itemTotal.toLocaleString("en-IN") +
+      "%0A";
+
+  });
+
+
+  orderText += "%0A";
+
+  orderText +=
+    "*Total: ₹" +
+    total.toLocaleString("en-IN") +
+    "*";
+
+
+  /*
+    IMPORTANT:
+    Yahan apna actual WhatsApp business number
+    country code ke saath daalna hai.
+
+    Example:
+    919876543210
+
+    Abhi demo number use kiya gaya hai.
+  */
+
+  const whatsappNumber =
+    "919999999999";
+
+
+  const whatsappURL =
+    "https://wa.me/" +
+    whatsappNumber +
+    "?text=" +
+    orderText;
+
+
+  window.open(
+    whatsappURL,
+    "_blank"
+  );
+
+
+  /*
+    Demo order ke baad cart clear.
+  */
+
+  cart = [];
+
+  localStorage.setItem(
+    "fashionCart",
+    JSON.stringify(cart)
+  );
+
+
+  if(typeof updateCartBadge === "function"){
+
+    updateCartBadge();
+
+  }
+
+
+  closeCheckout();
+
+}
+
+
+/* =========================
+   ESC KEY
+========================= */
+
+document.addEventListener("keydown",function(e){
+
+  if(e.key === "Escape"){
+
+    closeCheckout();
+
+  }
+
+});
+
+</script>
+   <!-- =========================
+     PART 7 - COLLECTIONS
+========================= -->
+
+<style>
+
+.collections-section{
+  padding:70px 20px;
+  background:#fff;
+}
+
+.section-heading{
+  text-align:center;
+  max-width:650px;
+  margin:0 auto 40px;
+}
+
+.section-heading .small-title{
+  font-size:12px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:#777;
+  margin-bottom:10px;
+}
+
+.section-heading h2{
+  font-size:34px;
+  margin:0 0 10px;
+  font-weight:800;
+}
+
+.section-heading p{
+  margin:0;
+  color:#777;
+  font-size:14px;
+  line-height:1.6;
+}
+
+.collection-grid{
+  max-width:1150px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+
+.collection-card{
+  position:relative;
+  height:430px;
+  overflow:hidden;
+  border-radius:16px;
+}
+
+.collection-card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:.5s ease;
+}
+
+.collection-card:hover img{
+  transform:scale(1.05);
+}
+
+.collection-overlay{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  padding:30px;
+  background:linear-gradient(
+    transparent 35%,
+    rgba(0,0,0,.7)
+  );
+  color:#fff;
+}
+
+.collection-brand{
+  font-size:12px;
+  letter-spacing:2px;
+  margin-bottom:8px;
+}
+
+.collection-overlay h3{
+  margin:0 0 8px;
+  font-size:28px;
+}
+
+.collection-overlay p{
+  margin:0 0 18px;
+  font-size:13px;
+  opacity:.9;
+}
+
+.collection-btn{
+  width:max-content;
+  padding:11px 18px;
+  border:1px solid #fff;
+  background:#fff;
+  color:#111;
+  border-radius:7px;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+
+/* =========================
+   ABOUT SECTION
+========================= */
+
+.about-section{
+  padding:80px 20px;
+  background:#f8f7f4;
+}
+
+.about-grid{
+  max-width:1150px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:55px;
+  align-items:center;
+}
+
+.about-image{
+  width:100%;
+  height:520px;
+  object-fit:cover;
+  border-radius:16px;
+}
+
+.about-content .about-label{
+  font-size:12px;
+  letter-spacing:2px;
+  color:#777;
+  margin-bottom:12px;
+}
+
+.about-content h2{
+  font-size:38px;
+  line-height:1.15;
+  margin:0 0 20px;
+}
+
+.about-content h2 span{
+  font-weight:400;
+}
+
+.about-content p{
+  color:#666;
+  line-height:1.8;
+  font-size:14px;
+  margin-bottom:15px;
+}
+
+.about-points{
+  margin:25px 0;
+  display:grid;
+  gap:12px;
+}
+
+.about-point{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:14px;
+  font-weight:600;
+}
+
+.about-point span{
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  background:#111;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+}
+
+
+/* =========================
+   WHY US
+========================= */
+
+.why-section{
+  padding:70px 20px;
+  background:#fff;
+}
+
+.why-grid{
+  max-width:1100px;
+  margin:40px auto 0;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+
+.why-card{
+  text-align:center;
+  padding:30px 18px;
+  border:1px solid #eee;
+  border-radius:14px;
+  background:#fff;
+}
+
+.why-icon{
+  font-size:30px;
+  margin-bottom:14px;
+}
+
+.why-card h3{
+  margin:0 0 8px;
+  font-size:16px;
+}
+
+.why-card p{
+  margin:0;
+  color:#777;
+  font-size:12px;
+  line-height:1.6;
+}
+
+
+/* =========================
+   BRAND STORY
+========================= */
+
+.brand-story{
+  padding:80px 20px;
+  background:#111;
+  color:#fff;
+}
+
+.brand-story-inner{
+  max-width:900px;
+  margin:auto;
+  text-align:center;
+}
+
+.brand-story-label{
+  font-size:11px;
+  letter-spacing:3px;
+  opacity:.65;
+  margin-bottom:15px;
+}
+
+.brand-story h2{
+  font-size:38px;
+  margin:0 0 20px;
+}
+
+.brand-story p{
+  max-width:700px;
+  margin:0 auto;
+  color:#ccc;
+  line-height:1.8;
+  font-size:14px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:700px){
+
+  .collections-section,
+  .about-section,
+  .why-section,
+  .brand-story{
+    padding:55px 16px;
+  }
+
+  .section-heading h2{
+    font-size:27px;
+  }
+
+  .collection-grid{
+    grid-template-columns:1fr;
+  }
+
+  .collection-card{
+    height:390px;
+  }
+
+  .about-grid{
+    grid-template-columns:1fr;
+    gap:30px;
+  }
+
+  .about-image{
+    height:380px;
+  }
+
+  .about-content h2{
+    font-size:30px;
+  }
+
+  .why-grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+  }
+
+  .why-card{
+    padding:22px 12px;
+  }
+
+  .brand-story h2{
+    font-size:29px;
+  }
+
+}
+
+</style>
+
+
+<!-- =========================
+     COLLECTIONS
+========================= -->
+
+<section class="collections-section" id="collections">
+
+  <div class="section-heading">
+
+    <div class="small-title">
+      Explore Our Style
+    </div>
+
+    <h2>
+      Our Collections
+    </h2>
+
+    <p>
+      Discover thoughtfully selected styles made for
+      everyday confidence, comfort and modern fashion.
+    </p>
+
+  </div>
+
+
+  <div class="collection-grid">
+
+
+    <!-- PATTERN -->
+
+    <div class="collection-card">
+
+      <img
+        src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=1000&q=85"
+        alt="PATTERN वाली Collection"
+      >
+
+      <div class="collection-overlay">
+
+        <div class="collection-brand">
+          PATTERN वाली
+        </div>
+
+        <h3>
+          Everyday Elegance
+        </h3>
+
+        <p>
+          Easy silhouettes, beautiful details and
+          effortless everyday fashion.
+        </p>
+
+        <button
+          class="collection-btn"
+          onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
+
+          Shop PATTERN →
+
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- MODERN NAREE -->
+
+    <div class="collection-card">
+
+      <img
+        src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1000&q=85"
+        alt="MODERN नारी Collection"
+      >
+
+      <div class="collection-overlay">
+
+        <div class="collection-brand">
+          MODERN नारी
+        </div>
+
+        <h3>
+          Modern Feminine
+        </h3>
+
+        <p>
+          Contemporary looks created for
+          confident and expressive women.
+        </p>
+
+        <button
+          class="collection-btn"
+          onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
+
+          Shop MODERN →
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     ABOUT PATTERN VALI
+========================= -->
+
+<section class="about-section" id="about-pattern">
+
+  <div class="about-grid">
+
+    <img
+      class="about-image"
+      src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=900&q=85"
+      alt="PATTERN वाली"
+    >
+
+
+    <div class="about-content">
+
+      <div class="about-label">
+        ABOUT PATTERN वाली
+      </div>
+
+      <h2>
+        Style that feels
+        <span>effortlessly you.</span>
+      </h2>
+
+      <p>
+        PATTERN वाली is created around the idea that
+        everyday fashion should feel simple, comfortable
+        and beautiful.
+      </p>
+
+      <p>
+        From easy everyday outfits to thoughtfully
+        selected statement pieces, our collection brings
+        together timeless style with a fresh modern touch.
+      </p>
+
+
+      <div class="about-points">
+
+        <div class="about-point">
+          <span>✓</span>
+          Easy everyday styles
+        </div>
+
+        <div class="about-point">
+          <span>✓</span>
+          Comfortable designs
+        </div>
+
+        <div class="about-point">
+          <span>✓</span>
+          Modern Indian fashion
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     ABOUT MODERN NAREE
+========================= -->
+
+<section
+  class="about-section"
+  id="about-modern"
+  style="background:#fff;">
+
+  <div class="about-grid">
+
+    <div class="about-content">
+
+      <div class="about-label">
+        ABOUT MODERN नारी
+      </div>
+
+      <h2>
+        Modern style,
+        <span>your way.</span>
+      </h2>
+
+      <p>
+        MODERN नारी celebrates today's woman through
+        contemporary silhouettes, clean details and
+        confident styling.
+      </p>
+
+      <p>
+        Our aim is to make fashion feel expressive,
+        wearable and easy to make your own — whether
+        you're dressing for everyday moments or something
+        special.
+      </p>
+
+
+      <div class="about-points">
+
+        <div class="about-point">
+          <span>✓</span>
+          Contemporary silhouettes
+        </div>
+
+        <div class="about-point">
+          <span>✓</span>
+          Confident feminine style
+        </div>
+
+        <div class="about-point">
+          <span>✓</span>
+          Simple premium aesthetic
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <img
+      class="about-image"
+      src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=900&q=85"
+      alt="MODERN नारी"
+    >
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     WHY US
+========================= -->
+
+<section class="why-section" id="why-us">
+
+  <div class="section-heading">
+
+    <div class="small-title">
+      Why Choose Us
+    </div>
+
+    <h2>
+      Made for your everyday
+    </h2>
+
+    <p>
+      Fashion should look good, feel good and fit
+      naturally into your lifestyle.
+    </p>
+
+  </div>
+
+
+  <div class="why-grid">
+
+
+    <div class="why-card">
+
+      <div class="why-icon">
+        ✦
+      </div>
+
+      <h3>
+        Curated Styles
+      </h3>
+
+      <p>
+        Carefully selected designs for a modern
+        and effortless wardrobe.
+      </p>
+
+    </div>
+
+
+    <div class="why-card">
+
+      <div class="why-icon">
+        ♡
+      </div>
+
+      <h3>
+        Comfort First
+      </h3>
+
+      <p>
+        Styles designed to be easy to wear
+        throughout your day.
+      </p>
+
+    </div>
+
+
+    <div class="why-card">
+
+      <div class="why-icon">
+        ✧
+      </div>
+
+      <h3>
+        Modern Looks
+      </h3>
+
+      <p>
+        A balance of timeless fashion and
+        contemporary trends.
+      </p>
+
+    </div>
+
+
+    <div class="why-card">
+
+      <div class="why-icon">
+        ✓
+      </div>
+
+      <h3>
+        Easy Shopping
+      </h3>
+
+      <p>
+        Simple browsing, quick cart access and
+        easy order enquiry.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     BRAND STORY
+========================= -->
+
+<section class="brand-story">
+
+  <div class="brand-story-inner">
+
+    <div class="brand-story-label">
+      PATTERN वाली × MODERN नारी
+    </div>
+
+    <h2>
+      Fashion, made personal.
+    </h2>
+
+    <p>
+      Two expressions of modern fashion, brought
+      together in one simple shopping experience.
+      From everyday essentials to statement looks,
+      discover pieces that let your personal style
+      speak for itself.
+    </p>
+
+  </div>
+
+</section>
+
+
+<script>
+
+/* =========================
+   COLLECTION SCROLL
+========================= */
+
+function scrollToProducts(){
+
+  const products =
+    document.getElementById("products");
+
+  if(products){
+
+    products.scrollIntoView({
+      behavior:"smooth"
+    });
+
+  }
+
+}
+
+
+/* =========================
+   SMOOTH COLLECTION BUTTONS
+========================= */
+
+document.querySelectorAll(
+  ".collection-btn"
+).forEach(function(button){
+
+  button.addEventListener("click",function(){
+
+    setTimeout(function(){
+
+      const products =
+        document.getElementById("products");
+
+      if(products){
+
+        products.scrollIntoView({
+          behavior:"smooth"
+        });
+
+      }
+
+    },100);
+
+  });
+
+});
+
+</script>
 </body>
 </html>
