@@ -8285,5 +8285,1022 @@ function openNewFashionMenu(){
 }
 
 </script>
+   <!-- ==========================================
+     UNIQUE EDITORIAL HOMEPAGE
+     PATTERN वाली × MODERN नारी
+========================================== -->
+
+<style>
+
+/* Hide previous homepage */
+#newFashionHome{
+  display:none !important;
+}
+
+
+/* ==============================
+   MAIN
+============================== */
+
+.unique-home{
+  background:#f5f1eb;
+  color:#171717;
+  overflow:hidden;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+
+/* ==============================
+   HEADER
+============================== */
+
+.unique-header{
+  height:78px;
+  padding:0 28px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:#f5f1eb;
+  border-bottom:1px solid #ded9d1;
+  position:relative;
+  z-index:20;
+}
+
+.unique-menu{
+  border:0;
+  background:none;
+  font-size:25px;
+  cursor:pointer;
+}
+
+.unique-logo{
+  text-align:center;
+  line-height:1;
+}
+
+.unique-logo strong{
+  font-size:25px;
+  letter-spacing:-1.5px;
+}
+
+.unique-logo span{
+  font-size:12px;
+  display:block;
+  margin-top:7px;
+  letter-spacing:3px;
+}
+
+.unique-head-right{
+  display:flex;
+  gap:18px;
+  align-items:center;
+}
+
+.unique-head-right button{
+  border:0;
+  background:none;
+  font-size:21px;
+  cursor:pointer;
+}
+
+
+/* ==============================
+   HERO
+============================== */
+
+.unique-hero{
+  min-height:650px;
+  position:relative;
+  display:flex;
+  align-items:center;
+  padding:50px 7%;
+  overflow:hidden;
+}
+
+.unique-hero-number{
+  position:absolute;
+  left:25px;
+  top:40px;
+  font-size:12px;
+  letter-spacing:4px;
+  writing-mode:vertical-rl;
+  color:#777;
+}
+
+.unique-hero-text{
+  width:55%;
+  position:relative;
+  z-index:5;
+}
+
+.unique-eyebrow{
+  font-size:11px;
+  letter-spacing:5px;
+  font-weight:700;
+  margin-bottom:25px;
+}
+
+.unique-title{
+  font-size:clamp(65px,9vw,145px);
+  line-height:.78;
+  letter-spacing:-8px;
+  font-weight:900;
+  margin:0;
+}
+
+.unique-title .light{
+  font-weight:300;
+}
+
+.unique-description{
+  max-width:420px;
+  font-size:16px;
+  line-height:1.8;
+  color:#666;
+  margin:35px 0;
+}
+
+.unique-shop{
+  display:inline-flex;
+  align-items:center;
+  gap:18px;
+  background:#171717;
+  color:white;
+  text-decoration:none;
+  padding:17px 25px;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:2px;
+}
+
+.unique-shop:hover{
+  background:#444;
+}
+
+
+/* HERO IMAGE */
+
+.unique-hero-image{
+  width:48%;
+  height:580px;
+  position:absolute;
+  right:4%;
+  top:35px;
+  overflow:hidden;
+  clip-path:polygon(
+    12% 0,
+    100% 0,
+    100% 88%,
+    86% 100%,
+    0 100%,
+    0 12%
+  );
+}
+
+.unique-hero-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+
+/* NUMBER */
+
+.unique-floating-number{
+  position:absolute;
+  right:4%;
+  bottom:25px;
+  font-size:100px;
+  font-weight:900;
+  color:rgba(0,0,0,.05);
+  z-index:1;
+}
+
+
+/* ==============================
+   MARQUEE
+============================== */
+
+.unique-marquee{
+  background:#171717;
+  color:#fff;
+  padding:17px 0;
+  overflow:hidden;
+  white-space:nowrap;
+}
+
+.unique-marquee-inner{
+  display:inline-block;
+  animation:uniqueMove 20s linear infinite;
+  font-size:12px;
+  letter-spacing:4px;
+}
+
+@keyframes uniqueMove{
+  from{
+    transform:translateX(0);
+  }
+  to{
+    transform:translateX(-50%);
+  }
+}
+
+
+/* ==============================
+   COLLECTION
+============================== */
+
+.unique-collection{
+  padding:100px 7%;
+}
+
+.unique-collection-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  margin-bottom:45px;
+}
+
+.unique-collection-top h2{
+  margin:0;
+  font-size:clamp(45px,7vw,90px);
+  line-height:.85;
+  letter-spacing:-5px;
+  font-weight:300;
+}
+
+.unique-collection-top p{
+  max-width:280px;
+  color:#777;
+  font-size:13px;
+  line-height:1.7;
+}
+
+.unique-collection-grid{
+  display:grid;
+  grid-template-columns:1.25fr .75fr;
+  gap:25px;
+  align-items:end;
+}
+
+.unique-look{
+  position:relative;
+  overflow:hidden;
+}
+
+.unique-look img{
+  width:100%;
+  height:650px;
+  object-fit:cover;
+  display:block;
+  transition:transform .7s ease;
+}
+
+.unique-look.small img{
+  height:480px;
+}
+
+.unique-look:hover img{
+  transform:scale(1.035);
+}
+
+.unique-look-info{
+  position:absolute;
+  left:25px;
+  bottom:25px;
+  color:#fff;
+}
+
+.unique-look-info small{
+  letter-spacing:3px;
+  font-size:10px;
+}
+
+.unique-look-info h3{
+  font-size:30px;
+  margin:8px 0 0;
+}
+
+
+/* ==============================
+   BRAND SPLIT
+============================== */
+
+.unique-brands{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  min-height:420px;
+}
+
+.unique-brand{
+  padding:70px 8%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.unique-brand.black{
+  background:#171717;
+  color:#fff;
+}
+
+.unique-brand.cream{
+  background:#e6ddd1;
+}
+
+.unique-brand small{
+  font-size:10px;
+  letter-spacing:4px;
+}
+
+.unique-brand h2{
+  font-size:clamp(42px,6vw,75px);
+  margin:15px 0;
+  letter-spacing:-4px;
+}
+
+.unique-brand p{
+  max-width:400px;
+  line-height:1.8;
+  font-size:14px;
+  opacity:.7;
+}
+
+.unique-brand a{
+  color:inherit;
+  text-decoration:none;
+  margin-top:20px;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:3px;
+}
+
+
+/* ==============================
+   FEATURED
+============================== */
+
+.unique-featured{
+  padding:100px 7%;
+}
+
+.unique-featured-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  margin-bottom:40px;
+}
+
+.unique-featured-title h2{
+  font-size:65px;
+  font-weight:300;
+  letter-spacing:-4px;
+  margin:0;
+}
+
+.unique-featured-title span{
+  font-size:11px;
+  letter-spacing:3px;
+}
+
+.unique-products{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.unique-product{
+  position:relative;
+}
+
+.unique-product img{
+  width:100%;
+  aspect-ratio:3/4;
+  object-fit:cover;
+  display:block;
+}
+
+.unique-product-info{
+  padding:15px 0;
+  display:flex;
+  justify-content:space-between;
+  font-size:13px;
+}
+
+.unique-product-info span:last-child{
+  color:#777;
+}
+
+
+/* ==============================
+   FINAL STATEMENT
+============================== */
+
+.unique-statement{
+  min-height:400px;
+  background:#d9cec0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:50px 20px;
+}
+
+.unique-statement h2{
+  font-size:clamp(45px,8vw,100px);
+  line-height:.9;
+  letter-spacing:-6px;
+  margin:0;
+}
+
+.unique-statement p{
+  font-size:12px;
+  letter-spacing:4px;
+  margin-top:25px;
+}
+
+
+/* ==============================
+   WHATSAPP
+============================== */
+
+.unique-whatsapp{
+  position:fixed;
+  right:20px;
+  bottom:25px;
+  width:55px;
+  height:55px;
+  background:#25d366;
+  color:white;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  font-size:25px;
+  z-index:99999;
+  box-shadow:0 8px 25px rgba(0,0,0,.2);
+}
+
+
+/* ==============================
+   MOBILE
+============================== */
+
+@media(max-width:700px){
+
+  .unique-header{
+    height:68px;
+    padding:0 15px;
+  }
+
+  .unique-logo strong{
+    font-size:20px;
+  }
+
+  .unique-logo span{
+    font-size:8px;
+    letter-spacing:2px;
+  }
+
+  .unique-head-right{
+    gap:8px;
+  }
+
+
+  .unique-hero{
+    min-height:700px;
+    display:block;
+    padding:55px 20px 0;
+  }
+
+  .unique-hero-number{
+    left:auto;
+    right:15px;
+    top:30px;
+  }
+
+  .unique-hero-text{
+    width:100%;
+    position:relative;
+    z-index:5;
+  }
+
+  .unique-eyebrow{
+    margin-bottom:25px;
+  }
+
+  .unique-title{
+    font-size:65px;
+    letter-spacing:-5px;
+    line-height:.82;
+  }
+
+  .unique-description{
+    font-size:14px;
+    line-height:1.7;
+    margin:25px 0;
+    max-width:310px;
+  }
+
+  .unique-hero-image{
+    width:82%;
+    height:390px;
+    right:0;
+    top:auto;
+    bottom:0;
+    clip-path:polygon(
+      10% 0,
+      100% 0,
+      100% 92%,
+      85% 100%,
+      0 100%,
+      0 10%
+    );
+  }
+
+  .unique-floating-number{
+    font-size:70px;
+    right:10px;
+    bottom:10px;
+  }
+
+
+  .unique-collection{
+    padding:65px 18px;
+  }
+
+  .unique-collection-top{
+    display:block;
+  }
+
+  .unique-collection-top h2{
+    font-size:55px;
+    margin-bottom:20px;
+  }
+
+  .unique-collection-grid{
+    grid-template-columns:1fr;
+    gap:15px;
+  }
+
+  .unique-look img,
+  .unique-look.small img{
+    height:500px;
+  }
+
+
+  .unique-brands{
+    grid-template-columns:1fr;
+  }
+
+  .unique-brand{
+    min-height:350px;
+    padding:55px 25px;
+  }
+
+
+  .unique-featured{
+    padding:65px 18px;
+  }
+
+  .unique-featured-title h2{
+    font-size:48px;
+  }
+
+  .unique-products{
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+
+  .unique-product-info{
+    display:block;
+    line-height:1.6;
+  }
+
+
+  .unique-statement{
+    min-height:350px;
+  }
+
+  .unique-statement h2{
+    font-size:52px;
+    letter-spacing:-4px;
+  }
+
+}
+
+
+/* EXTRA SMALL */
+
+@media(max-width:380px){
+
+  .unique-title{
+    font-size:55px;
+  }
+
+  .unique-hero{
+    min-height:650px;
+  }
+
+  .unique-hero-image{
+    height:350px;
+  }
+
+}
+
+</style>
+
+
+<!-- ==========================================
+     UNIQUE HOMEPAGE
+========================================== -->
+
+<div class="unique-home">
+
+
+  <!-- HEADER -->
+
+  <header class="unique-header">
+
+    <button
+      class="unique-menu"
+      onclick="openNewFashionMenu()">
+      ☰
+    </button>
+
+
+    <div class="unique-logo">
+
+      <strong>PATTERN वाली</strong>
+
+      <span>MODERN नारी</span>
+
+    </div>
+
+
+    <div class="unique-head-right">
+
+      <button
+        onclick="newFashionSearch()">
+        ⌕
+      </button>
+
+      <button
+        onclick="newFashionBag()">
+        ♡
+      </button>
+
+      <button
+        onclick="newFashionBag()">
+        🛍
+      </button>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- HERO -->
+
+  <section class="unique-hero">
+
+    <div class="unique-hero-number">
+      01 / 04
+    </div>
+
+
+    <div class="unique-hero-text">
+
+      <div class="unique-eyebrow">
+        NEW COLLECTION · 2026
+      </div>
+
+
+      <h1 class="unique-title">
+
+        Simple.<br>
+
+        <span class="light">
+          Bold.
+        </span><br>
+
+        Beautiful.
+
+      </h1>
+
+
+      <p class="unique-description">
+
+        Discover effortless fashion made for
+        the modern woman — elegant styles,
+        beautiful details and timeless everyday
+        pieces.
+
+      </p>
+
+
+      <a
+        href="#"
+        class="unique-shop"
+        onclick="newFashionShop();return false;">
+
+        SHOP COLLECTION
+
+        <span>→</span>
+
+      </a>
+
+    </div>
+
+
+    <div class="unique-hero-image">
+
+      <img
+        src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=1100&q=85"
+        alt="Fashion Collection">
+
+    </div>
+
+
+    <div class="unique-floating-number">
+      01
+    </div>
+
+  </section>
+
+
+
+  <!-- MARQUEE -->
+
+  <div class="unique-marquee">
+
+    <div class="unique-marquee-inner">
+
+      PATTERN वाली ✦ MODERN नारी ✦
+      EVERYDAY ELEGANCE ✦
+      MODERN STYLE ✦
+      PATTERN वाली ✦ MODERN नारी ✦
+      EVERYDAY ELEGANCE ✦
+      MODERN STYLE ✦
+
+    </div>
+
+  </div>
+
+
+
+  <!-- COLLECTION -->
+
+  <section class="unique-collection">
+
+    <div class="unique-collection-top">
+
+      <h2>
+        The<br>
+        Edit.
+      </h2>
+
+      <p>
+
+        Curated pieces designed to bring
+        simplicity, confidence and character
+        to your everyday wardrobe.
+
+      </p>
+
+    </div>
+
+
+    <div class="unique-collection-grid">
+
+
+      <div class="unique-look">
+
+        <img
+          src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1100&q=85"
+          alt="Modern Naree">
+
+        <div class="unique-look-info">
+
+          <small>
+            01 — MODERN
+          </small>
+
+          <h3>
+            Modern नारी
+          </h3>
+
+        </div>
+
+      </div>
+
+
+      <div class="unique-look small">
+
+        <img
+          src="https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=900&q=85"
+          alt="Pattern Vali">
+
+        <div class="unique-look-info">
+
+          <small>
+            02 — PATTERN
+          </small>
+
+          <h3>
+            Pattern वाली
+          </h3>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- BRANDS -->
+
+  <section class="unique-brands">
+
+
+    <div class="unique-brand black">
+
+      <small>
+        THE MODERN SIDE
+      </small>
+
+      <h2>
+        MODERN<br>नारी
+      </h2>
+
+      <p>
+
+        Contemporary silhouettes,
+        effortless styling and a
+        modern expression of femininity.
+
+      </p>
+
+      <a href="#" onclick="newFashionShop();return false;">
+        EXPLORE COLLECTION →
+      </a>
+
+    </div>
+
+
+    <div class="unique-brand cream">
+
+      <small>
+        THE PATTERN SIDE
+      </small>
+
+      <h2>
+        PATTERN<br>वाली
+      </h2>
+
+      <p>
+
+        Everyday pieces with distinctive
+        patterns, details and a personality
+        of their own.
+
+      </p>
+
+      <a href="#" onclick="newFashionShop();return false;">
+        EXPLORE COLLECTION →
+      </a>
+
+    </div>
+
+
+  </section>
+
+
+
+  <!-- FEATURED -->
+
+  <section class="unique-featured">
+
+    <div class="unique-featured-title">
+
+      <h2>
+        Selected.
+      </h2>
+
+      <span>
+        SHOP THE LOOK →
+      </span>
+
+    </div>
+
+
+    <div class="unique-products">
+
+
+      <div class="unique-product">
+
+        <img
+          src="https://images.unsplash.com/photo-1591369822096-ffd140ec948f?auto=format&fit=crop&w=700&q=85">
+
+        <div class="unique-product-info">
+
+          <span>
+            Everyday Elegance
+          </span>
+
+          <span>
+            ₹1,299
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="unique-product">
+
+        <img
+          src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=700&q=85">
+
+        <div class="unique-product-info">
+
+          <span>
+            Modern Edit
+          </span>
+
+          <span>
+            ₹1,499
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="unique-product">
+
+        <img
+          src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=700&q=85">
+
+        <div class="unique-product-info">
+
+          <span>
+            Pattern Story
+          </span>
+
+          <span>
+            ₹1,199
+          </span>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+
+  <!-- FINAL -->
+
+  <section class="unique-statement">
+
+    <div>
+
+      <h2>
+        Wear<br>
+        Your Story.
+      </h2>
+
+      <p>
+        PATTERN वाली × MODERN नारी
+      </p>
+
+    </div>
+
+  </section>
+
+
+</div>
+
+
+<!-- WHATSAPP -->
+
+<a
+  href="https://wa.me/919582907643"
+  target="_blank"
+  class="unique-whatsapp">
+
+  ☎
+
+</a>
 </body>
 </html>
